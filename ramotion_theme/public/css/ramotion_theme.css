@@ -1,0 +1,3185 @@
+@import url("https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap");
+
+/* Saudi Riyal Symbol Font */
+@font-face {
+	font-family: "SaudiRiyal";
+	src: url("/assets/ramotion_theme/fonts/SaudiRiyalFont.ttf") format("truetype");
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
+
+/* Apply Saudi Riyal font as fallback for currency symbols */
+html body .currency-field,
+html body .bold .currency,
+html body [data-fieldtype="Currency"] .control-value,
+html body .number-card .number,
+html body .frappe-list .currency,
+html body .dt-cell .currency,
+html body .widget-body .currency {
+	font-family: "SaudiRiyal", "Readex Pro", "Inter", sans-serif !important;
+}
+
+/* =============================================
+   RAMOTION DAY — Premium Enterprise Design System
+   ============================================= */
+
+/* ── 1. DESIGN TOKENS ── */
+:root {
+	--rm-navy:         #0c1829;
+	--rm-primary:      #0050E6;
+	--rm-primary-mid:  #3b74f0;
+	--rm-accent:       #7C3AFF;
+	--rm-ink:          #0c1829;
+	--rm-muted:        #4e5d78;
+	--rm-subtle:       #8494aa;
+	--rm-bg:           #f0f0f5;
+	--rm-surface:      #ffffff;
+	--rm-surface-2:    #f7f9fc;
+	--rm-surface-3:    #f0f3f8;
+	--rm-border:       #dde3ee;
+	--rm-border-mid:   #c8d3e5;
+	--rm-border-focus: #6499f5;
+	--rm-ring:  0 0 0 1px rgba(12,24,41,0.05);
+	--rm-shd-s: 0 1px 3px rgba(12,24,41,0.06), 0 0 0 1px rgba(12,24,41,0.04);
+	--rm-shd-m: 0 4px 16px rgba(12,24,41,0.07), 0 0 0 1px rgba(12,24,41,0.04);
+	--rm-shd-l: 0 12px 36px rgba(12,24,41,0.09), 0 0 0 1px rgba(12,24,41,0.03);
+	--rm-r-xs: 6px;
+	--rm-r-sm: 10px;
+	--rm-r-md: 14px;
+	--rm-r-lg: 18px;
+	--rm-r-xl: 24px;
+	--rm-sidebar-w: 300px;
+	--rm-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html[data-ramotion-palette="editorial"] {
+	--rm-primary:      #1c3d6e;
+	--rm-primary-mid:  #2e5aa8;
+	--rm-accent:       #4a7acc;
+	--rm-bg:           #edf0f7;
+}
+
+html[data-ramotion-palette="sunrise"] {
+	--rm-primary:      #9a3f12;
+	--rm-primary-mid:  #c05522;
+	--rm-accent:       #e05533;
+	--rm-bg:           #f7f0ea;
+	--rm-border:       #e4d8cc;
+	--rm-surface-3:    #f2ece5;
+}
+
+html[data-ramotion-palette="luxury"] {
+	--rm-navy:         #19293e;
+	--rm-primary:      #1e3454;
+	--rm-primary-mid:  #2d4f7a;
+	--rm-accent:       #c0924c;
+	--rm-ink:          #19293e;
+	--rm-bg:           #f0ece4;
+	--rm-surface:      #fffdf8;
+	--rm-surface-2:    #f9f5ec;
+	--rm-surface-3:    #f2ece0;
+	--rm-border:       #e2d9ca;
+	--rm-border-mid:   #d0c4b0;
+	--rm-muted:        #5e5648;
+}
+
+/* ── 2. BASE — applies unconditionally to Frappe desk ── */
+html body,
+html body * {
+	font-family: "SaudiRiyal", "Readex Pro", "Inter", sans-serif !important;
+}
+
+html body {
+	font-size: 0.94rem;
+	line-height: 1.6;
+	color: var(--rm-ink);
+	background-color: var(--rm-bg) !important;
+	-webkit-font-smoothing: antialiased;
+}
+
+/* Headings — Space Grotesk for LTR, Readex Pro for RTL/Arabic */
+html body h1,
+html body h2,
+html body h3,
+html body h4,
+html body .page-title,
+html body .widget-group-title,
+html body .widget-title,
+html body .form-section-heading {
+	font-family: "Space Grotesk", "Readex Pro", sans-serif !important;
+	letter-spacing: -0.025em !important;
+}
+
+/* Arabic RTL — Readex Pro only (no letter-spacing) */
+html[dir="rtl"] body,
+html[dir="rtl"] body *,
+html body [dir="rtl"],
+html body [dir="rtl"] * {
+	font-family: "Readex Pro", sans-serif !important;
+	letter-spacing: 0 !important;
+	line-height: 1.85 !important;
+}
+
+html body h1,
+html body h2,
+html body h3,
+html body h4,
+html body .page-title,
+html body .widget-group-title,
+html body .widget-title,
+html body .form-section-heading,
+html body.for-login .page-card-head {
+	font-family: "Space Grotesk", "Readex Pro", sans-serif;
+	letter-spacing: -0.025em;
+}
+
+/* ── 3. NAVBAR — Dark Navy ── */
+html body .navbar {
+	height: 52px;
+	padding: 0 20px;
+	background: var(--rm-navy) !important;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+	box-shadow: 0 1px 0 rgba(0,0,0,0.25);
+}
+
+html body .navbar .nav-link,
+html body .navbar .navbar-brand,
+html body .navbar button,
+html body .navbar .btn,
+html body .navbar .navbar-nav li,
+html body .navbar .navbar-nav li a,
+html body .navbar .navbar-nav > li > a,
+html body .navbar .d-none.d-sm-flex li,
+html body .navbar .d-none.d-sm-flex li a {
+	color: rgba(255, 255, 255, 0.82) !important;
+}
+
+html body .navbar .nav-link:hover {
+	color: #ffffff !important;
+	background: rgba(255, 255, 255, 0.08) !important;
+	border-radius: var(--rm-r-xs);
+}
+
+html body .navbar .navbar-brand img,
+html body .navbar .navbar-brand svg {
+	filter: brightness(0) invert(1);
+	opacity: 0.92;
+}
+
+html body .navbar svg,
+html body .navbar .octicon {
+	color: rgba(255, 255, 255, 0.72) !important;
+	fill: rgba(255, 255, 255, 0.72) !important;
+}
+
+html body .navbar .search-bar,
+html body .navbar .search-area,
+html body .navbar input[type="text"],
+html body .navbar .form-control {
+	background: rgba(255, 255, 255, 0.1) !important;
+	border: 1px solid rgba(255, 255, 255, 0.14) !important;
+	border-radius: var(--rm-r-sm) !important;
+	color: rgba(255, 255, 255, 0.88) !important;
+}
+
+html body .navbar input::placeholder {
+	color: rgba(255, 255, 255, 0.38) !important;
+}
+
+html body .navbar .dropdown-menu {
+	background: var(--rm-surface) !important;
+	border: 1px solid var(--rm-border) !important;
+	border-radius: var(--rm-r-md) !important;
+	box-shadow: var(--rm-shd-l) !important;
+	overflow: hidden;
+}
+
+html body .navbar .dropdown-item {
+	color: var(--rm-ink) !important;
+}
+
+html body .navbar .dropdown-item:hover {
+	background: var(--rm-surface-3) !important;
+}
+
+/* ── 4. TRANSPARENT SHELL ── */
+html body .layout-main-section-wrapper,
+html body .layout-main-section {
+	background: transparent !important;
+	border: none !important;
+	box-shadow: none !important;
+	padding: 0;
+}
+
+/* ── 5. PAGE HEAD ── */
+html body .page-head {
+	background: transparent !important;
+	border: none !important;
+	box-shadow: none !important;
+	padding-inline: 0;
+	margin-bottom: 16px;
+}
+
+html body .page-head .page-head-content {
+	height: auto;
+	min-height: var(--page-head-height, 56px);
+	padding: 10px 18px;
+	background: var(--rm-surface) !important;
+	border: 1px solid var(--rm-border) !important;
+	border-radius: var(--rm-r-lg) !important;
+	box-shadow: var(--rm-shd-s);
+}
+
+html body .page-form {
+	background: var(--rm-surface) !important;
+	border: 1px solid var(--rm-border) !important;
+	border-radius: var(--rm-r-md) !important;
+	box-shadow: var(--rm-shd-s);
+	padding: 10px 14px;
+	margin-bottom: 14px;
+}
+
+/* ── 6. SIDEBAR ── */
+html body .desk-sidebar,
+html body .layout-side-section,
+html body .standard-sidebar-section {
+	background: var(--rm-surface) !important;
+	border: none !important;
+	border-radius: 0 !important;
+	box-shadow: none !important;
+	padding: 0 8px !important;
+	overflow: hidden;
+}
+
+/* ── Brand header — injected by JS as .rm-sidebar-brand ── */
+html body .rm-sidebar-brand {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 0 16px;
+	height: 64px;
+	margin: 0 -8px 8px;
+	border-radius: 0 !important;
+	background: linear-gradient(115deg, var(--rm-navy) 0%, #0d2b5e 100%);
+	border-bottom: 1px solid rgba(255,255,255,0.07);
+	position: relative;
+	overflow: hidden;
+}
+
+/* subtle glow spot */
+html body .rm-sidebar-brand::after {
+	content: "";
+	position: absolute;
+	inset-inline-end: -20px; top: -20px;
+	width: 80px; height: 80px;
+	border-radius: 50%;
+	background: radial-gradient(circle, rgba(0,80,230,0.45) 0%, transparent 70%);
+	pointer-events: none;
+}
+
+html body .rm-sidebar-brand__icon {
+	width: 30px;
+	height: 30px;
+	border-radius: 8px;
+	background: rgba(255,255,255,0.12);
+	border: 1px solid rgba(255,255,255,0.15);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+	font-size: 0.9rem;
+	font-weight: 800;
+	color: rgba(255,255,255,0.95);
+	font-family: "Space Grotesk", sans-serif;
+}
+
+html body .rm-sidebar-brand__info {
+	min-width: 0;
+	flex: 1;
+}
+
+html body .rm-sidebar-brand__name {
+	font-family: "Space Grotesk", sans-serif;
+	font-size: 0.88rem;
+	font-weight: 700;
+	color: rgba(255,255,255,0.95);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: block;
+	letter-spacing: -0.01em;
+}
+
+html body .rm-sidebar-brand__sub {
+	font-family: "Inter", sans-serif;
+	font-size: 0.65rem;
+	font-weight: 600;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: rgba(255,255,255,0.38);
+	display: block;
+	margin-top: 1px;
+}
+
+/* Group label */
+html body .standard-sidebar-label {
+	font-family: "Space Grotesk", sans-serif;
+	font-size: 0.64rem;
+	font-weight: 700;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	color: var(--rm-subtle);
+	padding: 16px 10px 6px;
+	display: flex;
+	align-items: center;
+	gap: 7px;
+}
+
+html body .standard-sidebar-label::before {
+	content: "";
+	width: 4px;
+	height: 4px;
+	border-radius: 50%;
+	background: var(--rm-primary);
+	opacity: 0.5;
+	flex-shrink: 0;
+}
+
+html body .standard-sidebar-item,
+html body .desk-sidebar-item,
+html body .module-sidebar-item,
+html body .sidebar-item-container,
+html body .search-sidebar-item {
+	position: relative;
+	border-radius: var(--rm-r-sm) !important;
+	margin-bottom: 3px;
+	transition: background 160ms var(--rm-ease), box-shadow 160ms var(--rm-ease);
+}
+
+html body .standard-sidebar-item,
+html body .desk-sidebar-item.standard-sidebar-item {
+	padding: 10px 14px;
+	min-height: 44px;
+}
+
+html body .standard-sidebar-item .item-anchor,
+html body .desk-sidebar-item .item-anchor {
+	padding: 0 !important;
+	gap: 11px;
+	align-items: center;
+}
+
+html body .standard-sidebar-item svg,
+html body .desk-sidebar-item svg,
+html body .module-sidebar-item svg {
+	flex-shrink: 0;
+	width: 14px;
+	height: 14px;
+	padding: 5px;
+	border-radius: 8px;
+	background: var(--rm-surface-3);
+	color: var(--rm-muted) !important;
+	transition: background 160ms var(--rm-ease), color 160ms var(--rm-ease);
+	box-sizing: content-box;
+}
+
+html body .standard-sidebar-item .sidebar-item-label,
+html body .desk-sidebar-item .sidebar-item-label {
+	font-size: 0.875rem;
+	font-weight: 500;
+	color: var(--rm-muted);
+	transition: color 160ms var(--rm-ease);
+	flex: 1;
+	min-width: 0;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+html body .standard-sidebar-item:hover,
+html body .desk-sidebar-item:hover,
+html body .module-sidebar-item:hover {
+	background: var(--rm-surface-3) !important;
+}
+
+html body .standard-sidebar-item:hover .sidebar-item-label,
+html body .desk-sidebar-item:hover .sidebar-item-label {
+	color: var(--rm-ink);
+}
+
+html body .standard-sidebar-item:hover svg,
+html body .desk-sidebar-item:hover svg {
+	background: rgba(0, 80, 230, 0.09) !important;
+	color: #0050E6 !important;
+}
+
+html body .standard-sidebar-item.selected,
+html body .desk-sidebar-item.selected,
+html body .module-sidebar-item.selected {
+	background: linear-gradient(90deg, rgba(0,80,230,0.10) 0%, rgba(0,80,230,0.03) 100%) !important;
+	box-shadow: inset 3px 0 0 #0050E6 !important;
+	border-radius: var(--rm-r-sm) !important;
+}
+
+html body .standard-sidebar-item.selected .sidebar-item-label,
+html body .desk-sidebar-item.selected .sidebar-item-label {
+	color: #0050E6 !important;
+	font-weight: 700 !important;
+}
+
+html body .standard-sidebar-item.selected svg,
+html body .desk-sidebar-item.selected svg {
+	background: rgba(0, 80, 230, 0.15) !important;
+	color: #0050E6 !important;
+}
+
+html body .sidebar-child-item.nested-container {
+	margin-top: 2px;
+	margin-inline-end: 12px;
+	padding-inline-end: 8px;
+	border-inline-end: 2px solid var(--rm-border);
+}
+
+html body .sidebar-child-item .standard-sidebar-item {
+	min-height: 38px;
+	padding: 7px 10px;
+}
+
+html body .desk-sidebar {
+	overflow: visible !important;
+	max-height: none !important;
+	height: auto !important;
+	border-inline-end: 1px solid var(--rm-border) !important;
+	margin-inline-end: -8px;
+	padding-bottom: 40px;
+}
+
+/* ── 7. CARDS & WIDGETS ── */
+html body .frappe-card,
+html body .widget,
+html body .form-dashboard,
+html body .report-wrapper,
+html body .dashboard-graph,
+html body .number-card,
+html body .file-upload-area,
+html body .form-section,
+html body .form-grid {
+	background: var(--rm-surface) !important;
+	border: 1px solid var(--rm-border) !important;
+	border-radius: var(--rm-r-lg) !important;
+	box-shadow: var(--rm-shd-s);
+}
+
+/* section-body is INSIDE form-section — no nested border */
+html body .section-body {
+	background: transparent !important;
+	border: none !important;
+	border-radius: 0 !important;
+	box-shadow: none !important;
+	padding: 0 16px 12px !important;
+	margin-top: 0 !important;
+}
+
+/* form-page wrapper — remove Frappe default border, sections are the cards */
+html body .form-page,
+html body .std-form-layout > .form-layout > .form-page {
+	border: none !important;
+	border-radius: 0 !important;
+	box-shadow: none !important;
+	background: transparent !important;
+}
+
+html body .widget,
+html body .frappe-card,
+html body .number-card,
+html body .dashboard-graph {
+	overflow: hidden;
+	transition: border-color 200ms var(--rm-ease), box-shadow 200ms var(--rm-ease), transform 200ms var(--rm-ease);
+}
+
+html body .widget-group {
+	margin-bottom: 32px;
+}
+
+html body .widget-group-body {
+	gap: 16px;
+}
+
+html body .widget-group-head {
+	display: flex;
+	align-items: center;
+	padding-bottom: 14px;
+	margin-bottom: 16px;
+	border-bottom: 2px solid var(--rm-border);
+}
+
+html body .widget-group-title {
+	font-family: "Space Grotesk", sans-serif;
+	font-size: 1.1rem;
+	font-weight: 700;
+	letter-spacing: -0.02em;
+	color: var(--rm-ink);
+	flex: 1;
+}
+
+html body .widget-group-title::before {
+	content: "";
+	display: inline-block;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: var(--rm-primary);
+	margin-inline-end: 10px;
+	vertical-align: middle;
+}
+
+html body .widget-head {
+	padding-bottom: 10px;
+	margin-bottom: 12px;
+	border-bottom: 1px solid var(--rm-border);
+}
+
+html body .widget-title {
+	font-size: 0.94rem;
+	font-weight: 600;
+	color: var(--rm-ink);
+}
+
+/* Accent stripe on widget types */
+html body .widget.shortcut-widget-box,
+html body .widget.links-widget-box,
+html body .widget.number-widget-box,
+html body .widget.dashboard-widget-box,
+html body .widget.quick-list-widget-box {
+	padding: 18px;
+	background: var(--rm-surface) !important;
+	position: relative;
+}
+
+html body .widget.shortcut-widget-box::before,
+html body .widget.links-widget-box::before,
+html body .widget.number-widget-box::before,
+html body .widget.dashboard-widget-box::before,
+html body .widget.quick-list-widget-box::before {
+	content: "";
+	position: absolute;
+	inset: 0 0 auto 0;
+	height: 3px;
+	background: var(--rm-card-bar, var(--rm-primary));
+	border-radius: var(--rm-r-lg) var(--rm-r-lg) 0 0;
+}
+
+html body .widget.shortcut-widget-box:hover,
+html body .widget.number-widget-box:hover,
+html body .widget.dashboard-widget-box:hover,
+html body .widget.quick-list-widget-box:hover,
+html body .widget.links-widget-box:hover {
+	border-color: var(--rm-border-mid) !important;
+	box-shadow: 0 8px 28px rgba(12,24,41,0.1), 0 0 0 1px var(--rm-border-mid);
+	transform: translateY(-3px);
+}
+
+/* Shortcut widget */
+html body .widget.shortcut-widget-box {
+	min-height: 84px;
+}
+
+html body .widget.shortcut-widget-box .widget-title {
+	font-weight: 600;
+	font-size: 0.93rem;
+}
+
+html body .widget.shortcut-widget-box .indicator-pill {
+	background: rgba(21, 86, 212, 0.09);
+	color: var(--rm-primary);
+	font-weight: 700;
+	border-radius: 6px;
+}
+
+/* Links widget */
+html body .widget.links-widget-box .link-item {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 9px 12px;
+	border-radius: var(--rm-r-sm);
+	border: 1px solid transparent;
+	transition: background 140ms var(--rm-ease), border-color 140ms var(--rm-ease);
+	font-size: 0.89rem;
+	color: var(--rm-muted);
+}
+
+html body .widget.links-widget-box .link-item::before {
+	content: "";
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	background: var(--rm-border-mid);
+	flex-shrink: 0;
+	transition: background 140ms var(--rm-ease);
+}
+
+html body .widget.links-widget-box .link-item:hover {
+	background: var(--rm-surface-3);
+	border-color: var(--rm-border);
+	color: var(--rm-primary);
+}
+
+html body .widget.links-widget-box .link-item:hover::before {
+	background: var(--rm-primary);
+}
+
+/* Number widget */
+html body .widget.number-widget-box {
+	padding: 20px 22px;
+	min-height: 128px;
+	background: linear-gradient(160deg, var(--rm-surface) 60%, var(--rm-surface-2) 100%) !important;
+}
+
+html body .widget.number-widget-box .widget-head .widget-title {
+	font-family: "Space Grotesk", sans-serif;
+	font-size: 0.68rem;
+	font-weight: 700;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+	color: var(--rm-subtle);
+}
+
+html body .widget.number-widget-box .widget-body .widget-content {
+	padding-top: 10px;
+}
+
+html body .widget.number-widget-box .widget-body .widget-content .number {
+	font-family: "Space Grotesk", sans-serif;
+	font-size: 2.6rem;
+	font-weight: 700;
+	letter-spacing: -0.05em;
+	line-height: 1;
+	color: var(--rm-primary);
+}
+
+html body .widget.number-widget-box .number-text {
+	margin-top: 8px;
+	font-size: 0.85rem;
+	color: var(--rm-muted);
+}
+
+/* ── 8. FORMS ── */
+html body .form-control,
+html body .input-with-feedback,
+html body .awesomplete > input,
+html body.for-login .form-control,
+html body.for-login input[type="text"],
+html body.for-login input[type="password"] {
+	background: var(--rm-surface) !important;
+	border: 1.5px solid var(--rm-border) !important;
+	border-radius: var(--rm-r-sm) !important;
+	box-shadow: none !important;
+	min-height: 40px;
+	color: var(--rm-ink);
+	transition: border-color 160ms var(--rm-ease), box-shadow 160ms var(--rm-ease);
+}
+
+/* control-input is a WRAPPER div around form-control — no nested border */
+html body .control-input {
+	background: transparent !important;
+	border: none !important;
+	box-shadow: none !important;
+	min-height: 0 !important;
+}
+
+html body .form-control:focus,
+html body .input-with-feedback:focus,
+html body .awesomplete > input:focus {
+	border-color: var(--rm-border-focus) !important;
+	box-shadow: 0 0 0 3px rgba(21, 86, 212, 0.1) !important;
+}
+
+html body .control-label,
+html body .label-area {
+	font-size: 0.82rem;
+	font-weight: 600;
+	color: var(--rm-muted);
+}
+
+/* ── 9. TABS ── */
+html body .nav-tabs,
+html body .form-tabs-list {
+	border-bottom: 1px solid var(--rm-border) !important;
+	gap: 4px;
+}
+
+html body .nav-tabs .nav-link,
+html body .form-tabs-list .form-tab {
+	border-radius: 0 !important;
+	background: transparent !important;
+	border: none !important;
+	border-bottom: 2px solid transparent !important;
+	margin-bottom: -1px;
+	padding: 8px 14px;
+	color: var(--rm-muted) !important;
+	font-weight: 500;
+	transition: color 160ms var(--rm-ease), border-color 160ms var(--rm-ease);
+}
+
+html body .nav-tabs .nav-link.active,
+html body .form-tabs-list .form-tab.active {
+	background: transparent !important;
+	border-bottom-color: var(--rm-primary) !important;
+	color: var(--rm-primary) !important;
+	font-weight: 600;
+}
+
+/* ── 10. LIST VIEWS ── */
+html body .frappe-list,
+html body .report-wrapper {
+	background: var(--rm-surface) !important;
+	border: 1px solid var(--rm-border) !important;
+	border-radius: var(--rm-r-lg) !important;
+	overflow: hidden;
+}
+
+html body .list-row,
+html body .result {
+	background: var(--rm-surface);
+	border-bottom: 1px solid var(--rm-border);
+	transition: background 120ms var(--rm-ease);
+}
+
+html body .list-row:hover,
+html body .result:hover {
+	background: var(--rm-surface-3);
+}
+
+html body .dt-row {
+	background: var(--rm-surface);
+	border-bottom: 1px solid var(--rm-border);
+	transition: background 120ms var(--rm-ease);
+}
+
+html body .dt-row:hover { background: var(--rm-surface-3); }
+
+html body .datatable,
+html body .grid-body,
+html body .grid-heading-row {
+	background: transparent !important;
+}
+
+html body .dt-header {
+	background: var(--rm-surface-2) !important;
+	border-bottom: 1px solid var(--rm-border) !important;
+}
+
+/* ── 11. BUTTONS ── */
+
+/* ─ Base shared ─ */
+html body .btn {
+	border-radius: var(--rm-r-sm) !important;
+	font-weight: 600 !important;
+	font-size: 0.845rem !important;
+	letter-spacing: 0.01em !important;
+	line-height: 1 !important;
+	padding: 8px 16px !important;
+	height: 34px !important;
+	align-items: center !important;
+	gap: 6px !important;
+	transition: background 150ms var(--rm-ease), box-shadow 150ms var(--rm-ease), border-color 150ms var(--rm-ease), transform 100ms var(--rm-ease) !important;
+	white-space: nowrap !important;
+}
+
+html body .btn:active {
+	transform: scale(0.97) !important;
+}
+
+html body .btn-sm {
+	height: 30px !important;
+	padding: 6px 12px !important;
+	font-size: 0.79rem !important;
+}
+
+html body .btn-xs {
+	height: 26px !important;
+	padding: 4px 10px !important;
+	font-size: 0.75rem !important;
+}
+
+/* ─ Primary ─ */
+html body .btn-primary {
+	background: var(--rm-primary) !important;
+	border: 1.5px solid var(--rm-primary) !important;
+	color: #ffffff !important;
+	box-shadow: 0 1px 3px rgba(0,80,230,0.20), 0 0 0 0 rgba(0,80,230,0) !important;
+}
+
+html body .btn-primary:hover {
+	background: var(--rm-primary-mid) !important;
+	border-color: var(--rm-primary-mid) !important;
+	box-shadow: 0 4px 14px rgba(0,80,230,0.30) !important;
+}
+
+html body .btn-primary:focus {
+	box-shadow: 0 0 0 3px rgba(0,80,230,0.22) !important;
+}
+
+/* ─ Secondary / Default ─ */
+html body .btn-secondary,
+html body .btn-default {
+	background: var(--rm-surface) !important;
+	border: 1.5px solid var(--rm-border) !important;
+	color: var(--rm-ink) !important;
+	box-shadow: 0 1px 2px rgba(12,24,41,0.05) !important;
+}
+
+html body .btn-secondary:hover,
+html body .btn-default:hover {
+	background: var(--rm-surface-3) !important;
+	border-color: var(--rm-border-mid) !important;
+	box-shadow: 0 2px 8px rgba(12,24,41,0.08) !important;
+}
+
+html body .btn-secondary:focus,
+html body .btn-default:focus {
+	box-shadow: 0 0 0 3px rgba(0,80,230,0.12) !important;
+}
+
+/* ─ Danger ─ */
+html body .btn-danger {
+	background: #dc2626 !important;
+	border-color: #dc2626 !important;
+	color: #ffffff !important;
+	box-shadow: 0 1px 3px rgba(220,38,38,0.20) !important;
+}
+
+html body .btn-danger:hover {
+	background: #b91c1c !important;
+	border-color: #b91c1c !important;
+	box-shadow: 0 4px 14px rgba(220,38,38,0.28) !important;
+}
+
+/* ─ Success ─ */
+html body .btn-success {
+	background: #059669 !important;
+	border-color: #059669 !important;
+	color: #ffffff !important;
+	box-shadow: 0 1px 3px rgba(5,150,105,0.20) !important;
+}
+
+html body .btn-success:hover {
+	background: #047857 !important;
+	border-color: #047857 !important;
+	box-shadow: 0 4px 14px rgba(5,150,105,0.28) !important;
+}
+
+/* ─ Warning ─ */
+html body .btn-warning {
+	background: #d97706 !important;
+	border-color: #d97706 !important;
+	color: #ffffff !important;
+}
+
+html body .btn-warning:hover {
+	background: #b45309 !important;
+	border-color: #b45309 !important;
+}
+
+/* ─ Ghost / Link style ─ */
+html body .btn-link,
+html body .btn-reset {
+	background: transparent !important;
+	border-color: transparent !important;
+	color: var(--rm-primary) !important;
+	box-shadow: none !important;
+	padding-inline: 4px !important;
+}
+
+html body .btn-link:hover {
+	color: var(--rm-primary-mid) !important;
+	text-decoration: none !important;
+}
+
+/* ─ Icon-only buttons (···) ─ */
+html body .btn-more,
+html body .btn-default.icon-btn,
+html body .page-actions .btn[data-label="..."],
+html body .page-head-content .btn.btn-default.btn-sm.mr-2:not([data-label]) {
+	width: 34px !important;
+	height: 34px !important;
+	padding: 0 !important;
+	justify-content: center !important;
+	border-radius: var(--rm-r-sm) !important;
+}
+
+/* ─ Save / Submit — larger prominence ─ */
+html body .page-actions .btn-primary,
+html body .page-head .btn-primary {
+	height: 36px !important;
+	padding: 0 20px !important;
+	font-size: 0.875rem !important;
+	box-shadow: 0 2px 8px rgba(0,80,230,0.25), inset 0 1px 0 rgba(255,255,255,0.15) !important;
+}
+
+/* ─ Grid Add Row / Add Multiple ─ */
+html body .grid-footer .btn,
+html body .grid-footer .grid-add-row,
+html body .btn[data-label="Add Row"],
+html body .btn[data-label="Add Multiple"] {
+	background: transparent !important;
+	border: 1.5px dashed var(--rm-border-mid) !important;
+	color: var(--rm-primary) !important;
+	box-shadow: none !important;
+	font-weight: 600 !important;
+}
+
+html body .grid-footer .btn:hover,
+html body .grid-footer .grid-add-row:hover {
+	background: rgba(0,80,230,0.05) !important;
+	border-color: var(--rm-primary) !important;
+	border-style: solid !important;
+}
+
+/* ─ Attach button ─ */
+html body .btn-attach,
+html body .attachment-row .btn,
+html body [data-fieldtype="Attach"] .btn,
+html body [data-fieldtype="Attach Image"] .btn {
+	background: transparent !important;
+	border: 1.5px dashed var(--rm-border-mid) !important;
+	color: var(--rm-primary) !important;
+	box-shadow: none !important;
+}
+
+html body .btn-attach:hover,
+html body .attachment-row .btn:hover {
+	background: rgba(0,80,230,0.05) !important;
+	border-style: solid !important;
+	border-color: var(--rm-primary) !important;
+}
+
+/* ─ Dark mode override ─ */
+html[data-ramotion-dark="1"] body .btn-secondary,
+html[data-ramotion-dark="1"] body .btn-default {
+	background: rgba(255,255,255,0.07) !important;
+	border-color: rgba(255,255,255,0.14) !important;
+	color: rgba(255,255,255,0.88) !important;
+}
+
+html[data-ramotion-dark="1"] body .btn-secondary:hover,
+html[data-ramotion-dark="1"] body .btn-default:hover {
+	background: rgba(255,255,255,0.12) !important;
+	border-color: rgba(255,255,255,0.22) !important;
+}
+
+/* ── 12. BADGES ── */
+html body .indicator-pill,
+html body .indicator,
+html body .badge {
+	border-radius: 999px !important;
+	font-weight: 600;
+}
+
+/* ── 13. DROPDOWNS ── */
+html body .dropdown-menu {
+	background: var(--rm-surface) !important;
+	border: 1px solid var(--rm-border) !important;
+	border-radius: var(--rm-r-md) !important;
+	box-shadow: var(--rm-shd-l);
+	padding: 6px;
+}
+
+html body .dropdown-item {
+	border-radius: var(--rm-r-xs);
+	padding: 8px 12px;
+	font-size: 0.9rem;
+	color: var(--rm-ink);
+	transition: background 120ms var(--rm-ease);
+}
+
+html body .dropdown-item:hover {
+	background: var(--rm-surface-3);
+}
+
+/* ── 14. MODALS ── */
+html body .modal-content {
+	background: var(--rm-surface) !important;
+	border: 1px solid var(--rm-border) !important;
+	border-radius: var(--rm-r-xl) !important;
+	box-shadow: var(--rm-shd-l) !important;
+	overflow: hidden;
+}
+
+html body .modal-header {
+	padding: 18px 22px 14px;
+	border-bottom: 1px solid var(--rm-border);
+}
+
+html body .modal-title {
+	font-family: "Space Grotesk", sans-serif;
+	font-size: 1.1rem;
+	font-weight: 700;
+	letter-spacing: -0.02em;
+}
+
+/* ── 15. WORKSPACE scoped ── */
+html body [data-page-route="Workspaces"] .layout-main {
+	gap: 20px;
+}
+
+@media (min-width: 992px) {
+	html body [data-page-route="Workspaces"] .layout-side-section {
+		width: var(--rm-sidebar-w);
+		min-width: var(--rm-sidebar-w);
+		flex: 0 0 var(--rm-sidebar-w);
+	}
+
+	html body [data-page-route="Workspaces"] .layout-main-section-wrapper {
+		flex: 1 1 0;
+		min-width: 0;
+	}
+}
+
+html body [data-page-route="Workspaces"] .layout-side-section {
+	padding: 0;
+}
+
+html body [data-page-route="Workspaces"] .layout-main-section {
+	padding: 6px;
+}
+
+html body [data-page-route="Workspaces"] .layout-main-section-wrapper {
+	padding: 22px 24px;
+	background: #f4f6fb !important;
+	border: 1px solid var(--rm-border) !important;
+	border-radius: var(--rm-r-xl) !important;
+	box-shadow: var(--rm-shd-m);
+}
+
+html body [data-page-route="Workspaces"] .workspace-footer {
+	margin-top: 20px;
+	padding-top: 16px;
+	border-top: 1px solid var(--rm-border);
+}
+
+html body [data-page-route="Workspaces"] .widget-group-head {
+	padding-inline: 2px;
+}
+
+html body [data-page-route="Workspaces"] .widget.links-widget-box .link-item {
+	border: 1px solid transparent;
+}
+
+html body [data-page-route="Workspaces"] .widget.links-widget-box .link-item:hover {
+	border-color: var(--rm-border);
+	background: var(--rm-surface-3);
+}
+
+/* ── 16. WORKSPACE HERO (injected by JS) ── */
+html body .ramotion-workspace-hero {
+	display: grid;
+	grid-template-columns: 1fr minmax(260px, 320px);
+	gap: 20px;
+	align-items: center;
+	margin-bottom: 24px;
+	padding: 28px 32px;
+	background: linear-gradient(135deg, var(--rm-navy) 0%, #1a2f52 100%);
+	border-radius: var(--rm-r-xl);
+	border: 1px solid rgba(255, 255, 255, 0.06);
+	box-shadow: 0 20px 48px rgba(12, 24, 41, 0.18);
+	position: relative;
+	overflow: hidden;
+}
+
+html body .ramotion-workspace-hero__eyebrow {
+	display: inline-block;
+	padding: 3px 10px;
+	border-radius: 999px;
+	background: rgba(255, 255, 255, 0.1);
+	border: 1px solid rgba(255, 255, 255, 0.14);
+	font-family: "Space Grotesk", sans-serif;
+	font-size: 0.7rem;
+	font-weight: 700;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: rgba(255, 255, 255, 0.5);
+	margin-bottom: 14px;
+}
+
+html body .ramotion-workspace-hero h1 {
+	margin: 0 0 10px;
+	font-family: "Space Grotesk", sans-serif;
+	font-size: clamp(1.7rem, 3vw, 2.4rem);
+	font-weight: 700;
+	letter-spacing: -0.04em;
+	line-height: 1.05;
+	color: #ffffff;
+}
+
+html body .ramotion-workspace-hero p {
+	margin: 0;
+	font-size: 0.9rem;
+	line-height: 1.7;
+	color: rgba(255, 255, 255, 0.52);
+}
+
+html body .ramotion-workspace-hero__stats {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 10px;
+}
+
+html body .ramotion-hero-stat {
+	padding: 14px 16px;
+	border-radius: var(--rm-r-md);
+	background: rgba(255, 255, 255, 0.07);
+	border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+html body .ramotion-hero-stat__label {
+	font-family: "Space Grotesk", sans-serif;
+	font-size: 0.66rem;
+	font-weight: 700;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: rgba(255, 255, 255, 0.4);
+	display: block;
+	margin-bottom: 6px;
+}
+
+html body .ramotion-hero-stat strong {
+	display: block;
+	font-family: "Space Grotesk", sans-serif;
+	font-size: 1.8rem;
+	font-weight: 700;
+	letter-spacing: -0.05em;
+	line-height: 1;
+	color: #ffffff;
+}
+
+/* ── 17. WIDGET ENTRANCE ANIMATION ── */
+html body .ramotion-widget-enter {
+	opacity: 0;
+	transform: translateY(14px);
+	transition: opacity 400ms var(--rm-ease), transform 400ms var(--rm-ease);
+	transition-delay: calc((var(--ramotion-widget-index, 1) - 1) * 40ms);
+}
+
+html body .ramotion-widget-visible {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+/* ── 18. EMPTY STATES ── */
+html body .empty-state,
+html body .msg-box,
+html body .no-result {
+	background: var(--rm-surface);
+	border: 1.5px dashed var(--rm-border);
+	border-radius: var(--rm-r-lg);
+}
+
+/* ── 19. LOGIN PAGE ── */
+html body.for-login {
+	background: linear-gradient(135deg, #e8edf5 0%, var(--rm-bg) 100%) !important;
+}
+
+html body.for-login .page-card {
+	background: var(--rm-surface) !important;
+	border: 1px solid var(--rm-border) !important;
+	border-radius: var(--rm-r-xl) !important;
+	box-shadow: var(--rm-shd-l) !important;
+	overflow: hidden;
+	padding: 28px !important;
+}
+
+html body.for-login .page-card::before {
+	content: "";
+	display: block;
+	height: 4px;
+	margin: -28px -28px 24px;
+	background: linear-gradient(90deg, var(--rm-primary), var(--rm-accent));
+}
+
+/* ── 20. FEATURE GROUP emphasis ── */
+html body [data-page-route="Workspaces"] .widget-group.ramotion-feature-group .widget-group-title {
+	font-size: 1.12rem;
+}
+
+html body [data-page-route="Workspaces"] .widget-group.ramotion-feature-group .widget-group-body {
+	gap: 18px;
+}
+
+/* ── 21. RESPONSIVE ── */
+@media (max-width: 1200px) {
+	html body .ramotion-workspace-hero {
+		grid-template-columns: 1fr;
+	}
+	html body .ramotion-workspace-hero__stats {
+		grid-template-columns: repeat(4, 1fr);
+	}
+}
+
+@media (max-width: 768px) {
+	html body .page-head .page-head-content {
+		border-radius: var(--rm-r-md) !important;
+	}
+	html body .ramotion-workspace-hero {
+		padding: 20px;
+		border-radius: var(--rm-r-lg);
+	}
+	html body .ramotion-workspace-hero__stats {
+		grid-template-columns: repeat(2, 1fr);
+	}
+	html body .navbar {
+		padding: 0 12px;
+	}
+}
+
+/* ── 22. DARK MODE ── */
+html[data-ramotion-dark="1"] {
+--rm-bg:           #0d1117;
+--rm-surface:      #161b24;
+--rm-surface-2:    #1c2334;
+--rm-surface-3:    #1e2840;
+--rm-border:       #2b3650;
+--rm-border-mid:   #374463;
+--rm-border-focus: #4a7af0;
+--rm-ink:          #e2e8f0;
+--rm-muted:        #8fa3c0;
+--rm-subtle:       #6a82a0;
+--rm-navy:         #101827;
+--rm-shd-s: 0 1px 3px rgba(0,0,0,0.35), 0 0 0 1px rgba(0,0,0,0.2);
+--rm-shd-m: 0 4px 16px rgba(0,0,0,0.45), 0 0 0 1px rgba(0,0,0,0.2);
+--rm-shd-l: 0 12px 36px rgba(0,0,0,0.55), 0 0 0 1px rgba(0,0,0,0.2);
+}
+
+html[data-ramotion-dark="1"] body {
+background-color: var(--rm-bg) !important;
+color: var(--rm-ink);
+}
+
+html[data-ramotion-dark="1"] body .form-control,
+html[data-ramotion-dark="1"] body .input-with-feedback,
+html[data-ramotion-dark="1"] body .awesomplete > input {
+background: var(--rm-surface-2) !important;
+color: var(--rm-ink) !important;
+}
+
+html[data-ramotion-dark="1"] body .dropdown-menu {
+background: var(--rm-surface) !important;
+border-color: var(--rm-border) !important;
+}
+
+html[data-ramotion-dark="1"] body .dt-header {
+background: var(--rm-surface-3) !important;
+border-bottom-color: var(--rm-border) !important;
+}
+
+html[data-ramotion-dark="1"] body .dt-row {
+background: var(--rm-surface);
+border-bottom-color: var(--rm-border);
+}
+
+html[data-ramotion-dark="1"] body .dt-row:hover,
+html[data-ramotion-dark="1"] body .list-row:hover {
+background: var(--rm-surface-2) !important;
+}
+
+html[data-ramotion-dark="1"] body .frappe-list,
+html[data-ramotion-dark="1"] body .list-row {
+background: var(--rm-surface) !important;
+border-color: var(--rm-border) !important;
+}
+
+html[data-ramotion-dark="1"] body .modal-content {
+background: var(--rm-surface) !important;
+border-color: var(--rm-border) !important;
+}
+
+html[data-ramotion-dark="1"] body .page-head .page-head-content {
+background: var(--rm-surface) !important;
+border-color: var(--rm-border) !important;
+}
+
+html[data-ramotion-dark="1"] body .desk-sidebar,
+html[data-ramotion-dark="1"] body .layout-side-section {
+background: var(--rm-surface) !important;
+border-color: var(--rm-border) !important;
+}
+
+html[data-ramotion-dark="1"] body .frappe-card,
+html[data-ramotion-dark="1"] body .widget,
+html[data-ramotion-dark="1"] body .number-card {
+background: var(--rm-surface) !important;
+border-color: var(--rm-border) !important;
+}
+
+html[data-ramotion-dark="1"] body .widget.number-widget-box {
+background: linear-gradient(160deg, var(--rm-surface) 60%, var(--rm-surface-2) 100%) !important;
+}
+
+html[data-ramotion-dark="1"] body .page-form,
+html[data-ramotion-dark="1"] body .form-section,
+html[data-ramotion-dark="1"] body .frappe-card {
+background: var(--rm-surface) !important;
+border-color: var(--rm-border) !important;
+}
+
+html[data-ramotion-dark="1"] body .nav-tabs,
+html[data-ramotion-dark="1"] body .form-tabs-list {
+border-bottom-color: var(--rm-border) !important;
+}
+
+html[data-ramotion-dark="1"] body [data-page-route="Workspaces"] .layout-main-section-wrapper {
+background: var(--rm-surface) !important;
+border-color: var(--rm-border) !important;
+}
+
+html[data-ramotion-dark="1"] body .ramotion-workspace-hero {
+background: linear-gradient(135deg, #060c17 0%, #0f1c35 100%);
+}
+
+/* ── 23. TOAST / NOTIFICATIONS ── */
+html body .alert,
+html body .frappe-alert {
+border-radius: var(--rm-r-md) !important;
+font-size: 0.89rem;
+font-weight: 500;
+box-shadow: var(--rm-shd-l);
+}
+
+html body .alert-success,
+html body .frappe-alert.alert-success {
+background: linear-gradient(90deg, #0a5c34 0%, #0d7040 100%) !important;
+color: #fff !important;
+border: none !important;
+}
+
+html body .alert-danger,
+html body .alert-error,
+html body .frappe-alert.alert-danger {
+background: linear-gradient(90deg, #901c1c 0%, #a82222 100%) !important;
+color: #fff !important;
+border: none !important;
+}
+
+html body .alert-warning,
+html body .frappe-alert.alert-warning {
+background: linear-gradient(90deg, #6d4200 0%, #8f5800 100%) !important;
+color: #fff !important;
+border: none !important;
+}
+
+html body .alert-info,
+html body .frappe-alert.alert-info {
+background: linear-gradient(90deg, var(--rm-primary) 0%, var(--rm-primary-mid) 100%) !important;
+color: #fff !important;
+border: none !important;
+}
+
+html body .frappe-alert .indicator-pill {
+filter: brightness(1.3);
+}
+
+/* ── 24. STATUS BADGE COLORS ── */
+html body .indicator-pill.green  { background: rgba(16,124,70,0.1);  color: #0d6b3c; border: 1px solid rgba(16,124,70,0.2); }
+html body .indicator-pill.blue   { background: rgba(21,86,212,0.1);  color: var(--rm-primary); border: 1px solid rgba(21,86,212,0.2); }
+html body .indicator-pill.orange { background: rgba(200,90,0,0.1);   color: #8f4200; border: 1px solid rgba(200,90,0,0.18); }
+html body .indicator-pill.red    { background: rgba(190,40,40,0.1);  color: #901c1c; border: 1px solid rgba(190,40,40,0.18); }
+html body .indicator-pill.yellow { background: rgba(190,145,0,0.1);  color: #7a5c00; border: 1px solid rgba(190,145,0,0.2); }
+html body .indicator-pill.gray,
+html body .indicator-pill.grey   { background: rgba(100,120,140,0.1); color: var(--rm-muted); border: 1px solid rgba(100,120,140,0.15); }
+html body .indicator-pill.purple { background: rgba(94,59,183,0.1);  color: #5e3bb7; border: 1px solid rgba(94,59,183,0.18); }
+html body .indicator-pill.pink   { background: rgba(190,50,120,0.1); color: #a02a6a; border: 1px solid rgba(190,50,120,0.18); }
+html body .indicator-pill.cyan,
+html body .indicator-pill.lightblue { background: rgba(8,145,178,0.1); color: #0369a1; border: 1px solid rgba(8,145,178,0.18); }
+
+html body .indicator.green  { color: #0d6b3c; }
+html body .indicator.blue   { color: var(--rm-primary); }
+html body .indicator.red    { color: #901c1c; }
+html body .indicator.orange { color: #8f4200; }
+html body .indicator.yellow { color: #7a5c00; }
+html body .indicator.purple { color: #5e3bb7; }
+html body .indicator.pink   { color: #a02a6a; }
+html body .indicator.gray,
+html body .indicator.grey   { color: var(--rm-muted); }
+
+/* ── 25. CALENDAR VIEW ── */
+html body .frappe-calendar,
+html body .calendar-wrapper {
+background: var(--rm-surface) !important;
+border: 1px solid var(--rm-border) !important;
+border-radius: var(--rm-r-lg) !important;
+overflow: hidden;
+box-shadow: var(--rm-shd-s);
+}
+
+html body .fc-toolbar,
+html body .fc-header-toolbar {
+background: var(--rm-surface-2);
+padding: 12px 16px;
+border-bottom: 1px solid var(--rm-border);
+margin-bottom: 0 !important;
+}
+
+html body .fc-button,
+html body .fc-button-primary {
+background: var(--rm-primary) !important;
+border-color: var(--rm-primary) !important;
+border-radius: var(--rm-r-xs) !important;
+font-weight: 600;
+font-size: 0.82rem;
+box-shadow: none !important;
+}
+
+html body .fc-button:hover,
+html body .fc-button-primary:hover {
+background: var(--rm-primary-mid) !important;
+border-color: var(--rm-primary-mid) !important;
+}
+
+html body .fc-toolbar-title,
+html body .fc-center h2 {
+font-family: "Space Grotesk", sans-serif;
+font-size: 1rem;
+font-weight: 700;
+color: var(--rm-ink);
+letter-spacing: -0.02em;
+}
+
+html body .fc-col-header-cell {
+background: var(--rm-surface-2);
+border-color: var(--rm-border) !important;
+padding: 8px;
+font-size: 0.78rem;
+font-weight: 700;
+font-family: "Space Grotesk", sans-serif;
+text-transform: uppercase;
+letter-spacing: 0.08em;
+color: var(--rm-muted);
+}
+
+html body .fc-daygrid-day {
+border-color: var(--rm-border) !important;
+transition: background 120ms var(--rm-ease);
+}
+
+html body .fc-daygrid-day:hover {
+background: var(--rm-surface-3) !important;
+}
+
+html body .fc-day-today .fc-daygrid-day-frame {
+background: rgba(21, 86, 212, 0.05) !important;
+}
+
+html body .fc-day-today .fc-daygrid-day-number {
+background: var(--rm-primary);
+color: #fff !important;
+border-radius: 50%;
+width: 26px;
+height: 26px;
+display: flex;
+align-items: center;
+justify-content: center;
+font-weight: 700;
+margin: 2px;
+}
+
+html body .fc-event {
+border-radius: 6px !important;
+border: none !important;
+font-size: 0.78rem;
+font-weight: 500;
+padding: 2px 6px;
+background: var(--rm-primary) !important;
+}
+
+html body .fc-event:hover {
+filter: brightness(1.12);
+}
+
+html body .gantt-chart,
+html body .gantt-container {
+background: var(--rm-surface) !important;
+border: 1px solid var(--rm-border) !important;
+border-radius: var(--rm-r-lg) !important;
+overflow: hidden;
+}
+
+/* ── 26. LIST VIEW ROW ANIMATIONS ── */
+html body .list-row.rm-row-enter {
+opacity: 0;
+transform: translateX(-10px);
+transition: opacity 260ms var(--rm-ease), transform 260ms var(--rm-ease);
+transition-delay: calc(var(--rm-row-idx, 0) * 22ms);
+}
+
+html body .list-row.rm-row-visible {
+opacity: 1;
+transform: translateX(0);
+}
+
+html body .result.rm-row-enter {
+opacity: 0;
+transform: translateX(-10px);
+transition: opacity 260ms var(--rm-ease), transform 260ms var(--rm-ease);
+transition-delay: calc(var(--rm-row-idx, 0) * 22ms);
+}
+
+html body .result.rm-row-visible {
+opacity: 1;
+transform: translateX(0);
+}
+
+/* List view selected row */
+html body .list-row.row-selected,
+html body .list-row:has(input[type="checkbox"]:checked) {
+background: rgba(21, 86, 212, 0.06) !important;
+border-left: 3px solid var(--rm-primary);
+}
+
+/* DataTable selected row */
+html body .dt-row.dt-row-selected,
+html body .dt-row--selected {
+background: rgba(21, 86, 212, 0.06) !important;
+}
+
+html body .dt-scrollable .dt-row:has(.dt-cell--selected),
+html body .dt-cell--selected {
+background: rgba(21, 86, 212, 0.08) !important;
+}
+
+/* DataTable gradient header */
+html body .dt-header {
+background: linear-gradient(180deg, var(--rm-surface-2) 0%, var(--rm-surface-3) 100%) !important;
+border-bottom: 2px solid var(--rm-border) !important;
+}
+
+html body .dt-cell--header {
+font-size: 0.78rem;
+font-weight: 700;
+font-family: "Space Grotesk", sans-serif;
+letter-spacing: 0.05em;
+text-transform: uppercase;
+color: var(--rm-muted) !important;
+}
+
+/* ── 27. STICKY FORM HEAD ── */
+html body .page-head {
+position: sticky;
+top: 0;
+z-index: 200;
+}
+
+html body .page-head.rm-scrolled .page-head-content {
+box-shadow: 0 4px 20px rgba(12,24,41,0.1) !important;
+border-color: var(--rm-border-mid) !important;
+}
+
+/* ── 28. BREADCRUMB ── */
+html body .breadcrumb {
+background: transparent !important;
+padding: 0 !important;
+margin-bottom: 10px;
+gap: 0;
+}
+
+html body .breadcrumb-item {
+display: flex;
+align-items: center;
+font-size: 0.82rem;
+font-weight: 500;
+color: var(--rm-muted);
+}
+
+html body .breadcrumb-item + .breadcrumb-item::before {
+content: "/";
+padding: 0 6px;
+color: var(--rm-border-mid);
+font-weight: 300;
+}
+
+html body .breadcrumb-item a {
+color: var(--rm-muted);
+text-decoration: none;
+padding: 2px 7px;
+border-radius: var(--rm-r-xs);
+transition: color 140ms var(--rm-ease), background 140ms var(--rm-ease);
+}
+
+html body .breadcrumb-item a:hover {
+color: var(--rm-primary);
+background: rgba(21, 86, 212, 0.08);
+}
+
+html body .breadcrumb-item.active {
+color: var(--rm-ink);
+font-weight: 600;
+}
+
+/* ── 29. THEME SETTINGS PANEL ── */
+html body .rm-settings-btn {
+display: flex;
+align-items: center;
+justify-content: center;
+width: 32px;
+height: 32px;
+border-radius: var(--rm-r-sm);
+background: rgba(255,255,255,0.08);
+border: 1px solid rgba(255,255,255,0.12);
+color: rgba(255,255,255,0.8);
+cursor: pointer;
+transition: background 160ms var(--rm-ease);
+margin-inline-end: 6px;
+flex-shrink: 0;
+}
+
+html body .rm-settings-btn:hover,
+html body .rm-settings-btn.rm-active {
+background: rgba(255,255,255,0.18);
+color: #fff;
+}
+
+html body .rm-theme-panel {
+position: fixed;
+top: 60px;
+inset-inline-end: 16px;
+width: 268px;
+background: var(--rm-surface);
+border: 1px solid var(--rm-border);
+border-radius: var(--rm-r-lg);
+box-shadow: var(--rm-shd-l);
+z-index: 9999;
+overflow: hidden;
+transform: translateY(-10px) scale(0.96);
+opacity: 0;
+pointer-events: none;
+transition: transform 220ms var(--rm-ease), opacity 220ms var(--rm-ease);
+}
+
+html body .rm-theme-panel.rm-open {
+transform: translateY(0) scale(1);
+opacity: 1;
+pointer-events: all;
+}
+
+html body .rm-theme-panel__header {
+padding: 14px 16px 12px;
+background: linear-gradient(115deg, var(--rm-navy) 0%, var(--rm-primary) 100%);
+color: rgba(255,255,255,0.9);
+font-family: "Space Grotesk", sans-serif;
+font-size: 0.88rem;
+font-weight: 700;
+letter-spacing: 0.01em;
+display: flex;
+align-items: center;
+justify-content: space-between;
+}
+
+html body .rm-theme-panel__close {
+width: 22px;
+height: 22px;
+border-radius: 50%;
+background: rgba(255,255,255,0.15);
+border: none;
+color: #fff;
+cursor: pointer;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 14px;
+transition: background 140ms;
+}
+
+html body .rm-theme-panel__close:hover {
+background: rgba(255,255,255,0.28);
+}
+
+html body .rm-theme-panel__body {
+padding: 14px 16px 16px;
+}
+
+html body .rm-panel-label {
+font-size: 0.7rem;
+font-weight: 700;
+letter-spacing: 0.1em;
+text-transform: uppercase;
+color: var(--rm-subtle);
+margin-bottom: 8px;
+display: block;
+}
+
+html body .rm-palette-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 6px;
+margin-bottom: 14px;
+}
+
+html body .rm-palette-btn {
+display: flex;
+align-items: center;
+gap: 8px;
+padding: 8px 10px;
+border: 1.5px solid var(--rm-border);
+border-radius: var(--rm-r-sm);
+background: var(--rm-surface-2);
+cursor: pointer;
+font-size: 0.82rem;
+font-weight: 500;
+color: var(--rm-muted);
+transition: border-color 140ms, background 140ms, color 140ms;
+}
+
+html body .rm-palette-btn:hover {
+background: var(--rm-surface-3);
+color: var(--rm-ink);
+}
+
+html body .rm-palette-btn.rm-active {
+border-color: var(--rm-primary);
+background: rgba(21, 86, 212, 0.07);
+color: var(--rm-primary);
+font-weight: 600;
+}
+
+html body .rm-color-dot {
+width: 12px;
+height: 12px;
+border-radius: 50%;
+flex-shrink: 0;
+}
+
+html body .rm-toggle-row {
+display: flex;
+align-items: center;
+padding: 10px 12px;
+background: var(--rm-surface-2);
+border: 1.5px solid var(--rm-border);
+border-radius: var(--rm-r-sm);
+cursor: pointer;
+transition: border-color 140ms, background 140ms;
+gap: 10px;
+}
+
+html body .rm-toggle-row:hover {
+background: var(--rm-surface-3);
+border-color: var(--rm-border-mid);
+}
+
+html body .rm-toggle-row span {
+flex: 1;
+font-size: 0.85rem;
+font-weight: 500;
+color: var(--rm-ink);
+}
+
+html body .rm-switch {
+position: relative;
+width: 36px;
+height: 20px;
+flex-shrink: 0;
+}
+
+html body .rm-switch-track {
+position: absolute;
+inset: 0;
+border-radius: 999px;
+background: var(--rm-border-mid);
+transition: background 200ms;
+}
+
+html body .rm-switch-thumb {
+position: absolute;
+top: 3px;
+left: 3px;
+width: 14px;
+height: 14px;
+border-radius: 50%;
+background: #fff;
+box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+transition: transform 200ms var(--rm-ease);
+}
+
+html[data-ramotion-dark="1"] body .rm-switch-track {
+background: var(--rm-primary);
+}
+
+html[data-ramotion-dark="1"] body .rm-switch-thumb {
+transform: translateX(16px);
+}
+
+/* ── 30. FRAPPE CHARTS OVERRIDE ── */
+html body .frappe-chart svg text {
+fill: var(--rm-muted) !important;
+font-family: "Inter", sans-serif !important;
+font-size: 11px !important;
+}
+
+html body .frappe-chart .axis line,
+html body .frappe-chart .axis path,
+html body .frappe-chart line.dashed {
+stroke: var(--rm-border) !important;
+}
+
+html body .frappe-chart .chart-legend .legend-item-name {
+color: var(--rm-muted) !important;
+font-size: 0.8rem;
+}
+
+html body .chart-container {
+background: var(--rm-surface) !important;
+border: 1px solid var(--rm-border) !important;
+border-radius: var(--rm-r-lg) !important;
+padding: 18px !important;
+box-shadow: var(--rm-shd-s);
+}
+
+/* ── 31. PRINT / PDF ── */
+@media print {
+html body .navbar,
+html body .desk-sidebar,
+html body .layout-side-section,
+html body .sidebar-toggle-btn,
+html body .page-actions,
+html body .form-footer,
+html body .rm-settings-btn,
+html body .rm-theme-panel,
+html body .layout-side-section {
+: none !important;
+}
+
+html body {
+d: #fff !important;
+#000 !important;
+t-size: 11pt;
+}
+
+html body .frappe-card,
+html body .widget,
+html body .form-section {
+none !important;
+1px solid #ddd !important;
+6px !important;
+side: avoid;
+side: avoid;
+}
+
+html body .page-head .page-head-content {
+: static !important;
+0 !important;
+none !important;
+none !important;
+2pt solid #1556d4 !important;
+g: 8pt 0 !important;
+}
+
+html body .frappe-list,
+html body .datatable {
+none !important;
+1px solid #ccc !important;
+}
+
+html body .rm-print-header {
+: block !important;
+t-family: "Space Grotesk", sans-serif;
+t-size: 16pt;
+t-weight: 700;
+#0c1829;
+3pt solid #1556d4;
+g-bottom: 8pt;
+-bottom: 16pt;
+}
+
+@page {
+: 20mm;
+A4;
+}
+}
+
+html body .rm-print-header {
+display: none;
+}
+
+/* ══════════════════════════════════════════════════════
+   RAMOTION EDITORIAL UPGRADE — v2  (appended)
+   Target: match Ramotion agency day-light aesthetic
+   ══════════════════════════════════════════════════════ */
+
+/* ── R1. BACKGROUND — warm off-white with subtle grain ── */
+html body {
+background-color: #f4f6fb !important;
+background-image:
+xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.018'/%3E%3C/svg%3E") !important;
+background-repeat: repeat !important;
+}
+
+html[data-ramotion-dark="1"] body {
+background-color: #0d1117 !important;
+background-image: none !important;
+}
+
+/* ── R2. SHORTCUT WIDGET — Ramotion card style ── */
+html body .widget.shortcut-widget-box {
+display: flex !important;
+flex-direction: column;
+justify-content: space-between;
+align-items: stretch !important;
+min-height: 100px !important;
+padding: 20px 20px 16px !important;
+border-radius: 16px !important;
+border: 1.5px solid var(--rm-border) !important;
+background: var(--rm-surface) !important;
+box-shadow: 0 1px 4px rgba(12,24,41,0.04), 0 0 0 1px rgba(12,24,41,0.03) !important;
+transition: transform 220ms var(--rm-ease), box-shadow 220ms var(--rm-ease), border-color 220ms var(--rm-ease) !important;
+overflow: hidden !important;
+position: relative;
+}
+
+html body .widget.shortcut-widget-box .widget-head {
+width: 100% !important;
+overflow: hidden !important;
+min-width: 0 !important;
+}
+
+html body .widget.shortcut-widget-box .widget-head .widget-label {
+flex: 1 1 0 !important;
+min-width: 0 !important;
+overflow: hidden !important;
+}
+
+html body .widget.shortcut-widget-box .widget-head .widget-control {
+flex: 0 0 auto !important;
+min-width: 0 !important;
+max-width: 50% !important;
+overflow: hidden !important;
+}
+
+/* top gradient bar override — thicker 4px */
+html body .widget.shortcut-widget-box::before {
+height: 4px !important;
+border-radius: 16px 16px 0 0 !important;
+background: linear-gradient(90deg, var(--rm-primary) 0%, var(--rm-accent) 100%) !important;
+}
+
+html body .widget.shortcut-widget-box:hover {
+transform: translateY(-5px) !important;
+box-shadow: 0 16px 40px rgba(21,86,212,0.1), 0 0 0 1.5px var(--rm-primary) !important;
+border-color: var(--rm-primary) !important;
+}
+
+/* Big title in shortcut */
+html body .widget.shortcut-widget-box .widget-title,
+html body .widget.shortcut-widget-box .shortcut-widget-label {
+font-family: "Space Grotesk", sans-serif !important;
+font-size: 1.05rem !important;
+font-weight: 700 !important;
+color: var(--rm-ink) !important;
+letter-spacing: -0.02em;
+line-height: 1.2;
+}
+
+/* Arrow icon inside shortcut */
+html body .widget.shortcut-widget-box .shortcut-widget-action,
+html body .widget.shortcut-widget-box a[href]::after {
+content: "↗";
+position: absolute;
+top: 18px;
+inset-inline-end: 18px;
+font-size: 1rem;
+color: var(--rm-border-mid);
+transition: color 180ms var(--rm-ease), transform 180ms var(--rm-ease);
+}
+
+html body .widget.shortcut-widget-box:hover .shortcut-widget-action,
+html body .widget.shortcut-widget-box:hover a[href]::after {
+color: var(--rm-primary);
+transform: translate(2px, -2px);
+}
+
+/* indicator pill inside shortcut */
+html body .widget.shortcut-widget-box .indicator-pill {
+font-size: 0.72rem !important;
+font-weight: 700 !important;
+padding: 2px 8px !important;
+border-radius: 999px !important;
+background: rgba(21, 86, 212, 0.08) !important;
+color: var(--rm-primary) !important;
+border: 1px solid rgba(21, 86, 212, 0.14) !important;
+margin-top: auto;
+display: inline-block;
+}
+
+/* ── R3. WIDGET GROUP TITLE — editorial numbered style ── */
+html body .widget-group-title {
+font-family: "Space Grotesk", sans-serif !important;
+font-size: 1.35rem !important;
+font-weight: 800 !important;
+letter-spacing: -0.03em !important;
+color: var(--rm-ink) !important;
+line-height: 1.1;
+}
+
+html body .widget-group-title::before {
+content: "" !important;
+display: inline-block !important;
+width: 10px !important;
+height: 10px !important;
+border-radius: 50% !important;
+background: linear-gradient(135deg, var(--rm-primary), var(--rm-accent)) !important;
+margin-inline-end: 12px !important;
+vertical-align: middle !important;
+flex-shrink: 0;
+}
+
+html body .widget-group-head {
+padding-bottom: 18px !important;
+margin-bottom: 20px !important;
+border-bottom: 1.5px solid var(--rm-border) !important;
+position: relative;
+}
+
+/* counter badge on group head */
+html body .widget-group-head::after {
+content: attr(data-rm-count);
+position: absolute;
+inset-inline-end: 0;
+top: 0;
+font-family: "Space Grotesk", sans-serif;
+font-size: 0.72rem;
+font-weight: 700;
+letter-spacing: 0.06em;
+text-transform: uppercase;
+color: var(--rm-subtle);
+}
+
+/* ── R4. WIDGET GROUP BODY — 3-col even grid ── */
+html body [data-page-route="Workspaces"] .widget-group-body {
+display: grid !important;
+grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)) !important;
+gap: 14px !important;
+}
+
+/* links widget stays full width */
+html body [data-page-route="Workspaces"] .widget.links-widget-box {
+grid-column: span 1;
+}
+
+/* ── R5. LINKS WIDGET — editorial card style ── */
+html body .widget.links-widget-box {
+padding: 0 !important;
+overflow: hidden;
+}
+
+html body .widget.links-widget-box .widget-head {
+padding: 14px 18px 12px !important;
+margin-bottom: 0 !important;
+border-bottom: 1px solid var(--rm-border) !important;
+background: var(--rm-surface-2);
+}
+
+html body .widget.links-widget-box .widget-title {
+font-family: "Space Grotesk", sans-serif !important;
+font-size: 0.95rem !important;
+font-weight: 700 !important;
+color: var(--rm-ink) !important;
+letter-spacing: -0.01em;
+}
+
+html body .widget.links-widget-box .widget-body {
+padding: 8px 4px !important;
+}
+
+html body .widget.links-widget-box .link-item,
+html body .widget.links-widget-box a.link-item {
+display: flex !important;
+align-items: center !important;
+gap: 10px !important;
+padding: 9px 14px !important;
+border-radius: 8px !important;
+border: 1px solid transparent !important;
+font-size: 0.875rem !important;
+font-weight: 500 !important;
+color: var(--rm-muted) !important;
+text-decoration: none;
+transition: background 130ms var(--rm-ease), border-color 130ms var(--rm-ease), color 130ms var(--rm-ease), padding-inline-start 130ms var(--rm-ease) !important;
+margin: 0 4px 2px !important;
+}
+
+html body .widget.links-widget-box .link-item::before {
+content: "" !important;
+width: 5px !important;
+height: 5px !important;
+border-radius: 50% !important;
+background: var(--rm-border-mid) !important;
+flex-shrink: 0 !important;
+transition: background 130ms var(--rm-ease), transform 130ms var(--rm-ease) !important;
+}
+
+html body .widget.links-widget-box .link-item:hover {
+background: rgba(21,86,212,0.05) !important;
+border-color: rgba(21,86,212,0.12) !important;
+color: var(--rm-primary) !important;
+padding-inline-start: 18px !important;
+}
+
+html body .widget.links-widget-box .link-item:hover::before {
+background: var(--rm-primary) !important;
+transform: scale(1.4) !important;
+}
+
+/* ── R6. MAIN CONTENT AREA — more breathing room ── */
+html body [data-page-route="Workspaces"] .layout-main-section-wrapper {
+padding: 28px 32px !important;
+border-radius: 24px !important;
+}
+
+html body [data-page-route="Workspaces"] .widget-group {
+margin-bottom: 40px !important;
+}
+
+/* ── R7. SIDEBAR — cleaner Ramotion vertical nav ── */
+html body .desk-sidebar::before {
+font-family: "Space Grotesk", sans-serif !important;
+font-size: 0.78rem !important;
+font-weight: 800 !important;
+letter-spacing: 0.18em !important;
+text-transform: uppercase !important;
+padding: 0 20px !important;
+height: 52px !important;
+background: linear-gradient(115deg, #0c1829 0%, #1556d4 100%) !important;
+border-radius: 20px 20px 0 0 !important;
+}
+
+/* sidebar item — pill style on selected */
+html body .standard-sidebar-item.selected,
+html body .desk-sidebar-item.selected {
+background: rgba(21,86,212,0.08) !important;
+box-shadow: none !important;
+border-radius: 10px !important;
+}
+
+html body .standard-sidebar-item.selected::before {
+content: "";
+position: absolute;
+inset-inline-start: 0;
+top: 20%;
+height: 60%;
+width: 3px;
+border-radius: 0 3px 3px 0;
+background: var(--rm-primary);
+}
+
+/* sidebar group label */
+html body .standard-sidebar-label {
+font-size: 0.65rem !important;
+font-weight: 800 !important;
+letter-spacing: 0.14em !important;
+text-transform: uppercase !important;
+color: var(--rm-subtle) !important;
+padding: 16px 14px 6px !important;
+}
+
+/* ── R8. PAGE HEAD — floating card look ── */
+html body .page-head .page-head-content {
+border-radius: 20px !important;
+padding: 12px 20px !important;
+background: rgba(255,255,255,0.9) !important;
+backdrop-filter: blur(12px) !important;
+-webkit-backdrop-filter: blur(12px) !important;
+}
+
+/* ── R9. NAVBAR — refined ── */
+html body .navbar {
+height: 54px !important;
+background: linear-gradient(90deg, #0c1829 0%, #121f36 100%) !important;
+box-shadow: 0 1px 0 rgba(0,0,0,0.3) !important;
+}
+
+html body .navbar .navbar-brand img {
+height: 28px !important;
+filter: brightness(0) invert(1) !important;
+opacity: 0.9 !important;
+}
+
+/* search bar in navbar */
+html body .navbar .search-bar {
+border-radius: 10px !important;
+background: rgba(255,255,255,0.07) !important;
+border: 1px solid rgba(255,255,255,0.1) !important;
+transition: background 180ms, border-color 180ms;
+}
+html body .navbar .search-bar:focus-within {
+background: rgba(255,255,255,0.13) !important;
+border-color: rgba(255,255,255,0.22) !important;
+}
+
+/* ── R10. HERO SECTION — deeper Ramotion dark ── */
+html body .ramotion-workspace-hero {
+background: linear-gradient(135deg, #080f1d 0%, #0d1e3d 60%, #0f2348 100%) !important;
+border: 1px solid rgba(255,255,255,0.05) !important;
+border-radius: 22px !important;
+box-shadow: 0 24px 64px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.05) !important;
+}
+
+html body .ramotion-workspace-hero::after {
+content: "";
+position: absolute;
+inset-inline-end: -60px;
+bottom: -60px;
+width: 280px;
+height: 280px;
+border-radius: 50%;
+background: radial-gradient(circle, rgba(21,86,212,0.3) 0%, transparent 70%);
+pointer-events: none;
+}
+
+html body .ramotion-workspace-hero h1 {
+font-size: clamp(2rem, 4vw, 3rem) !important;
+font-weight: 800 !important;
+letter-spacing: -0.05em !important;
+line-height: 1 !important;
+background: linear-gradient(135deg, #ffffff 30%, rgba(255,255,255,0.6) 100%);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;
+}
+
+html body .ramotion-workspace-hero p {
+font-size: 0.88rem !important;
+color: rgba(255,255,255,0.42) !important;
+margin-top: 8px !important;
+max-width: 360px;
+}
+
+html body .ramotion-hero-stat {
+border-radius: 14px !important;
+background: rgba(255,255,255,0.05) !important;
+border: 1px solid rgba(255,255,255,0.08) !important;
+padding: 16px 18px !important;
+}
+
+html body .ramotion-hero-stat strong {
+font-size: 2.2rem !important;
+font-weight: 800 !important;
+letter-spacing: -0.06em !important;
+}
+
+/* ── R11. FRAPPE CARD (form pages) ── */
+html body .frappe-card {
+border-radius: 18px !important;
+}
+
+/* ── R12. WORKSPACE SECTION WRAPPER — whitepaper ── */
+html body [data-page-route="Workspaces"] .layout-main-section-wrapper {
+box-shadow: 0 2px 24px rgba(12,24,41,0.07), 0 0 0 1px rgba(12,24,41,0.04) !important;
+}
+
+/* ── R13. EMPTY SHORTCUT CARD grid filler ── */
+html body .widget.shortcut-widget-box .shortcut-widget-body {
+margin-top: auto;
+}
+
+/* ═══════════════════════════════════════════════════════
+   R-FIX: CORRECT SELECTORS FOR ACTUAL FRAPPE DOM
+   Frappe workspace uses EditorJS (.ce-header, .ce-block)
+═══════════════════════════════════════════════════════ */
+
+/* ── RF1. BACKGROUND — target actual white container ── */
+html body .layout-main-section-wrapper {
+	background: #f4f6fb !important;
+}
+
+/* subtle grain texture overlay */
+html body .layout-main-section-wrapper::before {
+	content: "";
+	position: fixed;
+	inset: 0;
+	pointer-events: none;
+	z-index: 0;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.022'/%3E%3C/svg%3E");
+	background-size: 200px 200px;
+}
+
+/* ── RF2. GROUP TITLE — .ce-header is the actual EditorJS header block ── */
+html body .ce-header {
+	margin-top: 36px !important;
+	margin-bottom: 14px !important;
+	padding: 0 !important;
+}
+
+html body .ce-header .h4 {
+	font-family: "Space Grotesk", sans-serif !important;
+	font-size: 1.15rem !important;
+	font-weight: 800 !important;
+	letter-spacing: -0.02em !important;
+	color: var(--heading-color, #0c1829) !important;
+	display: flex !important;
+	align-items: center !important;
+	gap: 10px !important;
+}
+
+html body .ce-header .h4::before {
+	content: "";
+	display: inline-block;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: linear-gradient(135deg, var(--rm-primary, #1556d4), var(--rm-accent, #f25c22));
+	flex-shrink: 0;
+}
+
+/* ── RF3. WORKSPACE CONTENT AREA — proper z-index above grain overlay ── */
+html body .layout-main-section {
+	position: relative;
+	z-index: 1;
+}
+
+/* ── RF4. SHORTCUT WIDGET GRID — auto-fill responsive ── */
+html body .shortcut-widget-group > .row,
+html body .desk-page .row.flex-wrap {
+	display: grid !important;
+	grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)) !important;
+	gap: 14px !important;
+}
+
+/* ── RF5. EACH CE-BLOCK SHORTCUT — reset Bootstrap grid width ── */
+html body .ce-block.col-xs-12.col-sm-6.col-md-4.col-lg-3:has(.shortcut-widget-box) {
+	width: auto !important;
+	padding: 0 !important;
+}
+
+/* ── RF6. REPORTS/LINKS WIDGET CARD ── */
+html body .links-widget-box {
+	border-radius: 16px !important;
+	border: 1px solid rgba(12,24,41,0.07) !important;
+	background: #fff !important;
+	overflow: hidden;
+	transition: box-shadow 220ms ease, transform 220ms ease;
+}
+html body .links-widget-box:hover {
+	box-shadow: 0 8px 28px rgba(12,24,41,0.10) !important;
+	transform: translateY(-3px);
+}
+
+/* ── RF7. LINK ITEMS in links widget ── */
+html body .links-widget-box .link-item a {
+	color: #0c1829 !important;
+	font-size: 0.875rem !important;
+	font-weight: 500 !important;
+	transition: padding-inline-start 180ms, color 180ms;
+}
+html body .links-widget-box .link-item a:hover {
+	padding-inline-start: 14px !important;
+	color: var(--rm-primary, #0050E6) !important;
+}
+
+/* ════════════════════════════════════════════════
+   RAMOTION COLOR V2 — Vivid Per-Card Identity
+   Each shortcut card gets its own signature color.
+   Inspired by Ramotion's multi-brand work.
+════════════════════════════════════════════════ */
+
+/* Workspace paper — clean neutral (not blue-grey) */
+html body [data-page-route="Workspaces"] .layout-main-section-wrapper {
+	background: #f5f5f8 !important;
+}
+html body .layout-main-section-wrapper {
+	background: #f5f5f8 !important;
+}
+
+/* Per-card top bar — solid vivid colors */
+html body .widget.shortcut-widget-box[data-rm-color-idx="1"]::before { background: #0050E6 !important; }
+html body .widget.shortcut-widget-box[data-rm-color-idx="2"]::before { background: #7C3AFF !important; }
+html body .widget.shortcut-widget-box[data-rm-color-idx="3"]::before { background: #FF3040 !important; }
+html body .widget.shortcut-widget-box[data-rm-color-idx="4"]::before { background: #00B894 !important; }
+html body .widget.shortcut-widget-box[data-rm-color-idx="5"]::before { background: #F59E0B !important; }
+html body .widget.shortcut-widget-box[data-rm-color-idx="6"]::before { background: #10B981 !important; }
+
+/* Per-card hover — colored shadow ring matching bar */
+html body .widget.shortcut-widget-box[data-rm-color-idx="1"]:hover {
+	box-shadow: 0 10px 32px rgba(0,80,230,0.18), 0 0 0 1.5px rgba(0,80,230,0.25) !important;
+	border-color: rgba(0,80,230,0.25) !important;
+}
+html body .widget.shortcut-widget-box[data-rm-color-idx="2"]:hover {
+	box-shadow: 0 10px 32px rgba(124,58,255,0.18), 0 0 0 1.5px rgba(124,58,255,0.25) !important;
+	border-color: rgba(124,58,255,0.25) !important;
+}
+html body .widget.shortcut-widget-box[data-rm-color-idx="3"]:hover {
+	box-shadow: 0 10px 32px rgba(255,48,64,0.18), 0 0 0 1.5px rgba(255,48,64,0.25) !important;
+	border-color: rgba(255,48,64,0.25) !important;
+}
+html body .widget.shortcut-widget-box[data-rm-color-idx="4"]:hover {
+	box-shadow: 0 10px 32px rgba(0,184,148,0.18), 0 0 0 1.5px rgba(0,184,148,0.25) !important;
+	border-color: rgba(0,184,148,0.25) !important;
+}
+html body .widget.shortcut-widget-box[data-rm-color-idx="5"]:hover {
+	box-shadow: 0 10px 32px rgba(245,158,11,0.18), 0 0 0 1.5px rgba(245,158,11,0.25) !important;
+	border-color: rgba(245,158,11,0.25) !important;
+}
+html body .widget.shortcut-widget-box[data-rm-color-idx="6"]:hover {
+	box-shadow: 0 10px 32px rgba(16,185,129,0.18), 0 0 0 1.5px rgba(16,185,129,0.25) !important;
+	border-color: rgba(16,185,129,0.25) !important;
+}
+
+/* Per-card widget title color — matches accent bar */
+html body .widget.shortcut-widget-box[data-rm-color-idx="1"] .widget-title { color: #0050E6 !important; }
+html body .widget.shortcut-widget-box[data-rm-color-idx="2"] .widget-title { color: #7C3AFF !important; }
+html body .widget.shortcut-widget-box[data-rm-color-idx="3"] .widget-title { color: #E02030 !important; }
+html body .widget.shortcut-widget-box[data-rm-color-idx="4"] .widget-title { color: #009678 !important; }
+html body .widget.shortcut-widget-box[data-rm-color-idx="5"] .widget-title { color: #B07708 !important; }
+html body .widget.shortcut-widget-box[data-rm-color-idx="6"] .widget-title { color: #0D9668 !important; }
+
+/* Arrow icon on shortcut card — match bar color */
+html body .widget.shortcut-widget-box[data-rm-color-idx="1"] .shortcut-widget-box a::after { color: #0050E6 !important; }
+html body .widget.shortcut-widget-box[data-rm-color-idx="2"] .shortcut-widget-box a::after { color: #7C3AFF !important; }
+html body .widget.shortcut-widget-box[data-rm-color-idx="3"] .shortcut-widget-box a::after { color: #FF3040 !important; }
+html body .widget.shortcut-widget-box[data-rm-color-idx="4"] .shortcut-widget-box a::after { color: #00B894 !important; }
+html body .widget.shortcut-widget-box[data-rm-color-idx="5"] .shortcut-widget-box a::after { color: #F59E0B !important; }
+html body .widget.shortcut-widget-box[data-rm-color-idx="6"] .shortcut-widget-box a::after { color: #10B981 !important; }
+
+/* ══════════════════════════════════════════════════════
+   TABLE & LIST VIEW UPGRADE — v3
+   Covers: List View, DataTable, Grid (child tables), Badges
+   ══════════════════════════════════════════════════════ */
+
+/* ─── LIST HEADER ROW ─── */
+html body .frappe-list .list-row-head {
+	background: linear-gradient(180deg, #eef3ff 0%, #e8efff 100%) !important;
+	border-bottom: 2px solid rgba(0, 80, 230, 0.12) !important;
+	position: sticky;
+	top: 0;
+	z-index: 10;
+}
+
+html body .frappe-list .list-row-head .list-row-col .level-item,
+html body .frappe-list .list-row-head .list-row-col span,
+html body .frappe-list .list-row-head .list-row-col a,
+html body .frappe-list .list-row-head .list-row-col .sortable {
+	font-size: 0.71rem !important;
+	font-weight: 700 !important;
+	letter-spacing: 0.07em !important;
+	text-transform: uppercase !important;
+	color: #5a6a8a !important;
+	font-family: "Space Grotesk", sans-serif !important;
+}
+
+/* ─── LIST ROWS — zebra striping ─── */
+html body .frappe-list .list-row:nth-child(odd),
+html body .frappe-list .result:nth-child(odd) {
+	background: #ffffff !important;
+}
+
+html body .frappe-list .list-row:nth-child(even),
+html body .frappe-list .result:nth-child(even) {
+	background: #f8faff !important;
+}
+
+/* ─── LIST ROWS — hover with left accent ─── */
+html body .frappe-list .list-row,
+html body .frappe-list .result {
+	border-left: 3px solid transparent !important;
+	transition: background 140ms ease, border-left-color 140ms ease, box-shadow 140ms ease !important;
+}
+
+html body .frappe-list .list-row:hover,
+html body .frappe-list .result:hover {
+	background: rgba(0, 80, 230, 0.05) !important;
+	border-left-color: var(--rm-primary) !important;
+	box-shadow: 0 1px 6px rgba(0, 80, 230, 0.07) !important;
+}
+
+/* ─── LIST ROW TITLE — stronger weight ─── */
+html body .frappe-list .list-row .list-subject a,
+html body .frappe-list .result .list-subject a {
+	font-weight: 600 !important;
+	font-size: 0.875rem !important;
+	color: var(--rm-ink) !important;
+}
+
+html body .frappe-list .list-row .list-subject a:hover,
+html body .frappe-list .result .list-subject a:hover {
+	color: var(--rm-primary) !important;
+}
+
+/* ─── SECONDARY TEXT IN ROWS ─── */
+html body .frappe-list .list-row .list-row-col .text-muted,
+html body .frappe-list .result .list-row-col .text-muted {
+	font-size: 0.78rem !important;
+	color: #7a8aa8 !important;
+}
+
+/* ─── BADGE / INDICATOR PILLS — full redesign ─── */
+html body .indicator-pill,
+html body .indicator-pill.no-indicator-dot {
+	padding: 3px 10px !important;
+	font-size: 0.71rem !important;
+	font-weight: 700 !important;
+	letter-spacing: 0.04em !important;
+	border-radius: 999px !important;
+	display: inline-flex !important;
+	align-items: center !important;
+	gap: 5px !important;
+	border: 1px solid transparent !important;
+}
+
+/* Dot before pill */
+html body .indicator-pill::before {
+	width: 5px !important;
+	height: 5px !important;
+	flex-shrink: 0 !important;
+	border-radius: 50% !important;
+}
+
+/* Blue — Journal Entry / Open */
+html body .indicator-pill.blue,
+html body .indicator-pill.blue-tag {
+	background: rgba(0, 80, 230, 0.09) !important;
+	color: #003fba !important;
+	border-color: rgba(0, 80, 230, 0.18) !important;
+}
+html body .indicator-pill.blue::before { background: #0050E6 !important; }
+
+/* Green — Submitted / Paid / Active */
+html body .indicator-pill.green,
+html body .indicator-pill.green-tag {
+	background: rgba(16, 185, 129, 0.09) !important;
+	color: #047857 !important;
+	border-color: rgba(16, 185, 129, 0.20) !important;
+}
+html body .indicator-pill.green::before { background: #10B981 !important; }
+
+/* Red — Cancelled / Overdue */
+html body .indicator-pill.red,
+html body .indicator-pill.red-tag {
+	background: rgba(220, 38, 38, 0.08) !important;
+	color: #b91c1c !important;
+	border-color: rgba(220, 38, 38, 0.16) !important;
+}
+html body .indicator-pill.red::before { background: #DC2626 !important; }
+
+/* Orange — Draft / Saved */
+html body .indicator-pill.orange,
+html body .indicator-pill.orange-tag {
+	background: rgba(234, 88, 12, 0.09) !important;
+	color: #9a3412 !important;
+	border-color: rgba(234, 88, 12, 0.18) !important;
+}
+html body .indicator-pill.orange::before { background: #EA580C !important; }
+
+/* Yellow — Partial / Pending */
+html body .indicator-pill.yellow,
+html body .indicator-pill.yellow-tag {
+	background: rgba(202, 138, 4, 0.09) !important;
+	color: #78350f !important;
+	border-color: rgba(202, 138, 4, 0.18) !important;
+}
+html body .indicator-pill.yellow::before { background: #CA8A04 !important; }
+
+/* Grey — Disabled / Unknown */
+html body .indicator-pill.grey,
+html body .indicator-pill.grey-tag {
+	background: rgba(100, 116, 139, 0.08) !important;
+	color: #475569 !important;
+	border-color: rgba(100, 116, 139, 0.14) !important;
+}
+html body .indicator-pill.grey::before { background: #64748B !important; }
+
+/* Purple */
+html body .indicator-pill.purple,
+html body .indicator-pill.purple-tag {
+	background: rgba(124, 58, 255, 0.08) !important;
+	color: #5b21b6 !important;
+	border-color: rgba(124, 58, 255, 0.16) !important;
+}
+html body .indicator-pill.purple::before { background: #7C3AFF !important; }
+
+/* Light Blue */
+html body .indicator-pill.light-blue,
+html body .indicator-pill.light-blue-tag {
+	background: rgba(14, 165, 233, 0.09) !important;
+	color: #0369a1 !important;
+	border-color: rgba(14, 165, 233, 0.18) !important;
+}
+html body .indicator-pill.light-blue::before { background: #0EA5E9 !important; }
+
+/* Pink */
+html body .indicator-pill.pink,
+html body .indicator-pill.pink-tag {
+	background: rgba(236, 72, 153, 0.08) !important;
+	color: #9d174d !important;
+	border-color: rgba(236, 72, 153, 0.16) !important;
+}
+html body .indicator-pill.pink::before { background: #EC4899 !important; }
+
+/* ─── DATATABLE (inline in forms) — header ─── */
+html body .dt-cell--header,
+html body .dt-cell--header .dt-cell__content {
+	background: linear-gradient(180deg, #eef3ff 0%, #e8efff 100%) !important;
+}
+
+html body .dt-cell--header .dt-cell__content {
+	font-size: 0.71rem !important;
+	font-weight: 700 !important;
+	letter-spacing: 0.07em !important;
+	text-transform: uppercase !important;
+	color: #5a6a8a !important;
+	font-family: "Space Grotesk", sans-serif !important;
+}
+
+/* DataTable zebra striping */
+html body .dt-scrollable .dt-row:nth-child(odd) {
+	background: #ffffff !important;
+}
+
+html body .dt-scrollable .dt-row:nth-child(even) {
+	background: #f8faff !important;
+}
+
+/* DataTable hover with left accent */
+html body .dt-scrollable .dt-row:hover {
+	background: rgba(0, 80, 230, 0.05) !important;
+	box-shadow: inset 3px 0 0 var(--rm-primary) !important;
+}
+
+/* ─── GRID (child tables in forms) — header ─── */
+html body .grid-heading-row {
+	background: linear-gradient(180deg, #eef3ff 0%, #e8efff 100%) !important;
+	border-bottom: 2px solid rgba(0, 80, 230, 0.12) !important;
+}
+
+html body .grid-heading-row .grid-static-col,
+html body .grid-heading-row .static-area,
+html body .grid-heading-row .col {
+	font-size: 0.71rem !important;
+	font-weight: 700 !important;
+	letter-spacing: 0.07em !important;
+	text-transform: uppercase !important;
+	color: #5a6a8a !important;
+	font-family: "Space Grotesk", sans-serif !important;
+}
+
+/* Grid row zebra */
+html body .grid-row:nth-child(odd) .data-row {
+	background: #ffffff !important;
+}
+
+html body .grid-row:nth-child(even) .data-row {
+	background: #f8faff !important;
+}
+
+/* Grid row hover */
+html body .grid-row .data-row {
+	border-left: 3px solid transparent;
+	transition: background 140ms ease, border-left-color 140ms ease !important;
+}
+
+html body .grid-row:hover .data-row {
+	background: rgba(0, 80, 230, 0.05) !important;
+	border-left-color: var(--rm-primary) !important;
+}
+
+/* ─── DARK MODE overrides ─── */
+html[data-ramotion-dark="1"] body .frappe-list .list-row-head,
+html[data-ramotion-dark="1"] body .dt-cell--header,
+html[data-ramotion-dark="1"] body .grid-heading-row {
+	background: linear-gradient(180deg, rgba(0,80,230,0.14) 0%, rgba(0,80,230,0.07) 100%) !important;
+	border-bottom: 2px solid rgba(0,80,230,0.22) !important;
+}
+
+html[data-ramotion-dark="1"] body .frappe-list .list-row-head .list-row-col span,
+html[data-ramotion-dark="1"] body .frappe-list .list-row-head .list-row-col a,
+html[data-ramotion-dark="1"] body .dt-cell--header .dt-cell__content,
+html[data-ramotion-dark="1"] body .grid-heading-row .grid-static-col {
+	color: rgba(180,200,255,0.75) !important;
+}
+
+html[data-ramotion-dark="1"] body .frappe-list .list-row:nth-child(odd),
+html[data-ramotion-dark="1"] body .frappe-list .result:nth-child(odd),
+html[data-ramotion-dark="1"] body .dt-scrollable .dt-row:nth-child(odd),
+html[data-ramotion-dark="1"] body .grid-row:nth-child(odd) .data-row {
+	background: rgba(255,255,255,0.025) !important;
+}
+
+html[data-ramotion-dark="1"] body .frappe-list .list-row:nth-child(even),
+html[data-ramotion-dark="1"] body .frappe-list .result:nth-child(even),
+html[data-ramotion-dark="1"] body .dt-scrollable .dt-row:nth-child(even),
+html[data-ramotion-dark="1"] body .grid-row:nth-child(even) .data-row {
+	background: rgba(255,255,255,0.045) !important;
+}
+
+html[data-ramotion-dark="1"] body .frappe-list .list-row:hover,
+html[data-ramotion-dark="1"] body .frappe-list .result:hover,
+html[data-ramotion-dark="1"] body .dt-scrollable .dt-row:hover,
+html[data-ramotion-dark="1"] body .grid-row:hover .data-row {
+	background: rgba(0, 80, 230, 0.12) !important;
+}
+
+/* Dark mode badge colors */
+html[data-ramotion-dark="1"] body .indicator-pill.blue  { background: rgba(0,80,230,0.22) !important;  color: #93b4ff !important; border-color: rgba(0,80,230,0.35) !important; }
+html[data-ramotion-dark="1"] body .indicator-pill.green { background: rgba(16,185,129,0.18) !important; color: #6ee7b7 !important; border-color: rgba(16,185,129,0.30) !important; }
+html[data-ramotion-dark="1"] body .indicator-pill.red   { background: rgba(220,38,38,0.18) !important;  color: #fca5a5 !important; border-color: rgba(220,38,38,0.30) !important; }
+html[data-ramotion-dark="1"] body .indicator-pill.orange{ background: rgba(234,88,12,0.18) !important;  color: #fdba74 !important; border-color: rgba(234,88,12,0.30) !important; }
+html[data-ramotion-dark="1"] body .indicator-pill.yellow{ background: rgba(202,138,4,0.18) !important;  color: #fcd34d !important; border-color: rgba(202,138,4,0.30) !important; }
+html[data-ramotion-dark="1"] body .indicator-pill.grey  { background: rgba(100,116,139,0.18) !important; color: #94a3b8 !important; border-color: rgba(100,116,139,0.30) !important; }
+html[data-ramotion-dark="1"] body .indicator-pill.purple{ background: rgba(124,58,255,0.18) !important; color: #c4b5fd !important; border-color: rgba(124,58,255,0.30) !important; }
+
+/* ══════════════════════════════════════════════════════
+   CUSTOM CHECKBOX — v4
+   Replaces native checkboxes with styled ✓ checkmark
+   ══════════════════════════════════════════════════════ */
+
+/* ─── Reset native appearance ─── */
+html body input[type="checkbox"],
+html body input[type="checkbox"].input-with-feedback,
+html body .frappe-control[data-fieldtype="Check"] input[type="checkbox"],
+html body .list-row input[type="checkbox"],
+html body .dt-row input[type="checkbox"],
+html body .grid-row input[type="checkbox"] {
+appearance: none !important;
+-webkit-appearance: none !important;
+width: 18px !important;
+height: 18px !important;
+min-height: 0 !important;
+min-width: 18px !important;
+border: 2px solid #c8d3e8 !important;
+border-radius: 5px !important;
+background: #ffffff !important;
+cursor: pointer !important;
+position: relative !important;
+vertical-align: middle !important;
+flex-shrink: 0 !important;
+transition: background 150ms ease, border-color 150ms ease, box-shadow 150ms ease !important;
+display: inline-block !important;
+box-sizing: border-box !important;
+}
+
+/* ─── Hover state ─── */
+html body input[type="checkbox"]:hover,
+html body input[type="checkbox"].input-with-feedback:hover {
+border-color: var(--rm-primary) !important;
+box-shadow: 0 0 0 3px rgba(0, 80, 230, 0.10) !important;
+}
+
+/* ─── Checked state — blue fill ─── */
+html body input[type="checkbox"]:checked,
+html body input[type="checkbox"].input-with-feedback:checked,
+html body .frappe-control[data-fieldtype="Check"] input[type="checkbox"]:checked {
+background: var(--rm-primary) !important;
+border-color: var(--rm-primary) !important;
+box-shadow: 0 0 0 3px rgba(0, 80, 230, 0.15) !important;
+}
+
+/* ─── Checkmark via pseudo-element ─── */
+html body input[type="checkbox"]:checked::after,
+html body input[type="checkbox"].input-with-feedback:checked::after,
+html body .frappe-control[data-fieldtype="Check"] input[type="checkbox"]:checked::after {
+content: "" !important;
+position: absolute !important;
+left: 3px !important;
+top: 0px !important;
+width: 5px !important;
+height: 9px !important;
+border: 2px solid #ffffff !important;
+border-top: none !important;
+border-left: none !important;
+transform: rotate(45deg) !important;
+display: block !important;
+}
+
+/* ─── Indeterminate state ─── */
+html body input[type="checkbox"]:indeterminate {
+background: var(--rm-primary) !important;
+border-color: var(--rm-primary) !important;
+}
+html body input[type="checkbox"]:indeterminate::after {
+content: "" !important;
+position: absolute !important;
+left: 2px !important;
+top: 6px !important;
+width: 10px !important;
+height: 2px !important;
+background: #ffffff !important;
+display: block !important;
+}
+
+/* ─── Disabled state ─── */
+html body input[type="checkbox"]:disabled,
+html body input[type="checkbox"].disabled-deselected {
+opacity: 0.4 !important;
+cursor: not-allowed !important;
+}
+
+/* ─── Report filter check field — pill style when checked ─── */
+html body .filter-field .frappe-control[data-fieldtype="Check"],
+html body .filter-area .frappe-control[data-fieldtype="Check"],
+html body .report-filter .frappe-control[data-fieldtype="Check"],
+html body .report-wrapper .frappe-control[data-fieldtype="Check"],
+html body .page-form .frappe-control[data-fieldtype="Check"] {
+border: 1.5px solid var(--rm-border) !important;
+border-radius: 8px !important;
+padding: 6px 10px !important;
+background: var(--rm-surface) !important;
+transition: background 150ms ease, border-color 150ms ease !important;
+cursor: pointer !important;
+}
+
+html body .filter-field .frappe-control[data-fieldtype="Check"]:has(input:checked),
+html body .filter-area .frappe-control[data-fieldtype="Check"]:has(input:checked),
+html body .report-filter .frappe-control[data-fieldtype="Check"]:has(input:checked),
+html body .report-wrapper .frappe-control[data-fieldtype="Check"]:has(input:checked),
+html body .page-form .frappe-control[data-fieldtype="Check"]:has(input:checked) {
+background: rgba(0, 80, 230, 0.07) !important;
+border-color: rgba(0, 80, 230, 0.35) !important;
+}
+
+/* ─── Label alignment next to custom checkbox ─── */
+html body .frappe-control[data-fieldtype="Check"] .checkbox label {
+display: flex !important;
+align-items: center !important;
+gap: 8px !important;
+cursor: pointer !important;
+margin: 0 !important;
+}
+
+html body .frappe-control[data-fieldtype="Check"] .label-area {
+font-size: 0.85rem !important;
+font-weight: 500 !important;
+color: var(--rm-ink) !important;
+user-select: none !important;
+}
+
+/* ─── Dark mode ─── */
+html[data-ramotion-dark="1"] body input[type="checkbox"],
+html[data-ramotion-dark="1"] body input[type="checkbox"].input-with-feedback {
+background: rgba(255,255,255,0.06) !important;
+border-color: rgba(255,255,255,0.18) !important;
+}
+
+html[data-ramotion-dark="1"] body input[type="checkbox"]:checked,
+html[data-ramotion-dark="1"] body input[type="checkbox"].input-with-feedback:checked {
+background: var(--rm-primary) !important;
+border-color: var(--rm-primary) !important;
+}
+
+/* ══════════════════════════════════════════════════════════
+   PAGE-LEVEL SCROLL — Remove independent column scrollbars
+   Let the main page/body handle all scrolling instead
+   ══════════════════════════════════════════════════════════ */
+
+/* Override Frappe's fixed-height viewport constraint on workspace layout */
+html body [data-page-route="Workspaces"] .layout-main,
+html body .layout-main {
+height: auto !important;
+min-height: 0 !important;
+max-height: none !important;
+}
+
+/* Remove individual scrollbars from sidebar column and content column */
+html body [data-page-route="Workspaces"] .layout-side-section,
+html body .layout-side-section {
+overflow: visible !important;
+height: auto !important;
+max-height: none !important;
+}
+
+html body [data-page-route="Workspaces"] .layout-main-section-wrapper,
+html body .layout-main-section-wrapper {
+overflow: visible !important;
+height: auto !important;
+max-height: none !important;
+}
+
+/* Also hide any ::-webkit-scrollbar on these containers */
+html body .layout-side-section::-webkit-scrollbar,
+html body .layout-main-section-wrapper::-webkit-scrollbar,
+html body .desk-sidebar::-webkit-scrollbar {
+display: none !important;
+width: 0 !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RAMOTION FINAL REVIEW — Comprehensive Polish Pass
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── 1. FORM FIELD LABELS ────────────────────────────────────── */
+html body .control-label,
+html body .frappe-control .control-label {
+font-size: 0.72rem !important;
+font-weight: 700 !important;
+text-transform: uppercase !important;
+letter-spacing: 0.055em !important;
+color: var(--rm-muted) !important;
+margin-bottom: 5px !important;
+}
+
+html body .req-asterisk {
+color: #e03e3e !important;
+margin-inline-start: 2px;
+}
+
+/* ── 2. FORM INPUTS — better padding + focus glow ─────────────── */
+html body .form-control,
+html body .frappe-control .form-control,
+html body input.form-control,
+html body textarea.form-control,
+html body select.form-control {
+padding: 8px 12px !important;
+font-size: 0.9rem !important;
+color: var(--rm-ink) !important;
+background: var(--rm-surface) !important;
+border: 1.5px solid var(--rm-border) !important;
+border-radius: var(--rm-r-sm) !important;
+transition: border-color 150ms var(--rm-ease), box-shadow 150ms var(--rm-ease) !important;
+}
+
+html body .form-control:focus,
+html body .frappe-control .form-control:focus {
+border-color: var(--rm-primary) !important;
+box-shadow: 0 0 0 3px rgba(0, 80, 230, 0.12) !important;
+outline: none !important;
+}
+
+/* ── input-xs: compact size for grid inline cells ── */
+html body .form-control.input-xs,
+html body input.form-control.input-xs,
+html body .input-with-feedback.input-xs,
+html body input.input-with-feedback.input-xs {
+	padding: 2px 6px !important;
+	font-size: 0.8rem !important;
+	height: 24px !important;
+	min-height: 0 !important;
+	line-height: 1.4 !important;
+	border-radius: 4px !important;
+}
+
+html body .form-control[disabled],
+html body .form-control[readonly],
+html body .form-control.disabled {
+background: var(--rm-surface-2, #f6f8fc) !important;
+color: var(--rm-muted) !important;
+border-color: var(--rm-border) !important;
+cursor: not-allowed;
+}
+
+/* ── 3. FORM SECTION HEADERS ──────────────────────────────────── */
+html body .section-head,
+html body .section-head-label {
+font-size: 0.72rem !important;
+font-weight: 800 !important;
+text-transform: uppercase !important;
+letter-spacing: 0.07em !important;
+color: var(--rm-primary) !important;
+padding: 18px 16px 10px !important;
+border-left: 3px solid var(--rm-primary) !important;
+margin-bottom: 4px !important;
+background: linear-gradient(90deg, rgba(0,80,230,0.04) 0%, transparent 80%) !important;
+}
+
+html[dir="rtl"] body .section-head,
+html[dir="rtl"] body .section-head-label {
+border-left: none !important;
+border-right: 3px solid var(--rm-primary) !important;
+background: linear-gradient(270deg, rgba(0,80,230,0.04) 0%, transparent 80%) !important;
+}
+
+/* Collapsible section — arrow indicator */
+html body .section-head.collapsible::after {
+content: "▾" !important;
+float: inline-end !important;
+font-size: 1rem !important;
+color: var(--rm-muted) !important;
+transition: transform 200ms var(--rm-ease) !important;
+font-style: normal !important;
+}
+
+html body .section-head.collapsible.collapsed::after {
+transform: rotate(-90deg) !important;
+}
+
+/* ── 4. FORM TABS ──────────────────────────────────────────────── */
+html body .form-tabs-list,
+html body .nav-tabs {
+border-bottom: 1.5px solid var(--rm-border) !important;
+gap: 2px !important;
+}
+
+html body .form-tabs-list .nav-link,
+html body .nav-tabs .nav-link {
+font-size: 0.835rem !important;
+font-weight: 500 !important;
+padding: 10px 18px !important;
+color: var(--rm-muted) !important;
+border: none !important;
+border-bottom: 2px solid transparent !important;
+border-radius: 0 !important;
+background: transparent !important;
+transition: color 150ms var(--rm-ease), border-color 150ms var(--rm-ease) !important;
+}
+
+html body .form-tabs-list .nav-link:hover,
+html body .nav-tabs .nav-link:hover {
+color: var(--rm-ink) !important;
+border-bottom-color: var(--rm-border) !important;
+}
+
+html body .form-tabs-list .nav-link.active,
+html body .nav-tabs .nav-link.active {
+color: var(--rm-primary) !important;
+font-weight: 700 !important;
+border-bottom-color: var(--rm-primary) !important;
+background: transparent !important;
+}
+
+/* ── 5. PAGE HEAD TITLE ─────────────────────────────────────────── */
+html body .page-title {
+font-size: 1.15rem !important;
+font-weight: 700 !important;
+color: var(--rm-ink) !important;
+letter-spacing: -0.01em !important;
+}
+
+html body .title-text {
+font-size: 1.15rem !important;
+font-weight: 700 !important;
+letter-spacing: -0.01em !important;
+}
+
+/* Status indicator pill next to title */
+html body .indicator-pill {
+font-size: 0.7rem !important;
+font-weight: 700 !important;
+padding: 3px 10px !important;
+border-radius: 99px !important;
+letter-spacing: 0.02em !important;
+}
+
+/* ── 6. DARK MODE — page-head + sidebar icons ────────────────── */
+html[data-ramotion-dark="1"] body .page-head .page-head-content {
+background: #1a2035 !important;
+border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+html[data-ramotion-dark="1"] body .page-head .page-title,
+html[data-ramotion-dark="1"] body .page-head .title-text,
+html[data-ramotion-dark="1"] body .page-head .page-title * {
+color: #e8ecf4 !important;
+}
+
+html[data-ramotion-dark="1"] body .breadcrumb-container .breadcrumb-item a,
+html[data-ramotion-dark="1"] body .breadcrumb-item {
+color: rgba(255, 255, 255, 0.55) !important;
+}
+
+/* Dark mode sidebar icons — add soft glow */
+html[data-ramotion-dark="1"] body .desk-sidebar-item svg,
+html[data-ramotion-dark="1"] body .desk-sidebar-item .sidebar-item-icon svg {
+opacity: 0.72 !important;
+filter: brightness(1.8) !important;
+}
+
+html[data-ramotion-dark="1"] body .desk-sidebar-item.selected svg,
+html[data-ramotion-dark="1"] body .desk-sidebar-item.selected .sidebar-item-icon svg {
+opacity: 1 !important;
+filter: brightness(2.2) saturate(1.2) !important;
+}
+
+/* Dark mode form inputs */
+html[data-ramotion-dark="1"] body .form-control,
+html[data-ramotion-dark="1"] body .frappe-control .form-control {
+background: rgba(255, 255, 255, 0.05) !important;
+border-color: rgba(255, 255, 255, 0.1) !important;
+color: #e2e8f0 !important;
+}
+
+html[data-ramotion-dark="1"] body .form-control[disabled],
+html[data-ramotion-dark="1"] body .form-control[readonly] {
+background: rgba(255, 255, 255, 0.03) !important;
+color: rgba(255, 255, 255, 0.35) !important;
+}
+
+html[data-ramotion-dark="1"] body .section-head,
+html[data-ramotion-dark="1"] body .section-head-label {
+color: #7aa3f8 !important;
+background: linear-gradient(90deg, rgba(100,150,255,0.08) 0%, transparent 80%) !important;
+border-left-color: #7aa3f8 !important;
+}
+
+/* ── 7. HERO STAT CARDS — more refined ──────────────────────── */
+html body [data-page-route="Workspaces"] .layout-main-section .number-card,
+html body .workspace-stats-card {
+border-radius: var(--rm-r-md) !important;
+border: 1px solid rgba(255,255,255,0.1) !important;
+background: rgba(255,255,255,0.07) !important;
+backdrop-filter: blur(8px) !important;
+}
+
+/* Stat card number value inside hero */
+html body .rm-hero-stats .stat-value,
+html body .rm-hero .number-card .count {
+font-size: 2rem !important;
+font-weight: 800 !important;
+font-variant-numeric: tabular-nums !important;
+}
+
+/* ── 8. SIDEBAR GROUP LABEL — cleaner separator ──────────────── */
+html body .standard-sidebar-label .section-title {
+font-size: 0.65rem !important;
+letter-spacing: 0.1em !important;
+color: var(--rm-muted) !important;
+font-weight: 800 !important;
+opacity: 0.65 !important;
+}
+
+html body .standard-sidebar-section .nested-container > .standard-sidebar-label {
+padding: 20px 14px 4px !important;
+}
+
+/* The first group label doesn't need top padding */
+html body .standard-sidebar-section:first-of-type > .standard-sidebar-label {
+padding-top: 12px !important;
+}
+
+/* ── 9. LIST VIEW — row hover improvement ───────────────────── */
+html body .list-row-container .list-row {
+transition: background 120ms ease !important;
+}
+
+/* ── 10. FORM GRID CHILD TABLE — header improvements ────────── */
+html body .form-grid .grid-heading-row .col {
+font-size: 0.72rem !important;
+font-weight: 700 !important;
+letter-spacing: 0.05em !important;
+}
+
+/* Add Row button in grid — better dashed style */
+html body .form-grid .grid-footer .btn-open-row,
+html body .form-grid .btn.grid-add-row {
+color: var(--rm-primary) !important;
+font-size: 0.82rem !important;
+font-weight: 600 !important;
+}
+
+/* ── 11. READONLY FIELD DISPLAY VALUE ───────────────────────── */
+html body .like-disabled-input,
+html body .link-btn + .control-value,
+html body .frappe-control .control-value {
+color: var(--rm-ink) !important;
+font-size: 0.9rem !important;
+}
+
+/* ── 12. MANDATORY FIELD HIGHLIGHT ─────────────────────────── */
+html body .frappe-control[data-fieldtype] .form-control[required],
+html body .frappe-control.has-error .form-control {
+border-color: #e03e3e !important;
+}
+
+html body .frappe-control.has-error .help-box {
+color: #e03e3e !important;
+font-size: 0.75rem !important;
+}
+
+/* Dark mode stat cards in hero */
+html[data-ramotion-dark="1"] body [data-page-route="Workspaces"] .layout-main-section .number-card {
+background: rgba(255,255,255,0.05) !important;
+border-color: rgba(255,255,255,0.08) !important;
+}
