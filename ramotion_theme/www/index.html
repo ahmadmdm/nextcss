@@ -148,6 +148,22 @@
 }
 .nav-cta:hover { background: var(--io-green-mid) !important; transform: translateY(-1px); }
 
+.nav-login {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 18px;
+  background: transparent;
+  color: var(--io-green);
+  border: 1.5px solid var(--io-green);
+  border-radius: 10px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  transition: background .2s, transform .2s;
+  text-decoration: none;
+}
+.nav-login:hover { background: var(--io-green-light); transform: translateY(-1px); }
+
 /* ── HERO ───────────────────────────────────────────── */
 .io-hero {
   position: relative;
@@ -1014,6 +1030,7 @@
         <li><a href="#products">المنتجات</a></li>
         <li><a href="#reviews">آراء العملاء</a></li>
         <li><a href="#contact" class="nav-cta">📞 تواصل معنا</a></li>
+        <li><a href="/login" class="nav-login">🔑 تسجيل الدخول</a></li>
       </ul>
     </div>
   </nav>
