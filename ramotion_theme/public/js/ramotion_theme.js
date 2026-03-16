@@ -520,7 +520,7 @@
 				'<div class="rm-sidebar-brand__icon">' + esc(mono) + '</div>' +
 				'<div class="rm-sidebar-brand__info">' +
 					'<span class="rm-sidebar-brand__name">' + esc(shortName) + '</span>' +
-					'<span class="rm-sidebar-brand__sub">Workspace</span>' +
+					'<span class="rm-sidebar-brand__sub">' + __('Workspace') + '</span>' +
 				'</div>'
 			sidebar.insertBefore(brand, sidebar.firstChild)
 		}
@@ -532,6 +532,12 @@
 			var labelEl = items[i].querySelector('.sidebar-item-label')
 			if (labelEl && labelEl.textContent) {
 				var fullText = labelEl.textContent.trim()
+				// Apply translation if available (for workspace titles not going through __())
+				var translatedText = (typeof __ === 'function') ? __(fullText) : fullText
+				if (translatedText !== fullText) {
+					labelEl.textContent = translatedText
+					fullText = translatedText
+				}
 				items[i].setAttribute('data-ramotion-label', fullText.charAt(0).toUpperCase())
 				// Add tooltip for truncated labels (over 18 chars)
 				if (fullText.length > 18) {
@@ -588,10 +594,10 @@
 				'<h1>' + esc(title) + '</h1>' +
 			'</div>' +
 			'<div class="ramotion-workspace-hero__stats">' +
-				'<div class="ramotion-hero-stat"><span class="ramotion-hero-stat__label">Sections</span><strong>'  + groups      + '</strong></div>' +
-				'<div class="ramotion-hero-stat"><span class="ramotion-hero-stat__label">Shortcuts</span><strong>' + shortcuts   + '</strong></div>' +
-				'<div class="ramotion-hero-stat"><span class="ramotion-hero-stat__label">Reports</span><strong>'   + insightCards+ '</strong></div>' +
-				'<div class="ramotion-hero-stat"><span class="ramotion-hero-stat__label">Links</span><strong>'     + links       + '</strong></div>' +
+				'<div class="ramotion-hero-stat"><span class="ramotion-hero-stat__label">' + __('Sections')  + '</span><strong>'  + groups      + '</strong></div>' +
+				'<div class="ramotion-hero-stat"><span class="ramotion-hero-stat__label">' + __('Shortcuts') + '</span><strong>' + shortcuts   + '</strong></div>' +
+				'<div class="ramotion-hero-stat"><span class="ramotion-hero-stat__label">' + __('Reports')   + '</span><strong>'   + insightCards+ '</strong></div>' +
+				'<div class="ramotion-hero-stat"><span class="ramotion-hero-stat__label">' + __('Links')     + '</span><strong>'     + links       + '</strong></div>' +
 			'</div>'
 
 		// Live clock update every minute

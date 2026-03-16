@@ -14,6 +14,8 @@ html body .currency-field,
 html body .bold .currency,
 html body [data-fieldtype="Currency"] .control-value,
 html body .number-card .number,
+html body .number-widget-box .number,
+html body .number-widget-box .widget-content,
 html body .frappe-list .currency,
 html body .dt-cell .currency,
 html body .widget-body .currency {
@@ -163,8 +165,8 @@ html body .navbar .nav-link:hover {
 
 html body .navbar .navbar-brand img,
 html body .navbar .navbar-brand svg {
-	filter: brightness(0) invert(1);
-	opacity: 0.92;
+	filter: none;
+	opacity: 1;
 }
 
 html body .navbar svg,
@@ -2196,9 +2198,11 @@ box-shadow: 0 1px 0 rgba(0,0,0,0.3) !important;
 }
 
 html body .navbar .navbar-brand img {
-height: 28px !important;
-filter: brightness(0) invert(1) !important;
-opacity: 0.9 !important;
+height: 40px !important;
+max-height: 40px !important;
+width: auto !important;
+filter: none !important;
+opacity: 1 !important;
 }
 
 /* search bar in navbar */
