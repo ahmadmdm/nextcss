@@ -1341,6 +1341,17 @@ background: linear-gradient(135deg, #060c17 0%, #0f1c35 100%);
 }
 
 /* ── 23. TOAST / NOTIFICATIONS ── */
+
+/* Fix: navbar link rule was overriding notification item text with white color */
+html body .navbar .notifications-list .recent-item,
+html body .navbar .notifications-list .recent-item .message,
+html body .navbar .notifications-list .recent-item .message div {
+	color: var(--rm-ink) !important;
+}
+html body .navbar .notifications-list .recent-item .notification-timestamp {
+	color: var(--text-muted) !important;
+}
+
 html body .alert,
 html body .frappe-alert {
 border-radius: var(--rm-r-md) !important;
