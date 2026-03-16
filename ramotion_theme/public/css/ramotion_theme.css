@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=Cairo:wght@300;400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Tajawal:wght@300;400;500;700&display=swap");
 
 /* Saudi Riyal Symbol Font */
 @font-face {
@@ -1811,6 +1811,65 @@ border-radius: 50%;
 background: #fff;
 box-shadow: 0 1px 3px rgba(0,0,0,0.3);
 transition: transform 200ms var(--rm-ease);
+}
+
+/* ── Font Selector ── */
+html body .rm-font-grid {
+display: grid;
+grid-template-columns: 1fr;
+gap: 6px;
+margin-bottom: 14px;
+}
+
+html body .rm-font-btn {
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 9px 12px;
+border: 1.5px solid var(--rm-border);
+border-radius: var(--rm-r-sm);
+background: var(--rm-surface-2);
+cursor: pointer;
+color: var(--rm-muted);
+transition: border-color 140ms, background 140ms, color 140ms;
+}
+
+html body .rm-font-btn:hover {
+background: var(--rm-surface-3);
+color: var(--rm-ink);
+}
+
+html body .rm-font-btn.rm-active {
+border-color: var(--rm-primary);
+background: rgba(21, 86, 212, 0.07);
+color: var(--rm-primary);
+}
+
+html body .rm-font-btn .rm-font-name {
+font-size: 0.85rem;
+font-weight: 600;
+}
+
+html body .rm-font-btn .rm-font-preview {
+font-size: 1rem;
+opacity: 0.7;
+direction: rtl;
+}
+
+/* Apply selected font across the interface */
+html[data-ramotion-font="cairo"] body,
+html[data-ramotion-font="cairo"] body * {
+font-family: 'Cairo', sans-serif !important;
+}
+
+html[data-ramotion-font="ibm"] body,
+html[data-ramotion-font="ibm"] body * {
+font-family: 'IBM Plex Sans Arabic', sans-serif !important;
+}
+
+html[data-ramotion-font="tajawal"] body,
+html[data-ramotion-font="tajawal"] body * {
+font-family: 'Tajawal', sans-serif !important;
 }
 
 html[data-ramotion-dark="1"] body .rm-switch-track {

@@ -6,7 +6,9 @@
 	───────────────────────────────────────────── */
 	var STORAGE_PALETTE = 'ramotion-theme-palette'
 	var STORAGE_DARK    = 'ramotion-theme-dark'
+	var STORAGE_FONT    = 'ramotion-theme-font'
 	var DEFAULT_PALETTE = 'aurora'
+	var DEFAULT_FONT    = 'default'
 
 	var workspaceTimer
 	var intersectionObserver
@@ -19,6 +21,13 @@
 		{ id: 'editorial', label: 'Editorial', color: '#1c3d6e' },
 		{ id: 'sunrise',   label: 'Sunrise',   color: '#9a3f12' },
 		{ id: 'luxury',    label: 'Luxury',    color: '#1e3454' }
+	]
+
+	var FONTS = [
+		{ id: 'default', label: 'افتراضي',      preview: 'Aa',    family: '' },
+		{ id: 'cairo',   label: 'كايرو',        preview: 'ﻙﺎﻳﺮﻭ',  family: 'Cairo' },
+		{ id: 'ibm',     label: 'IBM عربي',     preview: 'ﺍﺑﻢ',    family: 'IBM Plex Sans Arabic' },
+		{ id: 'tajawal', label: 'تجوّل',        preview: 'ﺗﺠﻮﻝ',   family: 'Tajawal' }
 	]
 
 	/* ─────────────────────────────────────────────
@@ -47,6 +56,29 @@
 	var ICON_MOON    = svgIcon('<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>', 15)
 	var ICON_SUN     = svgIcon('<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>', 15)
 	var ICON_CLOSE   = svgIcon('<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>', 14)
+
+	/* ─────────────────────────────────────────────
+	   FONT
+	───────────────────────────────────────────── */
+	function getFont() {
+		return ls(STORAGE_FONT) || DEFAULT_FONT
+	}
+
+	function applyFont(fontId) {
+		var f = fontId || DEFAULT_FONT
+		var match = null
+		for (var i = 0; i < FONTS.length; i++) {
+			if (FONTS[i].id === f) { match = FONTS[i]; break }
+		}
+		if (!match) return
+		if (f === 'default') {
+			document.documentElement.removeAttribute('data-ramotion-font')
+		} else {
+			document.documentElement.setAttribute('data-ramotion-font', f)
+		}
+		ls(STORAGE_FONT, f)
+		updateSettingsPanelState()
+	}
 
 	/* ─────────────────────────────────────────────
 	   PALETTE
@@ -101,6 +133,7 @@
 	function bootstrapTheme() {
 		applyPalette(getPalette())
 		setDark(isDark())
+		applyFont(getFont())
 		injectNavbarControls()
 		initListAnimations()
 		initScrollStickyHead()
@@ -185,6 +218,13 @@
 				'</button>'
 		}).join('')
 
+		var fontButtons = FONTS.map(function (f) {
+			return '<button class="rm-font-btn" data-font="' + f.id + '">' +
+				'<span class="rm-font-name">' + f.label + '</span>' +
+				'<span class="rm-font-preview" style="' + (f.family ? 'font-family:\'' + f.family + '\',sans-serif' : '') + '">' + f.preview + '</span>' +
+				'</button>'
+		}).join('')
+
 		panel.innerHTML =
 			'<div class="rm-theme-panel__header">' +
 				'<span>Theme Settings</span>' +
@@ -201,6 +241,8 @@
 						'<div class="rm-switch-thumb"></div>' +
 					'</div>' +
 				'</div>' +
+				'<span class="rm-panel-label" style="margin-top:14px">الخط العربي</span>' +
+				'<div class="rm-font-grid">' + fontButtons + '</div>' +
 			'</div>'
 
 		document.body.appendChild(panel)
@@ -213,6 +255,16 @@
 					applyPalette(btn.getAttribute('data-palette'))
 				})
 			})(btns[i])
+		}
+
+		// Font buttons
+		var fontBtns = panel.querySelectorAll('.rm-font-btn')
+		for (var fi = 0; fi < fontBtns.length; fi++) {
+			(function (btn) {
+				btn.addEventListener('click', function () {
+					applyFont(btn.getAttribute('data-font'))
+				})
+			})(fontBtns[fi])
 		}
 
 		// Dark row toggle
@@ -270,6 +322,17 @@
 				btns[i].classList.add('rm-active')
 			} else {
 				btns[i].classList.remove('rm-active')
+			}
+		}
+
+		// Update active font button
+		var curFont = getFont()
+		var fontBtns = panel.querySelectorAll('.rm-font-btn')
+		for (var fi = 0; fi < fontBtns.length; fi++) {
+			if (fontBtns[fi].getAttribute('data-font') === curFont) {
+				fontBtns[fi].classList.add('rm-active')
+			} else {
+				fontBtns[fi].classList.remove('rm-active')
 			}
 		}
 
@@ -664,6 +727,8 @@
 		setDark:      setDark,
 		isDark:       isDark,
 		toggleDark:   toggleDark,
+		applyFont:    applyFont,
+		getFont:      getFont,
 	}
 
 	/* ─────────────────────────────────────────────
