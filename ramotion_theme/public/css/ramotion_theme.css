@@ -197,12 +197,16 @@ html body .navbar .dropdown-menu {
 	overflow: hidden;
 }
 
-html body .navbar .dropdown-item {
+html body .navbar .dropdown-item,
+html body .navbar .navbar-nav li .dropdown-menu a,
+html body .navbar .navbar-nav li .dropdown-menu .dropdown-item {
 	color: var(--rm-ink) !important;
 }
 
-html body .navbar .dropdown-item:hover {
+html body .navbar .dropdown-item:hover,
+html body .navbar .navbar-nav li .dropdown-menu a:hover {
 	background: var(--rm-surface-3) !important;
+	color: var(--rm-ink) !important;
 }
 
 /* ── 4. TRANSPARENT SHELL ── */
@@ -1236,6 +1240,272 @@ html body [data-page-route="Workspaces"] .widget-group.ramotion-feature-group .w
 	}
 }
 
+/* ── 21b. MOBILE LAYOUT FIX + LIST CARDS ── */
+@media (max-width: 991px) {
+	/* السيدبار: صفر عرض في التخطيط (لا يأخذ مساحة) */
+	html body .layout-side-section {
+		flex: 0 0 0px !important;
+		max-width: 0px !important;
+		width: 0px !important;
+		overflow: visible !important;
+		padding: 0 !important;
+		position: relative !important;
+	}
+	/* السيدبار الداخلي: مخفي افتراضياً وقابل للظهور كـ overlay */
+	html body .list-sidebar.overlay-sidebar {
+		display: block !important;             /* يلغي hidden-xs/hidden-sm */
+		position: fixed !important;
+		top: 54px !important;
+		inset-inline-start: 0 !important;
+		z-index: 9999 !important;
+		width: 260px !important;
+		max-width: 80vw !important;
+		height: calc(100vh - 54px) !important;
+		background: var(--rm-bg, #fff) !important;
+		box-shadow: 4px 0 20px rgba(0, 0, 0, 0.18) !important;
+		overflow-y: auto !important;
+		padding: 16px 14px !important;
+		border-radius: 0 var(--rm-r-md, 10px) var(--rm-r-md, 10px) 0 !important;
+		transform: translateX(-110%) !important;
+		transition: transform 0.3s ease !important;
+	}
+	/* عند فتح السيدبار */
+	html body .list-sidebar.overlay-sidebar.opened {
+		transform: translateX(0) !important;
+	}
+	/* Backdrop شفاف عند الفتح */
+	html body .list-sidebar.overlay-sidebar.opened::before {
+		content: '' !important;
+		position: fixed !important;
+		inset: 0 !important;
+		top: 54px !important;
+		background: rgba(0, 0, 0, 0.25) !important;
+		z-index: -1 !important;
+	}
+	html body .col.layout-main-section-wrapper {
+		flex: 0 0 100% !important;
+		max-width: 100% !important;
+		width: 100% !important;
+	}
+	html body .layout-main-section.frappe-card {
+		width: 100% !important;
+		overflow: visible !important;
+	}
+}
+
+@media (max-width: 767px) {
+	/* ── بطاقات قائمة Frappe على الجوال ── */
+
+	/* إخفاء رأس الجدول في وضع البطاقات */
+	html body .frappe-list .list-row-head {
+		display: none !important;
+	}
+
+	/* حاوية النتائج: عمود عمودي */
+	html body .frappe-list .result {
+		display: flex !important;
+		flex-direction: column !important;
+		gap: 8px !important;
+		padding: 4px 0 !important;
+	}
+
+	/* كل صف → بطاقة */
+	html body .frappe-list .list-row {
+		display: block !important;
+		background: var(--rm-surface) !important;
+		border: 1px solid var(--rm-border) !important;
+		border-radius: var(--rm-r-md) !important;
+		padding: 12px 14px 12px !important;
+		margin-bottom: 0 !important;
+		box-shadow: var(--rm-shd-s) !important;
+		position: relative !important;
+		width: 100% !important;
+		box-sizing: border-box !important;
+		overflow: visible !important;
+		height: auto !important;
+		min-height: 0 !important;
+		transition: box-shadow .15s ease !important;
+	}
+	html body .frappe-list .list-row:active {
+		box-shadow: var(--rm-shd-m) !important;
+	}
+
+	/* الجزء الأيسر: عمود رأسي */
+	html body .frappe-list .list-row .level,
+	html body .frappe-list .list-row .level-left {
+		display: flex !important;
+		flex-direction: column !important;
+		align-items: flex-start !important;
+		gap: 3px !important;
+		width: 100% !important;
+		overflow: visible !important;
+		height: auto !important;
+		min-height: 0 !important;
+		flex-wrap: nowrap !important;
+	}
+
+	/* العمود الرئيسي (العنوان) */
+	html body .frappe-list .list-row .list-subject {
+		width: 100% !important;
+		max-width: 100% !important;
+		white-space: normal !important;
+		overflow: visible !important;
+		text-overflow: unset !important;
+		padding-bottom: 4px !important;
+	}
+	html body .frappe-list .list-row .list-subject a {
+		font-size: 0.93rem !important;
+		font-weight: 600 !important;
+		color: var(--rm-primary, #1f4fcf) !important;
+		white-space: normal !important;
+	}
+
+	/* إظهار الأعمدة المخفية كـ metadata */
+	html body .frappe-list .list-row .list-row-col.hidden-xs {
+		display: flex !important;
+		align-items: center !important;
+		gap: 5px !important;
+		font-size: 0.78rem !important;
+		color: var(--rm-muted) !important;
+		width: 100% !important;
+		max-width: 100% !important;
+		white-space: normal !important;
+		overflow: visible !important;
+		text-overflow: unset !important;
+		padding: 0 !important;
+		min-height: unset !important;
+	}
+	html body .frappe-list .list-row .list-row-col.hidden-xs .indicator-pill {
+		font-size: 0.72rem !important;
+		padding: 1px 6px !important;
+	}
+	html body .frappe-list .list-row .list-row-col.hidden-xs .filterable {
+		color: var(--rm-muted) !important;
+	}
+	/* إخفاء عمود الـ tags لأنه فارغ غالباً */
+	html body .frappe-list .list-row .list-row-col.tag-col {
+		display: none !important;
+	}
+
+	/* الجزء الأيمن: موضوع أبسولوت في أعلى اليمين */
+	html body .frappe-list .list-row .level-right {
+		position: absolute !important;
+		top: 10px !important;
+		inset-inline-end: 12px !important;
+		display: flex !important;
+		flex-direction: column !important;
+		align-items: flex-end !important;
+		gap: 4px !important;
+		max-width: 80px !important;
+	}
+	html body .frappe-list .list-row .level-right .hidden-xs {
+		display: flex !important;
+	}
+	html body .frappe-list .list-row .level-right .modified {
+		font-size: 0.7rem !important;
+		color: var(--rm-subtle) !important;
+		text-align: end !important;
+	}
+
+	/* خط فاصل خفيف أسفل كل بطاقة عند التحميل */
+	html body .frappe-list .list-row + .list-row {
+		border-top: none !important;
+	}
+}
+
+/* ── 21c. MOBILE: FORM CHILD TABLES + DATATABLE ── */
+@media (max-width: 767px) {
+	/* ── Child Tables في النماذج: scroll أفقي منظم ── */
+	html body .form-grid-container {
+		overflow-x: auto !important;
+		-webkit-overflow-scrolling: touch !important;
+		border-radius: var(--rm-r-md);
+		background: linear-gradient(to right, var(--rm-surface) 30%, rgba(var(--rm-surface-rgb, 255,255,255), 0)) left center,
+		            linear-gradient(to left, var(--rm-surface) 30%, rgba(var(--rm-surface-rgb, 255,255,255), 0)) right center;
+		background-repeat: no-repeat;
+		background-size: 20px 100%;
+	}
+	html body .form-grid {
+		min-width: max-content !important;
+	}
+	html body .form-grid .grid-static-col {
+		min-width: 90px !important;
+		max-width: 180px;
+	}
+	html body .form-grid .grid-static-col[data-fieldname="account"],
+	html body .form-grid .grid-static-col[data-fieldname="item_name"],
+	html body .form-grid .grid-static-col[data-fieldname="item_code"],
+	html body .form-grid .grid-static-col[data-fieldname="description"],
+	html body .form-grid .grid-static-col[data-fieldname="reference_name"] {
+		min-width: 150px !important;
+	}
+
+	/* عمود الرقم والتحديد */
+	html body .form-grid .row-index,
+	html body .form-grid .row-check {
+		min-width: 36px !important;
+		flex-shrink: 0 !important;
+	}
+
+	/* ── DataTable في التقارير والنماذج: scroll أفقي ── */
+	html body .datatable {
+		overflow-x: auto !important;
+		-webkit-overflow-scrolling: touch !important;
+	}
+	html body .datatable .dt-scrollable {
+		overflow-x: auto !important;
+		-webkit-overflow-scrolling: touch !important;
+		max-height: 60vh !important;
+	}
+	html body .datatable .dt-row,
+	html body .datatable .dt-header-row {
+		min-width: max-content !important;
+	}
+	html body .datatable .dt-cell {
+		min-width: 80px !important;
+	}
+	html body .datatable .dt-cell:first-child,
+	html body .datatable .dt-cell:nth-child(2) {
+		min-width: 140px !important;
+	}
+
+	/* شريط scroll مرئي وجميل */
+	html body .form-grid-container::-webkit-scrollbar,
+	html body .datatable::-webkit-scrollbar,
+	html body .datatable .dt-scrollable::-webkit-scrollbar {
+		height: 4px;
+	}
+	html body .form-grid-container::-webkit-scrollbar-track,
+	html body .datatable::-webkit-scrollbar-track,
+	html body .datatable .dt-scrollable::-webkit-scrollbar-track {
+		background: var(--rm-border);
+		border-radius: 2px;
+	}
+	html body .form-grid-container::-webkit-scrollbar-thumb,
+	html body .datatable::-webkit-scrollbar-thumb,
+	html body .datatable .dt-scrollable::-webkit-scrollbar-thumb {
+		background: var(--rm-muted);
+		border-radius: 2px;
+	}
+
+	/* مؤشر scroll بصري (نصيحة للمستخدم) */
+	html body .form-grid-container::after {
+		content: '← scroll →';
+		display: block;
+		font-size: 0.68rem;
+		color: var(--rm-subtle);
+		text-align: center;
+		padding: 2px 0 4px;
+		letter-spacing: 0.05em;
+	}
+
+	/* ── Workspace / Dashboard filters: wrap ── */
+	html body .filter-area,
+	html body .filter-selector {
+		flex-wrap: wrap !important;
+	}
+}
+
 /* ── 22. DARK MODE ── */
 html[data-ramotion-dark="1"] {
 --rm-bg:           #0d1117;
@@ -1579,6 +1849,15 @@ color: var(--rm-muted) !important;
 /* ── 27. STICKY FORM HEAD ── */
 html body .page-head {
 position: sticky;
+top: 0;
+z-index: 200;
+}
+
+/* Fix: frappe's desk.bundle.css resets position to unset for query-report pages,
+   which removes the stacking context and causes dropdowns to appear behind filters.
+   Override with higher specificity to restore sticky + stacking context. */
+html body #page-query-report .page-head {
+position: sticky !important;
 top: 0;
 z-index: 200;
 }

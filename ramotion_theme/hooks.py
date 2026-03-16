@@ -25,7 +25,7 @@ add_to_apps_screen = [
 # ------------------
 
 # include js, css files in header of desk.html
-app_include_css = ["/assets/ramotion_theme/css/ramotion_theme.css?v=20260316d"]
+app_include_css = ["/assets/ramotion_theme/css/ramotion_theme.css?v=20260316m"]
 app_include_js = ["/assets/ramotion_theme/js/ramotion_theme.js?v=20260316"]
 
 # include js, css files in header of web template
