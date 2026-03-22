@@ -9,7 +9,7 @@ app_version = "0.1.0"
 # Apps
 # ------------------
 
-required_apps = ["frappe"]
+required_apps = ["frappe", "arabic_pro"]
 
 # Each item in the list will be shown as an app in the apps page
 add_to_apps_screen = [
