@@ -15,15 +15,32 @@ frappe.pages["ramotion-studio"].on_page_load = function (wrapper) {
 	container.className = "ramotion-theme-studio-page"
 	page.main.append(container)
 
-	loadStudioAssets().then(() => {
-		window.RamotionThemeStudio.mount(container, {
-			lang: frappe.boot.lang,
-			user: frappe.session.user,
+	loadStudioAssets()
+		.then(() => {
+			window.RamotionThemeStudio.mount(container, {
+				lang: frappe.boot.lang,
+				user: frappe.session.user,
+			})
 		})
-	})
+		.catch((error) => {
+			console.error("Failed to load Ramotion Studio assets", error)
+			container.innerHTML = `<div class="text-muted" style="padding: 2rem; text-align: center;">${__("Failed to load studio assets. Please refresh the page.")}</div>`
+			frappe.show_alert({ message: __("Failed to load studio assets"), indicator: "red" })
+		})
 }
 
 let studioAssetsPromise
+
+function getTrustedAssetUrl(assetPath) {
+	const url = new URL(assetPath, window.location.origin)
+	if (url.origin !== window.location.origin) {
+		throw new Error(`Blocked cross-origin asset URL: ${url.href}`)
+	}
+	if (!url.pathname.startsWith("/assets/ramotion_theme/")) {
+		throw new Error(`Blocked unexpected asset path: ${url.pathname}`)
+	}
+	return url.toString()
+}
 
 function loadStudioAssets() {
 	if (window.RamotionThemeStudio) {
@@ -34,9 +51,12 @@ function loadStudioAssets() {
 		return studioAssetsPromise
 	}
 
+	const stylesheetUrl = getTrustedAssetUrl("/assets/ramotion_theme/dist/studio.bundle.css?v=20260322k")
+	const scriptUrl = getTrustedAssetUrl("/assets/ramotion_theme/dist/studio.bundle.js?v=20260322k")
+
 	studioAssetsPromise = Promise.all([
-		injectStylesheet("/assets/ramotion_theme/dist/studio.bundle.css"),
-		injectScript("/assets/ramotion_theme/dist/studio.bundle.js"),
+		injectStylesheet(stylesheetUrl),
+		injectScript(scriptUrl),
 	])
 
 	return studioAssetsPromise
@@ -53,7 +73,7 @@ function injectStylesheet(href) {
 		link.rel = "stylesheet"
 		link.href = href
 		link.onload = () => resolve(link)
-		link.onerror = reject
+		link.onerror = () => reject(new Error(`Failed to load stylesheet: ${href}`))
 		document.head.appendChild(link)
 	})
 }
@@ -74,7 +94,7 @@ function injectScript(src) {
 		const script = document.createElement("script")
 		script.src = src
 		script.onload = () => resolve(script)
-		script.onerror = reject
+		script.onerror = () => reject(new Error(`Failed to load script: ${src}`))
 		document.body.appendChild(script)
 	})
 }

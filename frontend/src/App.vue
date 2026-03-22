@@ -275,8 +275,6 @@ function cycleTheme() {
 </script>
 
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap");
-
 :root {
 	color-scheme: light;
 }
@@ -288,7 +286,7 @@ function cycleTheme() {
 	--studio-ink: #102a43;
 	padding: 28px;
 	min-height: calc(100vh - 80px);
-	font-family: "IBM Plex Sans Arabic", "Space Grotesk", sans-serif;
+	font-family: "IBM Plex Sans Arabic", "Segoe UI", Tahoma, Arial, sans-serif;
 	background:
 		linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(244, 248, 251, 0.95)),
 		radial-gradient(circle at top right, rgba(21, 111, 103, 0.06), transparent 24%),
@@ -395,7 +393,7 @@ function cycleTheme() {
 .card-overline,
 .rail-index,
 .preset-name {
-	font-family: "Space Grotesk", sans-serif;
+	font-family: "Segoe UI", Tahoma, Arial, sans-serif;
 	font-size: 0.78rem;
 	font-weight: 700;
 	text-transform: uppercase;
@@ -406,7 +404,7 @@ function cycleTheme() {
 .hero-copy h1 {
 	margin: 8px 0 16px;
 	max-width: 12ch;
-	font-family: "Space Grotesk", "IBM Plex Sans Arabic", sans-serif;
+	font-family: "IBM Plex Sans Arabic", "Segoe UI", Tahoma, Arial, sans-serif;
 	font-size: clamp(2.4rem, 4vw, 4.2rem);
 	font-weight: 700;
 	letter-spacing: -0.06em;
@@ -424,7 +422,7 @@ function cycleTheme() {
 }
 
 .metric-value {
-	font-family: "Space Grotesk", sans-serif;
+	font-family: "Segoe UI", Tahoma, Arial, sans-serif;
 	font-size: 1.95rem;
 	font-weight: 700;
 	letter-spacing: -0.04em;
@@ -472,7 +470,7 @@ function cycleTheme() {
 	border-radius: 14px;
 	display: grid;
 	place-items: center;
-	font-family: "Space Grotesk", sans-serif;
+	font-family: "Segoe UI", Tahoma, Arial, sans-serif;
 	font-weight: 700;
 	color: #fff;
 	background: linear-gradient(135deg, var(--theme-primary), var(--theme-accent));
@@ -511,7 +509,7 @@ function cycleTheme() {
 .card-title,
 .rail-title {
 	margin: 4px 0 0;
-	font-family: "Space Grotesk", sans-serif;
+	font-family: "Segoe UI", Tahoma, Arial, sans-serif;
 	font-weight: 700;
 	letter-spacing: -0.03em;
 	color: var(--studio-ink);

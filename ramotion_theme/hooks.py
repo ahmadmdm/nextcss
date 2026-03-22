@@ -4,7 +4,7 @@ app_publisher = "Ahmad"
 app_description = "Ramotion-inspired UI customization app for Frappe Desk"
 app_email = "ahmad@example.com"
 app_license = "mit"
-app_version = "0.1.0"
+app_version = "0.3.0"
 
 # Apps
 # ------------------
@@ -25,8 +25,12 @@ add_to_apps_screen = [
 # ------------------
 
 # include js, css files in header of desk.html
-app_include_css = ["/assets/ramotion_theme/css/ramotion_theme.css?v=20260316m"]
-app_include_js = ["/assets/ramotion_theme/js/ramotion_theme.js?v=20260316"]
+app_include_css = ["/assets/ramotion_theme/css/ramotion_theme.css?v=20260322k"]
+app_include_js = [
+	"/assets/ramotion_theme/js/ramotion_theme_core.js?v=20260322k",
+	"/assets/ramotion_theme/js/ramotion_theme_workspace.js?v=20260322k",
+	"/assets/ramotion_theme/js/ramotion_theme.js?v=20260322k",
+]
 
 # include js, css files in header of web template
 web_include_css = "/assets/ramotion_theme/css/ramotion_theme.css"

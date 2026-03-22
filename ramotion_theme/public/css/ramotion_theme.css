@@ -1,5 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=Cairo:wght@300;400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Tajawal:wght@300;400;500;700&display=swap");
-
 /* Saudi Riyal Symbol Font */
 @font-face {
 	font-family: "SaudiRiyal";
@@ -19,7 +17,7 @@ html body .number-widget-box .widget-content,
 html body .frappe-list .currency,
 html body .dt-cell .currency,
 html body .widget-body .currency {
-	font-family: "SaudiRiyal", "Readex Pro", "Inter", sans-serif !important;
+	font-family: "SaudiRiyal", "Segoe UI", "Tahoma", "Arial", sans-serif !important;
 }
 
 /* =============================================
@@ -89,7 +87,7 @@ html[data-ramotion-palette="luxury"] {
 /* ── 2. BASE — applies unconditionally to Frappe desk ── */
 html body,
 html body * {
-	font-family: "SaudiRiyal", "Readex Pro", "Inter", sans-serif !important;
+	font-family: "SaudiRiyal", "Segoe UI", "Tahoma", "Arial", sans-serif !important;
 }
 
 html body {
@@ -109,7 +107,7 @@ html body .page-title,
 html body .widget-group-title,
 html body .widget-title,
 html body .form-section-heading {
-	font-family: "Space Grotesk", "Readex Pro", sans-serif !important;
+	font-family: "Segoe UI", "Tahoma", "Arial", sans-serif !important;
 	letter-spacing: -0.025em !important;
 }
 
@@ -267,7 +265,7 @@ html body .rm-sidebar-brand {
 	height: 64px;
 	margin: 0 -8px 8px;
 	border-radius: 0 !important;
-	background: linear-gradient(115deg, var(--rm-navy) 0%, #0d2b5e 100%);
+	background: linear-gradient(115deg, #444a54 0%, #626b77 100%);
 	border-bottom: 1px solid rgba(255,255,255,0.07);
 	position: relative;
 	overflow: hidden;
@@ -280,7 +278,7 @@ html body .rm-sidebar-brand::after {
 	inset-inline-end: -20px; top: -20px;
 	width: 80px; height: 80px;
 	border-radius: 50%;
-	background: radial-gradient(circle, rgba(0,80,230,0.45) 0%, transparent 70%);
+	background: radial-gradient(circle, rgba(196, 203, 212, 0.35) 0%, transparent 70%);
 	pointer-events: none;
 }
 
@@ -424,20 +422,20 @@ html body .standard-sidebar-item.selected,
 html body .desk-sidebar-item.selected,
 html body .module-sidebar-item.selected {
 	background: linear-gradient(90deg, rgba(0,80,230,0.10) 0%, rgba(0,80,230,0.03) 100%) !important;
-	box-shadow: inset 3px 0 0 #0050E6 !important;
+	box-shadow: inset 3px 0 0 var(--rm-primary) !important;
 	border-radius: var(--rm-r-sm) !important;
 }
 
 html body .standard-sidebar-item.selected .sidebar-item-label,
 html body .desk-sidebar-item.selected .sidebar-item-label {
-	color: #0050E6 !important;
+	color: var(--rm-primary) !important;
 	font-weight: 700 !important;
 }
 
 html body .standard-sidebar-item.selected svg,
 html body .desk-sidebar-item.selected svg {
 	background: rgba(0, 80, 230, 0.15) !important;
-	color: #0050E6 !important;
+	color: var(--rm-primary) !important;
 }
 
 html body .sidebar-child-item.nested-container {
@@ -2542,7 +2540,7 @@ backdrop-filter: blur(12px) !important;
 /* ── R9. NAVBAR — refined ── */
 html body .navbar {
 height: 54px !important;
-background: linear-gradient(90deg, #0c1829 0%, #121f36 100%) !important;
+background: linear-gradient(90deg, #444a54 0%, #626b77 100%) !important;
 box-shadow: 0 1px 0 rgba(0,0,0,0.3) !important;
 }
 
@@ -2568,7 +2566,7 @@ border-color: rgba(255,255,255,0.22) !important;
 
 /* ── R10. HERO SECTION — deeper Ramotion dark ── */
 html body .ramotion-workspace-hero {
-background: linear-gradient(135deg, #080f1d 0%, #0d1e3d 60%, #0f2348 100%) !important;
+background: linear-gradient(135deg, #3b414b 0%, #515966 60%, #6c7684 100%) !important;
 border: 1px solid rgba(255,255,255,0.05) !important;
 border-radius: 22px !important;
 box-shadow: 0 24px 64px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.05) !important;
@@ -2583,6 +2581,7 @@ width: 280px;
 height: 280px;
 border-radius: 50%;
 background: radial-gradient(circle, rgba(21,86,212,0.3) 0%, transparent 70%);
+background: radial-gradient(circle, rgba(156,163,175,0.26) 0%, transparent 70%);
 pointer-events: none;
 }
 
@@ -2740,7 +2739,8 @@ html body .layout-main-section-wrapper {
 	background: #f5f5f8 !important;
 }
 
-/* Per-card top bar — solid vivid colors */
+/* Per-card top bar — grayscale accents */
+html body .widget.shortcut-widget-box[data-rm-color-idx="1"]::before { background: #5f6875 !important; }
 html body .widget.shortcut-widget-box[data-rm-color-idx="1"]::before { background: #0050E6 !important; }
 html body .widget.shortcut-widget-box[data-rm-color-idx="2"]::before { background: #7C3AFF !important; }
 html body .widget.shortcut-widget-box[data-rm-color-idx="3"]::before { background: #FF3040 !important; }
@@ -2748,7 +2748,7 @@ html body .widget.shortcut-widget-box[data-rm-color-idx="4"]::before { backgroun
 html body .widget.shortcut-widget-box[data-rm-color-idx="5"]::before { background: #F59E0B !important; }
 html body .widget.shortcut-widget-box[data-rm-color-idx="6"]::before { background: #10B981 !important; }
 
-/* Per-card hover — colored shadow ring matching bar */
+/* Per-card hover — grayscale shadow ring matching bar */
 html body .widget.shortcut-widget-box[data-rm-color-idx="1"]:hover {
 	box-shadow: 0 10px 32px rgba(0,80,230,0.18), 0 0 0 1.5px rgba(0,80,230,0.25) !important;
 	border-color: rgba(0,80,230,0.25) !important;
@@ -2774,7 +2774,7 @@ html body .widget.shortcut-widget-box[data-rm-color-idx="6"]:hover {
 	border-color: rgba(16,185,129,0.25) !important;
 }
 
-/* Per-card widget title color — matches accent bar */
+/* Per-card widget title color — matches grayscale accent bar */
 html body .widget.shortcut-widget-box[data-rm-color-idx="1"] .widget-title { color: #0050E6 !important; }
 html body .widget.shortcut-widget-box[data-rm-color-idx="2"] .widget-title { color: #7C3AFF !important; }
 html body .widget.shortcut-widget-box[data-rm-color-idx="3"] .widget-title { color: #E02030 !important; }
@@ -2782,7 +2782,7 @@ html body .widget.shortcut-widget-box[data-rm-color-idx="4"] .widget-title { col
 html body .widget.shortcut-widget-box[data-rm-color-idx="5"] .widget-title { color: #B07708 !important; }
 html body .widget.shortcut-widget-box[data-rm-color-idx="6"] .widget-title { color: #0D9668 !important; }
 
-/* Arrow icon on shortcut card — match bar color */
+/* Arrow icon on shortcut card — match grayscale accent bar */
 html body .widget.shortcut-widget-box[data-rm-color-idx="1"] .shortcut-widget-box a::after { color: #0050E6 !important; }
 html body .widget.shortcut-widget-box[data-rm-color-idx="2"] .shortcut-widget-box a::after { color: #7C3AFF !important; }
 html body .widget.shortcut-widget-box[data-rm-color-idx="3"] .shortcut-widget-box a::after { color: #FF3040 !important; }
