@@ -1,15 +1,17 @@
+from . import __version__ as app_version
+
+
 app_name = "ramotion_theme"
 app_title = "Ramotion Theme"
 app_publisher = "Ahmad"
 app_description = "Ramotion-inspired UI customization app for Frappe Desk"
 app_email = "ahmad@example.com"
 app_license = "mit"
-app_version = "0.3.0"
 
 # Apps
 # ------------------
 
-required_apps = ["frappe", "arabic_pro"]
+required_apps = ["frappe"]
 
 # Each item in the list will be shown as an app in the apps page
 add_to_apps_screen = [

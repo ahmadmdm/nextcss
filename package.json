@@ -2,7 +2,7 @@
 	"private": true,
 	"name": "ramotion_theme",
 	"scripts": {
-		"postinstall": "cd frontend && yarn install --check-files",
+		"frontend:install": "cd frontend && yarn install --check-files",
 		"build": "cd frontend && yarn build"
 	}
 }
