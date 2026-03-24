@@ -1,22 +1,64 @@
 ;(function (window) {
 	'use strict'
 
-	var runtime = window.RamotionThemeRuntime
-	if (!runtime) return
+	function initRamotionTheme() {
+		var runtime = window.RamotionThemeRuntime
+		if (!runtime) {
+			window.__ramotionThemeWaitRetries = (window.__ramotionThemeWaitRetries || 0) + 1
+			if (window.__ramotionThemeWaitRetries <= 30) {
+				window.setTimeout(initRamotionTheme, 120)
+			}
+			return
+		}
 
-	var config = runtime.config
-	var state = runtime.state
-	var helpers = runtime.helpers
-	var icons = runtime.icons
+		if (window.__ramotionThemeInitialized) return
+		window.__ramotionThemeInitialized = true
 
-	function getWorkspaceApi() {
-		return runtime.workspace || {}
-	}
+		var config = runtime.config
+		var state = runtime.state
+		var helpers = runtime.helpers
+		var icons = runtime.icons
+		var RIYAL_SYMBOL = '\u00EA'
+		var LEGACY_RIYAL_SYMBOL = '\uFDFC'
+		var RIYAL_TEXT_PATTERN = /(?:ر\.س|﷼|ê|\u00EA|\uFDFC)/
+		var RIYAL_AMOUNT_BEFORE_PATTERN = /([0-9][0-9,]*(?:\.[0-9]+)?)\s*(?:ر\.س|﷼|ê|\u00EA|\uFDFC)/g
+		var RIYAL_AMOUNT_AFTER_PATTERN = /(?:ر\.س|﷼|ê|\u00EA|\uFDFC)\s*([0-9][0-9,]*(?:\.[0-9]+)?)/g
+		var RIYAL_DECORATION_SELECTORS = [
+			'.control-value.like-disabled-input',
+			'.static-area > div',
+			'.widget-content .number',
+			'.widget-body .number',
+			'.number-card .number',
+			'.number-widget-box .number',
+			'.currency-field',
+			'.bold .currency',
+			'.dt-cell .currency',
+			'.frappe-list .currency'
+		]
 
-	function scheduleWorkspaceEnhancement() {
-		var workspace = getWorkspaceApi()
-		if (workspace.scheduleEnhancement) workspace.scheduleEnhancement()
-	}
+		function getWorkspaceApi() {
+			return runtime.workspace || {}
+		}
+
+		function containsRiyalValue(value) {
+			return typeof value === 'string' && RIYAL_TEXT_PATTERN.test(value)
+		}
+
+		function normalizeRiyalText(value) {
+			return String(value || '')
+				.replace(/ر\.س/g, RIYAL_SYMBOL)
+				.replace(/﷼/g, RIYAL_SYMBOL)
+				.replace(/ê/g, RIYAL_SYMBOL)
+		}
+
+		function buildRiyalAmountMarkup(number) {
+			return '<span class="rm-riyal-amount"><span class="rm-riyal-symbol" aria-hidden="true"></span><span class="rm-riyal-number">' + number + '</span></span>'
+		}
+
+		function scheduleWorkspaceEnhancement() {
+			var workspace = getWorkspaceApi()
+			if (workspace.scheduleEnhancement) workspace.scheduleEnhancement()
+		}
 
 	function getFont() {
 		return helpers.ls(config.STORAGE_FONT) || config.DEFAULT_FONT
@@ -367,20 +409,137 @@
 		window.frappe.Chart.__ramotionWrapped = true
 	}
 
+	function markRiyalContext(textNode) {
+		if (!textNode || !textNode.parentElement) return
+
+		var parent = textNode.parentElement
+		var tagName = parent.tagName
+		if (tagName === 'SCRIPT' || tagName === 'STYLE') return
+
+		parent.classList.add('rm-has-riyal-symbol')
+	}
+
+	function buildRiyalFragment(textValue) {
+		var normalized = normalizeRiyalText(textValue)
+		if (normalized.indexOf(RIYAL_SYMBOL) === -1) return null
+
+		var fragment = document.createDocumentFragment()
+		var parts = normalized.split(RIYAL_SYMBOL)
+		for (var i = 0; i < parts.length; i++) {
+			var chunk = parts[i]
+			if (i < parts.length - 1) chunk = chunk.replace(/\s+$/, '')
+			if (i > 0) chunk = chunk.replace(/^\s+/, '')
+
+			if (chunk) {
+				fragment.appendChild(document.createTextNode(chunk))
+			}
+
+			if (i < parts.length - 1) {
+				var symbolSpan = document.createElement('span')
+				symbolSpan.className = 'rm-riyal-symbol'
+				symbolSpan.setAttribute('aria-hidden', 'true')
+				fragment.appendChild(symbolSpan)
+			}
+		}
+
+		return fragment
+	}
+
+	function buildRiyalMarkupFromText(textValue) {
+		if (!textValue) return textValue
+
+		return String(textValue)
+			.replace(RIYAL_AMOUNT_AFTER_PATTERN, function (_match, number) {
+				return buildRiyalAmountMarkup(number)
+			})
+			.replace(RIYAL_AMOUNT_BEFORE_PATTERN, function (_match, number) {
+				return buildRiyalAmountMarkup(number)
+			})
+	}
+
+	function canDecorateRiyalElement(element) {
+		if (!element) return false
+		if (element.querySelector('.rm-riyal-amount, .rm-riyal-symbol')) return false
+		if (element.childElementCount > 0) return false
+
+		var tagName = element.tagName
+		if (tagName === 'SCRIPT' || tagName === 'STYLE') return false
+
+		return containsRiyalValue(element.textContent || '')
+	}
+
+	function decorateRiyalElements() {
+		if (!document.body) return
+
+		var elements = document.querySelectorAll(RIYAL_DECORATION_SELECTORS.join(','))
+		for (var i = 0; i < elements.length; i++) {
+			var element = elements[i]
+			if (!canDecorateRiyalElement(element)) continue
+
+			var sourceText = element.textContent || ''
+			var decorated = buildRiyalMarkupFromText(sourceText)
+			if (decorated === sourceText) continue
+
+			element.innerHTML = decorated
+			element.classList.add('rm-has-riyal-symbol')
+		}
+	}
+
+	function replaceTextNodeWithRiyalMarkup(textNode) {
+		if (!textNode || !textNode.parentElement) return false
+		if (textNode.parentElement.closest('.rm-riyal-symbol')) return false
+
+		var tagName = textNode.parentElement.tagName
+		if (tagName === 'SCRIPT' || tagName === 'STYLE') return false
+
+		if (!containsRiyalValue(textNode.nodeValue || '')) return false
+
+		var fragment = buildRiyalFragment(textNode.nodeValue || '')
+		if (!fragment) return false
+
+		textNode.parentElement.classList.add('rm-has-riyal-symbol')
+		textNode.parentNode.replaceChild(fragment, textNode)
+		return true
+	}
+
 	function applyRiyalSymbol() {
 		if (!document.body) return
 
-		var sarSymbol = '\uFDFC'
+		decorateRiyalElements()
+
 		var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false)
 		var nodes = []
 		var node
 
 		while ((node = walker.nextNode())) {
-			if (node.nodeValue && node.nodeValue.indexOf('ر.س') !== -1) nodes.push(node)
+			if (!containsRiyalValue(node.nodeValue)) continue
+			nodes.push(node)
 		}
 
 		nodes.forEach(function (textNode) {
-			textNode.nodeValue = textNode.nodeValue.replace(/ر\.س/g, sarSymbol)
+			if (!replaceTextNodeWithRiyalMarkup(textNode)) {
+				if (containsRiyalValue(textNode.nodeValue || '')) {
+					textNode.nodeValue = normalizeRiyalText(textNode.nodeValue)
+				}
+				markRiyalContext(textNode)
+			}
+		})
+
+		decorateRiyalElements()
+	}
+
+	function scheduleRiyalRefresh() {
+		if (!window.setTimeout) return
+		if (state.riyalRefreshTimeouts && state.riyalRefreshTimeouts.length) {
+			for (var i = 0; i < state.riyalRefreshTimeouts.length; i++) {
+				window.clearTimeout(state.riyalRefreshTimeouts[i])
+			}
+		}
+
+		state.riyalRefreshTimeouts = [0, 120, 400, 900, 1800].map(function (delay) {
+			return window.setTimeout(function () {
+				applyRiyalSymbol()
+			}, delay)
 		})
 	}
 
@@ -390,9 +549,17 @@
 		state.sarObserver = new MutationObserver(function (mutations) {
 			var needsRefresh = false
 			for (var i = 0; i < mutations.length; i++) {
+				if (mutations[i].type === 'characterData') {
+					var textValue = mutations[i].target && mutations[i].target.nodeValue
+					if (containsRiyalValue(textValue)) {
+						needsRefresh = true
+						break
+					}
+				}
+
 				for (var j = 0; j < mutations[i].addedNodes.length; j++) {
 					var node = mutations[i].addedNodes[j]
-					if (node.textContent && node.textContent.indexOf('ر.س') !== -1) {
+					if (containsRiyalValue(node.textContent || '')) {
 						needsRefresh = true
 						break
 					}
@@ -400,10 +567,13 @@
 				if (needsRefresh) break
 			}
 
-			if (needsRefresh) applyRiyalSymbol()
+			if (needsRefresh) {
+				applyRiyalSymbol()
+				scheduleRiyalRefresh()
+			}
 		})
 
-		state.sarObserver.observe(document.body, { childList: true, subtree: true })
+		state.sarObserver.observe(document.body, { childList: true, subtree: true, characterData: true })
 	}
 
 	window.RamotionTheme = {
@@ -416,18 +586,18 @@
 		getFont: getFont,
 	}
 
-	if (document.readyState === 'loading') {
-		document.addEventListener('DOMContentLoaded', function () {
-			bootstrapTheme()
-			applyRiyalSymbol()
-			initRiyalObserver()
-			scheduleWorkspaceEnhancement()
-		})
-	} else {
+	function startRamotionTheme() {
 		bootstrapTheme()
 		applyRiyalSymbol()
+		scheduleRiyalRefresh()
 		initRiyalObserver()
 		scheduleWorkspaceEnhancement()
+	}
+
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', startRamotionTheme)
+	} else {
+		startRamotionTheme()
 	}
 
 	document.addEventListener('page-change', function () {
@@ -438,4 +608,7 @@
 
 	document.addEventListener('ramotion-theme:change', scheduleWorkspaceEnhancement)
 	window.addEventListener('hashchange', scheduleWorkspaceEnhancement)
+	}
+
+	initRamotionTheme()
 })(window)

@@ -29,6 +29,7 @@
 		workspaceObserver: null,
 		colorObserver: null,
 		sarObserver: null,
+		riyalRefreshTimeouts: [],
 		heroClockTimer: null,
 		intersectionObserver: null,
 		listObserver: null,

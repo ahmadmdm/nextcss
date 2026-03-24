@@ -1,23 +1,58 @@
+@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=Readex+Pro:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Tajawal:wght@400;500;700;800&display=swap");
+
 /* Saudi Riyal Symbol Font */
 @font-face {
-	font-family: "SaudiRiyal";
-	src: url("/assets/ramotion_theme/fonts/SaudiRiyalFont.ttf") format("truetype");
+	font-family: "SaudiRiyalSymbol";
+	src: url("/assets/ramotion_theme/fonts/saudiriyalsymbol.woff2") format("woff2"),
+		 url("/assets/ramotion_theme/fonts/saudiriyalsymbol.woff") format("woff"),
+		 url("/assets/ramotion_theme/fonts/saudiriyalsymbol.ttf") format("truetype"),
+		 url("/assets/ramotion_theme/fonts/saudiriyalsymbol.otf") format("opentype");
 	font-weight: normal;
 	font-style: normal;
 	font-display: swap;
 }
 
-/* Apply Saudi Riyal font as fallback for currency symbols */
-html body .currency-field,
-html body .bold .currency,
-html body [data-fieldtype="Currency"] .control-value,
-html body .number-card .number,
-html body .number-widget-box .number,
-html body .number-widget-box .widget-content,
-html body .frappe-list .currency,
-html body .dt-cell .currency,
-html body .widget-body .currency {
-	font-family: "SaudiRiyal", "Segoe UI", "Tahoma", "Arial", sans-serif !important;
+/* SVG-based Saudi Riyal styling */
+
+html body .rm-has-riyal-symbol {
+	direction: ltr !important;
+	unicode-bidi: isolate !important;
+	display: inline-flex !important;
+	align-items: baseline !important;
+	justify-content: flex-end !important;
+	gap: 0.18em !important;
+	width: auto;
+	max-width: 100%;
+}
+
+html body .rm-riyal-symbol {
+	font-family: inherit !important;
+	display: inline-block !important;
+	width: 0.78em !important;
+	height: 0.9em !important;
+	flex: 0 0 0.78em !important;
+	vertical-align: -0.08em !important;
+	background-color: currentColor !important;
+	background-repeat: no-repeat !important;
+	background-position: center !important;
+	background-size: contain !important;
+	background-image: none !important;
+	-webkit-mask: url("/assets/ramotion_theme/images/saudi_riyal_symbol.svg") center / contain no-repeat !important;
+	mask: url("/assets/ramotion_theme/images/saudi_riyal_symbol.svg") center / contain no-repeat !important;
+}
+
+html body .rm-riyal-amount {
+	display: inline-flex !important;
+	align-items: baseline !important;
+	gap: 0.2em !important;
+	direction: ltr !important;
+	unicode-bidi: isolate !important;
+	white-space: nowrap !important;
+}
+
+html body .rm-riyal-number {
+	direction: ltr !important;
+	unicode-bidi: isolate !important;
 }
 
 /* =============================================
@@ -87,7 +122,7 @@ html[data-ramotion-palette="luxury"] {
 /* ── 2. BASE — applies unconditionally to Frappe desk ── */
 html body,
 html body * {
-	font-family: "SaudiRiyal", "Segoe UI", "Tahoma", "Arial", sans-serif !important;
+	font-family: "Segoe UI", "Tahoma", "Arial", sans-serif !important;
 }
 
 html body {
@@ -473,6 +508,10 @@ html body .form-grid {
 	border: 1px solid var(--rm-border) !important;
 	border-radius: var(--rm-r-lg) !important;
 	box-shadow: var(--rm-shd-s);
+}
+
+html body .form-grid {
+	overflow: hidden;
 }
 
 /* section-body is INSIDE form-section — no nested border */
@@ -3000,6 +3039,13 @@ html body .grid-heading-row {
 	border-bottom: 2px solid rgba(0, 80, 230, 0.12) !important;
 }
 
+html body .form-grid .grid-heading-row,
+html body .form-grid .grid-body,
+html body .form-grid .grid-row,
+html body .form-grid .grid-row .data-row {
+	border-radius: 0 !important;
+}
+
 html body .grid-heading-row .grid-static-col,
 html body .grid-heading-row .static-area,
 html body .grid-heading-row .col {
@@ -3535,4 +3581,362 @@ font-size: 0.75rem !important;
 html[data-ramotion-dark="1"] body [data-page-route="Workspaces"] .layout-main-section .number-card {
 background: rgba(255,255,255,0.05) !important;
 border-color: rgba(255,255,255,0.08) !important;
+}
+
+/* Final override: keep child table corners visually connected */
+html body .form-grid {
+	border-radius: var(--rm-r-lg) !important;
+	overflow: hidden !important;
+}
+
+html body .form-grid .grid-heading-row,
+html body .form-grid .grid-body,
+html body .form-grid .grid-row,
+html body .form-grid .grid-row .data-row {
+	border-radius: 0 !important;
+}
+
+html body .form-grid .grid-body {
+	overflow: hidden !important;
+}
+
+/* Final override: slightly taller query report filters */
+html body .page-form .frappe-control.input-max-width .form-control.input-xs,
+html body .page-form .frappe-control.input-max-width .input-with-feedback.input-xs,
+html body .page-form .frappe-control.input-max-width .awesomplete > input.input-xs,
+html body .page-form .frappe-control.input-max-width select.form-control.input-xs {
+	height: 30px !important;
+	min-height: 30px !important;
+	padding: 4px 10px !important;
+	line-height: 1.45 !important;
+	border-radius: 8px !important;
+}
+
+html body .page-form .frappe-control.input-max-width {
+	min-height: 32px;
+}
+
+/* Final override: query report action buttons */
+html body #page-query-report .page-head .standard-actions,
+html body #page-query-report .page-head .custom-actions,
+html body #page-query-report .page-head .menu-btn-group,
+html body #page-query-report .page-head .actions-btn-group {
+	gap: 8px;
+}
+
+html body #page-query-report .page-head .btn.btn-sm,
+html body #page-query-report .page-head .custom-actions .btn,
+html body #page-query-report .page-head .menu-btn-group .btn,
+html body #page-query-report .page-head .more-button {
+	min-height: 36px !important;
+	height: 36px !important;
+	padding: 7px 14px !important;
+	border-radius: 11px !important;
+}
+
+html body #page-query-report .page-head .icon-btn,
+html body #page-query-report .page-head .menu-btn-group .btn,
+html body #page-query-report .page-head .more-button {
+	min-width: 36px;
+	width: 36px;
+	padding: 0 !important;
+}
+
+/* Final override: query report check filters */
+html body #page-query-report .page-form .frappe-control[data-fieldtype="Check"] {
+	padding: 10px 12px !important;
+	min-height: 84px;
+	border-radius: 12px !important;
+	display: flex;
+	align-items: stretch;
+}
+
+html body #page-query-report .page-form .frappe-control[data-fieldtype="Check"] .checkbox {
+	width: 100%;
+	margin: 0;
+}
+
+html body #page-query-report .page-form .frappe-control[data-fieldtype="Check"] .checkbox label {
+	width: 100%;
+	min-height: 100%;
+	align-items: flex-start !important;
+	gap: 10px !important;
+	line-height: 1.6;
+	padding: 0;
+}
+
+html body #page-query-report .page-form .frappe-control[data-fieldtype="Check"] .label-area {
+	flex: 1;
+	font-size: 0.87rem !important;
+	line-height: 1.7 !important;
+}
+
+html body #page-query-report .page-form .frappe-control[data-fieldtype="Check"] .input-area,
+html body #page-query-report .page-form .frappe-control[data-fieldtype="Check"] .disp-area {
+	margin-top: 2px;
+	flex: 0 0 auto;
+}
+
+/* Final override: tighter and more even report filter rhythm */
+html body #page-query-report .page-form.flex {
+	align-items: flex-start;
+	padding-top: 6px;
+	padding-bottom: 4px;
+}
+
+html body #page-query-report .page-form .frappe-control.input-max-width {
+	margin: 8px 0 !important;
+}
+
+html body #page-query-report .page-form .frappe-control.input-max-width:not([data-fieldtype="Check"]) {
+	min-height: 30px;
+}
+
+/* Final override: softer report table top edge */
+html body #page-query-report .dt-header {
+	background: linear-gradient(180deg, #f7faff 0%, #f1f5ff 100%) !important;
+	border-bottom: 1px solid rgba(160, 177, 205, 0.42) !important;
+	box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.65) !important;
+}
+
+html body #page-query-report .dt-cell--header,
+html body #page-query-report .dt-cell--header .dt-cell__content {
+	background: transparent !important;
+}
+
+/* Final override: slightly denser top report filters */
+@media (min-width: 1280px) {
+	html body #page-query-report .page-form .frappe-control.input-max-width[data-fieldtype="Date"],
+	html body #page-query-report .page-form .frappe-control.input-max-width[data-fieldtype="Data"],
+	html body #page-query-report .page-form .frappe-control.input-max-width[data-fieldtype="Link"],
+	html body #page-query-report .page-form .frappe-control.input-max-width[data-fieldtype="Autocomplete"] {
+		flex: 0 0 15.8%;
+		max-width: 15.8%;
+	}
+
+	html body #page-query-report .page-form .frappe-control.input-max-width[data-fieldtype="MultiSelectList"],
+	html body #page-query-report .page-form .frappe-control.input-max-width[data-fieldname="categorize_by"],
+	html body #page-query-report .page-form .frappe-control.input-max-width[data-fieldname="cost_center"] {
+		flex: 0 0 17.6%;
+		max-width: 17.6%;
+	}
+}
+
+html body #page-query-report .page-form .frappe-control.input-max-width .form-control.input-xs,
+html body #page-query-report .page-form .frappe-control.input-max-width .input-with-feedback.input-xs,
+html body #page-query-report .page-form .frappe-control.input-max-width .awesomplete > input.input-xs,
+html body #page-query-report .page-form .frappe-control.input-max-width select.form-control.input-xs {
+	padding-inline: 8px !important;
+	font-size: 0.86rem !important;
+}
+
+/* Final override: softer report zebra rows */
+html body #page-query-report .dt-scrollable .dt-row:nth-child(odd) {
+	background: #fbfcff !important;
+}
+
+html body #page-query-report .dt-scrollable .dt-row:nth-child(even) {
+	background: #f7f9fd !important;
+}
+
+html body #page-query-report .dt-scrollable .dt-row:hover {
+	background: rgba(0, 80, 230, 0.04) !important;
+	box-shadow: inset 2px 0 0 rgba(0, 80, 230, 0.24) !important;
+}
+
+/* Final override: cleaner RTL table headers in reports */
+html body #page-query-report .dt-cell--header {
+	text-align: end !important;
+}
+
+html body #page-query-report .dt-cell--header .dt-cell__content {
+	text-align: end !important;
+	padding: 6px 14px 6px 8px !important;
+	letter-spacing: 0.035em !important;
+}
+
+html body #page-query-report .dt-cell--header--col-0,
+html body #page-query-report .dt-cell--header:first-child,
+html body #page-query-report .dt-cell--header--checkbox,
+html body #page-query-report .dt-cell--header:empty {
+	text-align: center !important;
+}
+
+html body #page-query-report .dt-cell--header--col-0 .dt-cell__content,
+html body #page-query-report .dt-cell--header:first-child .dt-cell__content,
+html body #page-query-report .dt-cell--header--checkbox .dt-cell__content,
+html body #page-query-report .dt-cell--header:empty .dt-cell__content {
+	text-align: center !important;
+	padding-inline: 8px !important;
+}
+
+/* Final override: polished horizontal scrollbar for report table */
+html body #page-query-report .dt-scrollable {
+	scrollbar-width: thin;
+	scrollbar-color: rgba(107, 128, 160, 0.8) rgba(221, 227, 238, 0.45);
+	scrollbar-gutter: auto;
+}
+
+html body #page-query-report .dt-scrollable::-webkit-scrollbar {
+	height: 10px;
+}
+
+html body #page-query-report .dt-scrollable::-webkit-scrollbar-track {
+	background: linear-gradient(180deg, rgba(221, 227, 238, 0.42) 0%, rgba(221, 227, 238, 0.68) 100%);
+	border-radius: 999px;
+}
+
+html body #page-query-report .dt-scrollable::-webkit-scrollbar-thumb {
+	background: linear-gradient(180deg, rgba(122, 142, 173, 0.92) 0%, rgba(92, 113, 147, 0.92) 100%);
+	border-radius: 999px;
+	border: 2px solid rgba(245, 247, 252, 0.9);
+}
+
+html body #page-query-report .dt-scrollable::-webkit-scrollbar-thumb:hover {
+	background: linear-gradient(180deg, rgba(92, 113, 147, 0.96) 0%, rgba(66, 88, 124, 0.96) 100%);
+}
+
+/* Final override: clearer active/selected state in report table */
+html body #page-query-report .dt-row.dt-row-selected,
+html body #page-query-report .dt-row--selected,
+html body #page-query-report .dt-scrollable .dt-row:has(.dt-cell--selected) {
+	background: linear-gradient(180deg, rgba(0, 80, 230, 0.07) 0%, rgba(0, 80, 230, 0.045) 100%) !important;
+	box-shadow: inset 3px 0 0 rgba(0, 80, 230, 0.58) !important;
+}
+
+html body #page-query-report .dt-cell--selected {
+	background: rgba(0, 80, 230, 0.1) !important;
+	box-shadow: inset 0 0 0 1px rgba(0, 80, 230, 0.14) !important;
+}
+
+/* Final override: tidier searchable and picker filters */
+html body #page-query-report .page-form .form-control.cursor-pointer.input-xs,
+html body #page-query-report .page-form .awesomplete > input.input-xs,
+html body #page-query-report .page-form .input-with-feedback.input-xs {
+	background: linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(248,250,255,0.98) 100%) !important;
+	box-shadow: inset 0 1px 0 rgba(255,255,255,0.7) !important;
+}
+
+html body #page-query-report .page-form .form-control.cursor-pointer.input-xs:hover,
+html body #page-query-report .page-form .awesomplete > input.input-xs:hover,
+html body #page-query-report .page-form .input-with-feedback.input-xs:hover {
+	border-color: rgba(100, 153, 245, 0.78) !important;
+	background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(244,248,255,1) 100%) !important;
+}
+
+/* Final override: practical column widths for text-heavy ledger columns */
+html body #page-query-report .dt-cell--col-2,
+html body #page-query-report .dt-cell--header-2,
+html body #page-query-report .dt-cell--col-7,
+html body #page-query-report .dt-cell--header-7,
+html body #page-query-report .dt-cell--col-8,
+html body #page-query-report .dt-cell--header-8 {
+	min-width: 190px !important;
+}
+
+html body #page-query-report .dt-cell--col-10,
+html body #page-query-report .dt-cell--header-10,
+html body #page-query-report .dt-cell--col-11,
+html body #page-query-report .dt-cell--header-11,
+html body #page-query-report .dt-cell--col-12,
+html body #page-query-report .dt-cell--header-12,
+html body #page-query-report .dt-cell--col-13,
+html body #page-query-report .dt-cell--header-13 {
+	min-width: 112px !important;
+}
+
+/* Final override: header alignment must mirror data columns exactly */
+html body #page-query-report .dt-cell--header .dt-cell__content {
+	padding: 5px !important;
+	letter-spacing: 0.035em !important;
+}
+
+html body #page-query-report .dt-cell--header-0,
+html body #page-query-report .dt-cell--header-0 .dt-cell__content {
+	text-align: center !important;
+	padding: 5px 8px !important;
+}
+
+html body #page-query-report .dt-cell--header-1,
+html body #page-query-report .dt-cell--header-2,
+html body #page-query-report .dt-cell--header-6,
+html body #page-query-report .dt-cell--header-7,
+html body #page-query-report .dt-cell--header-8,
+html body #page-query-report .dt-cell--header-9,
+html body #page-query-report .dt-cell--header-10,
+html body #page-query-report .dt-cell--header-11,
+html body #page-query-report .dt-cell--header-12,
+html body #page-query-report .dt-cell--header-13,
+html body #page-query-report .dt-cell--header-1 .dt-cell__content,
+html body #page-query-report .dt-cell--header-2 .dt-cell__content,
+html body #page-query-report .dt-cell--header-6 .dt-cell__content,
+html body #page-query-report .dt-cell--header-7 .dt-cell__content,
+html body #page-query-report .dt-cell--header-8 .dt-cell__content,
+html body #page-query-report .dt-cell--header-9 .dt-cell__content,
+html body #page-query-report .dt-cell--header-10 .dt-cell__content,
+html body #page-query-report .dt-cell--header-11 .dt-cell__content,
+html body #page-query-report .dt-cell--header-12 .dt-cell__content,
+html body #page-query-report .dt-cell--header-13 .dt-cell__content {
+	text-align: left !important;
+}
+
+html body #page-query-report .dt-cell--header-3,
+html body #page-query-report .dt-cell--header-4,
+html body #page-query-report .dt-cell--header-5,
+html body #page-query-report .dt-cell--header-3 .dt-cell__content,
+html body #page-query-report .dt-cell--header-4 .dt-cell__content,
+html body #page-query-report .dt-cell--header-5 .dt-cell__content {
+	text-align: right !important;
+}
+
+/* Final override: dropdown option icons should use icon font, not body text font */
+html body ul[role="listbox"] [role="option"] .link-option,
+html body .awesomplete ul li .link-option,
+html body .ui-autocomplete .link-option {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+}
+
+html body ul[role="listbox"] [role="option"] .link-option .fa,
+html body .awesomplete ul li .link-option .fa,
+html body .ui-autocomplete .link-option .fa {
+	font-family: "FontAwesome" !important;
+	font-style: normal !important;
+	font-weight: normal !important;
+	font-variant: normal !important;
+	text-transform: none !important;
+	line-height: 1 !important;
+	font-size: 0.86rem !important;
+	width: 1rem;
+	min-width: 1rem;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	color: var(--rm-primary) !important;
+	margin: 0 !important;
+}
+
+html body ul[role="listbox"] [role="option"] p,
+html body .awesomplete ul li p,
+html body .ui-autocomplete p {
+	margin: 0;
+}
+
+/* Final override: align header column borders with report body columns */
+html body #page-query-report .dt-header .dt-row.dt-row-header,
+html body #page-query-report .dt-header-row {
+	transform: none !important;
+	width: 100% !important;
+}
+
+html body #page-query-report .dt-cell--header-0 {
+	min-width: 32px !important;
+	max-width: 32px !important;
+	width: 32px !important;
+}
+
+html body #page-query-report .dt-cell--header-0 .dt-cell__content {
+	width: 32px !important;
+	padding: 5px 0 !important;
 }

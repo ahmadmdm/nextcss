@@ -27,15 +27,15 @@ add_to_apps_screen = [
 # ------------------
 
 # include js, css files in header of desk.html
-app_include_css = ["/assets/ramotion_theme/css/ramotion_theme.css?v=20260322k"]
+app_include_css = ["/assets/ramotion_theme/css/ramotion_theme.css?v=20260324h"]
 app_include_js = [
-	"/assets/ramotion_theme/js/ramotion_theme_core.js?v=20260322k",
+	"/assets/ramotion_theme/js/ramotion_theme_core.js?v=20260324h",
 	"/assets/ramotion_theme/js/ramotion_theme_workspace.js?v=20260322k",
-	"/assets/ramotion_theme/js/ramotion_theme.js?v=20260322k",
+	"/assets/ramotion_theme/js/ramotion_theme.js?v=20260324h",
 ]
 
 # include js, css files in header of web template
-web_include_css = "/assets/ramotion_theme/css/ramotion_theme.css"
+web_include_css = "/assets/ramotion_theme/css/ramotion_theme.css?v=20260324h"
 # web_include_js = "/assets/ramotion_theme/js/ramotion_theme.js"
 
 # include custom scss in every website theme (without file extension ".scss")
