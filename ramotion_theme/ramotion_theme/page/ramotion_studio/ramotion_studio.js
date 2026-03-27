@@ -24,7 +24,12 @@ frappe.pages["ramotion-studio"].on_page_load = function (wrapper) {
 		})
 		.catch((error) => {
 			console.error("Failed to load Ramotion Studio assets", error)
-			container.innerHTML = `<div class="text-muted" style="padding: 2rem; text-align: center;">${__("Failed to load studio assets. Please refresh the page.")}</div>`
+			const errorMessage = document.createElement("div")
+			errorMessage.className = "text-muted"
+			errorMessage.style.padding = "2rem"
+			errorMessage.style.textAlign = "center"
+			errorMessage.textContent = __("Failed to load studio assets. Please refresh the page.")
+			container.replaceChildren(errorMessage)
 			frappe.show_alert({ message: __("Failed to load studio assets"), indicator: "red" })
 		})
 }
@@ -65,8 +70,8 @@ function loadStudioAssets() {
 		return studioAssetsPromise
 	}
 
-	const stylesheetUrl = getTrustedAssetUrl("/assets/ramotion_theme/dist/studio.bundle.css?v=20260322k")
-	const scriptUrl = getTrustedAssetUrl("/assets/ramotion_theme/dist/studio.bundle.js?v=20260322k")
+	const stylesheetUrl = getTrustedAssetUrl("/assets/ramotion_theme/dist/studio.bundle.css?v=20260327l")
+	const scriptUrl = getTrustedAssetUrl("/assets/ramotion_theme/dist/studio.bundle.js?v=20260327l")
 
 	ensureBrowserProcessShim()
 

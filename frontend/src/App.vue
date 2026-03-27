@@ -1,9 +1,12 @@
 <template>
-	<div class="studio-shell" :data-theme="activeTheme.id">
+	<div class="studio-shell" :data-theme="activeTheme.id" :data-appearance="isNight ? 'night' : 'day'">
 		<section class="hero-shell">
 			<div class="hero-copy panel-surface">
 				<div class="hero-topline">
-					<Badge label="Ramotion Theme System" theme="gray" variant="subtle" size="lg" />
+					<div class="hero-topline-badges">
+						<Badge label="Ramotion Theme System" theme="gray" variant="subtle" size="lg" />
+						<Badge :label="isNight ? 'Night Mode' : 'Day Mode'" theme="gray" variant="subtle" size="lg" />
+					</div>
 					<span class="hero-status">Professional desk refinement for Frappe</span>
 				</div>
 				<p class="section-kicker">Design Control Center</p>
@@ -12,6 +15,16 @@
 					الثيم أصبح موجهاً للإنتاج الفعلي: تقليل الضوضاء البصرية، هرمية أوضح في Home وWorkspace،
 					وتحسين حقيقي لحقول الإدخال والقوائم والرأس العلوي بدل المؤثرات الزائدة.
 				</p>
+				<div class="mode-strip panel-soft">
+					<div>
+						<div class="section-kicker">Appearance</div>
+						<strong>{{ isNight ? 'ليلي تشغيلي' : 'نهاري تحريري' }}</strong>
+						<p>{{ appearanceCopy }}</p>
+					</div>
+					<Button variant="outline" @click="toggleAppearance">
+						{{ isNight ? 'التحويل إلى نهاري' : 'التحويل إلى ليلي' }}
+					</Button>
+				</div>
 				<div class="hero-actions">
 					<Button variant="solid" @click="applyTheme(activeTheme.id)">تطبيق النمط الحالي</Button>
 					<Button variant="subtle" @click="cycleTheme">المعاينة التالية</Button>
@@ -28,7 +41,7 @@
 			<div class="hero-preview panel-surface">
 				<div class="preview-toolbar">
 					<div class="preview-dots"><span></span><span></span><span></span></div>
-					<div class="preview-toolbar-label">Home / Workspace / Form</div>
+					<div class="preview-toolbar-label">Home / Workspace / Form / Reports</div>
 				</div>
 				<div class="preview-grid">
 					<aside class="preview-sidebar">
@@ -156,28 +169,50 @@
 				</ul>
 			</article>
 
-			<article class="panel-surface section-card">
-				<div class="section-head">
-					<div>
-						<p class="section-kicker">Operational Signals</p>
-						<h2>مؤشرات القراءة والتنقل</h2>
+			<div class="stack-grid">
+				<article class="panel-surface section-card tone-card">
+					<div class="section-head">
+						<div>
+							<p class="section-kicker">Adaptive Tone</p>
+							<h2>تبديل النهار والليل</h2>
+						</div>
+						<p>الاستوديو الآن يعرض فرقاً حقيقياً بين القراءة النهارية والتركيز الليلي دون فقدان الهوية.</p>
 					</div>
-					<p>مقاييس نوعية تعكس أثر التحسين على الكثافة والوضوح البصري.</p>
-				</div>
-				<div class="metrics-grid">
-					<div v-for="metric in metrics" :key="metric.label" class="metric-card panel-soft">
-						<div class="metric-label">{{ metric.label }}</div>
-						<div class="metric-value large">{{ metric.value }}</div>
-						<div class="metric-note">{{ metric.trend }}</div>
+					<div class="tone-grid">
+						<div class="tone-pill" :class="{ active: !isNight }">
+							<strong>Day</strong>
+							<span>سطوح خفيفة ونصوص حادة للعرض والاجتماعات.</span>
+						</div>
+						<div class="tone-pill" :class="{ active: isNight }">
+							<strong>Night</strong>
+							<span>تباين أهدأ ووهج أقل للتركيز الطويل داخل النظام.</span>
+						</div>
 					</div>
-				</div>
-			</article>
+				</article>
+
+				<article class="panel-surface section-card">
+					<div class="section-head">
+						<div>
+							<p class="section-kicker">Operational Signals</p>
+							<h2>مؤشرات القراءة والتنقل</h2>
+						</div>
+						<p>مقاييس نوعية تعكس أثر التحسين على الكثافة والوضوح البصري.</p>
+					</div>
+					<div class="metrics-grid">
+						<div v-for="metric in metrics" :key="metric.label" class="metric-card panel-soft">
+							<div class="metric-label">{{ metric.label }}</div>
+							<div class="metric-value large">{{ metric.value }}</div>
+							<div class="metric-note">{{ metric.trend }}</div>
+						</div>
+					</div>
+				</article>
+			</div>
 		</section>
 	</div>
 </template>
 
 <script setup>
-import { computed, ref } from "vue"
+import { computed, onBeforeUnmount, onMounted, ref } from "vue"
 import { Badge, Button, Input } from "frappe-ui"
 
 const themes = [
@@ -248,6 +283,7 @@ const metrics = [
 const keywords = ["Workspace", "Home", "Reports", "CRM", "Sales", "Projects", "Support"]
 const searchQuery = ref("")
 const activeThemeId = ref(window.RamotionTheme?.getPalette?.() || themes[0].id)
+const isNight = ref(window.RamotionTheme?.isDark?.() || false)
 
 const activeTheme = computed(
 	() => themes.find((theme) => theme.id === activeThemeId.value) || themes[0]
@@ -262,6 +298,12 @@ const filteredKeywords = computed(() => {
 	return keywords.filter((keyword) => keyword.toLowerCase().includes(query))
 })
 
+const appearanceCopy = computed(() => {
+	return isNight.value
+		? "نسخة ليلية أكثر هدوءاً للتركيز على الكروت والبيانات دون وهج مشتت."
+		: "نسخة نهارية مضيئة بتباين تحريري واضح ومساحات هواء أوسع للعرض السريع."
+})
+
 function applyTheme(themeId) {
 	activeThemeId.value = themeId
 	window.RamotionTheme?.applyPalette?.(themeId)
@@ -272,6 +314,25 @@ function cycleTheme() {
 	const nextTheme = themes[(currentIndex + 1) % themes.length]
 	applyTheme(nextTheme.id)
 }
+
+function syncAppearance() {
+	isNight.value = !!window.RamotionTheme?.isDark?.()
+}
+
+function toggleAppearance() {
+	const next = !isNight.value
+	isNight.value = next
+	window.RamotionTheme?.setDark?.(next)
+}
+
+onMounted(() => {
+	syncAppearance()
+	document.addEventListener("ramotion-theme:change", syncAppearance)
+})
+
+onBeforeUnmount(() => {
+	document.removeEventListener("ramotion-theme:change", syncAppearance)
+})
 </script>
 
 <style>
@@ -280,19 +341,38 @@ function cycleTheme() {
 }
 
 .studio-shell {
+	--studio-font-body: var(--ap-font-family, "IBM Plex Sans Arabic", "Segoe UI", Tahoma, Arial, sans-serif);
+	--studio-font-ui: "Segoe UI", Tahoma, Arial, sans-serif;
+	--studio-font-display: var(--ap-font-family, "IBM Plex Sans Arabic", "Segoe UI", Tahoma, Arial, sans-serif);
 	--studio-panel: rgba(255, 255, 255, 0.9);
+	--studio-panel-strong: rgba(255, 255, 255, 0.98);
 	--studio-line: rgba(15, 23, 42, 0.08);
 	--studio-copy: #486581;
 	--studio-ink: #102a43;
+	--studio-glow: rgba(21, 111, 103, 0.12);
 	padding: 28px;
 	min-height: calc(100vh - 80px);
-	font-family: "IBM Plex Sans Arabic", "Segoe UI", Tahoma, Arial, sans-serif;
+	font-family: var(--studio-font-body);
 	background:
 		linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(244, 248, 251, 0.95)),
 		radial-gradient(circle at top right, rgba(21, 111, 103, 0.06), transparent 24%),
 		radial-gradient(circle at top left, rgba(249, 115, 82, 0.05), transparent 20%),
 		#f4f8fb;
 	color: var(--studio-ink);
+}
+
+.studio-shell[data-appearance="night"] {
+	--studio-panel: rgba(11, 18, 32, 0.78);
+	--studio-panel-strong: rgba(15, 23, 42, 0.94);
+	--studio-line: rgba(148, 163, 184, 0.16);
+	--studio-copy: #9fb3c8;
+	--studio-ink: #edf3fb;
+	--studio-glow: rgba(96, 165, 250, 0.18);
+	background:
+		linear-gradient(180deg, rgba(5, 11, 23, 0.82), rgba(8, 15, 29, 0.96)),
+		radial-gradient(circle at top right, rgba(59, 130, 246, 0.18), transparent 26%),
+		radial-gradient(circle at bottom left, rgba(14, 165, 233, 0.12), transparent 24%),
+		#07111f;
 }
 
 .studio-shell[data-theme="aurora"] {
@@ -325,9 +405,17 @@ function cycleTheme() {
 	backdrop-filter: blur(12px);
 }
 
+.studio-shell[data-appearance="night"] .panel-surface,
+.studio-shell[data-appearance="night"] .panel-soft,
+.studio-shell[data-appearance="night"] .metric-card,
+.studio-shell[data-appearance="night"] .preset-card,
+.studio-shell[data-appearance="night"] .rail-item {
+	box-shadow: 0 18px 40px rgba(2, 6, 23, 0.28);
+}
+
 .panel-soft {
 	background:
-		linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.9)),
+		linear-gradient(180deg, var(--studio-panel-strong), var(--studio-panel)),
 		linear-gradient(135deg, var(--theme-soft), transparent 55%);
 }
 
@@ -341,7 +429,8 @@ function cycleTheme() {
 .preview-grid,
 .surface-grid,
 .stats-grid,
-.metrics-grid {
+.metrics-grid,
+.stack-grid {
 	display: grid;
 	gap: 18px;
 }
@@ -358,6 +447,7 @@ function cycleTheme() {
 }
 
 .hero-topline,
+.hero-topline-badges,
 .hero-actions,
 .tag-row,
 .action-row,
@@ -376,6 +466,7 @@ function cycleTheme() {
 
 .hero-status,
 .hero-lead,
+.mode-strip p,
 .metric-note,
 .card-copy,
 .rail-copy,
@@ -393,7 +484,7 @@ function cycleTheme() {
 .card-overline,
 .rail-index,
 .preset-name {
-	font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+	font-family: var(--studio-font-ui);
 	font-size: 0.78rem;
 	font-weight: 700;
 	text-transform: uppercase;
@@ -404,11 +495,29 @@ function cycleTheme() {
 .hero-copy h1 {
 	margin: 8px 0 16px;
 	max-width: 12ch;
-	font-family: "IBM Plex Sans Arabic", "Segoe UI", Tahoma, Arial, sans-serif;
+	font-family: var(--studio-font-display);
 	font-size: clamp(2.4rem, 4vw, 4.2rem);
 	font-weight: 700;
 	letter-spacing: -0.06em;
 	line-height: 0.96;
+}
+
+.mode-strip {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 16px;
+	padding: 16px 18px;
+	margin-bottom: 18px;
+	background:
+		linear-gradient(135deg, var(--studio-glow), transparent 55%),
+		var(--studio-panel-strong);
+}
+
+.mode-strip strong {
+	display: block;
+	margin: 4px 0 6px;
+	font-size: 1rem;
 }
 
 .stats-grid,
@@ -422,7 +531,7 @@ function cycleTheme() {
 }
 
 .metric-value {
-	font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+	font-family: var(--studio-font-ui);
 	font-size: 1.95rem;
 	font-weight: 700;
 	letter-spacing: -0.04em;
@@ -470,7 +579,7 @@ function cycleTheme() {
 	border-radius: 14px;
 	display: grid;
 	place-items: center;
-	font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+	font-family: var(--studio-font-ui);
 	font-weight: 700;
 	color: #fff;
 	background: linear-gradient(135deg, var(--theme-primary), var(--theme-accent));
@@ -509,10 +618,49 @@ function cycleTheme() {
 .card-title,
 .rail-title {
 	margin: 4px 0 0;
-	font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+	font-family: var(--studio-font-display);
 	font-weight: 700;
 	letter-spacing: -0.03em;
 	color: var(--studio-ink);
+}
+
+.tone-card {
+	background:
+		linear-gradient(145deg, var(--studio-panel-strong), var(--studio-panel));
+}
+
+.tone-grid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 12px;
+}
+
+.tone-pill {
+	display: grid;
+	gap: 6px;
+	padding: 14px;
+	border-radius: 18px;
+	border: 1px solid var(--studio-line);
+	background: rgba(255, 255, 255, 0.35);
+}
+
+.studio-shell[data-appearance="night"] .tone-pill {
+	background: rgba(15, 23, 42, 0.45);
+}
+
+.tone-pill.active {
+	border-color: color-mix(in srgb, var(--theme-primary) 38%, white);
+	box-shadow: 0 0 0 3px color-mix(in srgb, var(--theme-primary) 12%, transparent);
+}
+
+.tone-pill strong {
+	font-family: var(--studio-font-ui);
+	font-size: 0.88rem;
+}
+
+.tone-pill span {
+	color: var(--studio-copy);
+	line-height: 1.7;
 }
 
 .surface-grid {
@@ -658,6 +806,15 @@ function cycleTheme() {
 	.preview-banner {
 		flex-direction: column;
 		gap: 10px;
+	}
+
+	.tone-grid {
+		grid-template-columns: 1fr;
+	}
+
+	.mode-strip {
+		flex-direction: column;
+		align-items: stretch;
 	}
 }
 </style>

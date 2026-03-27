@@ -125,13 +125,25 @@
 			var mono = siteName.replace(/[^A-Za-z\u0600-\u06FF\u0750-\u077F]/g, '').substring(0, 2).toUpperCase() || 'RM'
 
 			var brand = document.createElement('div')
+			var icon = document.createElement('div')
+			var info = document.createElement('div')
+			var name = document.createElement('span')
+			var sub = document.createElement('span')
 			brand.className = 'rm-sidebar-brand'
-			brand.innerHTML =
-				'<div class="rm-sidebar-brand__icon">' + helpers.esc(mono) + '</div>' +
-				'<div class="rm-sidebar-brand__info">' +
-					'<span class="rm-sidebar-brand__name">' + helpers.esc(shortName) + '</span>' +
-					'<span class="rm-sidebar-brand__sub">' + helpers.translateText('Workspace') + '</span>' +
-				'</div>'
+
+			icon.className = 'rm-sidebar-brand__icon'
+			icon.textContent = mono
+
+			info.className = 'rm-sidebar-brand__info'
+			name.className = 'rm-sidebar-brand__name'
+			name.textContent = shortName
+			sub.className = 'rm-sidebar-brand__sub'
+			sub.textContent = helpers.translateText('Workspace')
+
+			info.appendChild(name)
+			info.appendChild(sub)
+			brand.appendChild(icon)
+			brand.appendChild(info)
 			sidebar.insertBefore(brand, sidebar.firstChild)
 		}
 
@@ -216,6 +228,21 @@
 	}
 
 	function injectHero(page) {
+		function createHeroStat(label, value) {
+			var stat = document.createElement('div')
+			var statLabel = document.createElement('span')
+			var statValue = document.createElement('strong')
+
+			stat.className = 'ramotion-hero-stat'
+			statLabel.className = 'ramotion-hero-stat__label'
+			statLabel.textContent = label
+			statValue.textContent = String(value)
+
+			stat.appendChild(statLabel)
+			stat.appendChild(statValue)
+			return stat
+		}
+
 		var content = page.querySelector('.layout-main-section')
 		var editor = content && content.querySelector('.editor-js-container')
 		if (!content || !editor) return
@@ -225,6 +252,11 @@
 		var greeting = getGreeting()
 		var dateLabel = getDateLabel()
 		var timeLabel = getLiveTime()
+		var copy = document.createElement('div')
+		var eyebrow = document.createElement('div')
+		var clock = document.createElement('span')
+		var heading = document.createElement('h1')
+		var stats = document.createElement('div')
 
 		var hero = content.querySelector('.ramotion-workspace-hero')
 		if (!hero) {
@@ -237,21 +269,28 @@
 		hero.style.boxShadow = '0 24px 64px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.05)'
 		hero.style.border = '1px solid rgba(255,255,255,0.05)'
 
-		hero.innerHTML =
-			'<div class="ramotion-workspace-hero__copy">' +
-				'<div class="ramotion-workspace-hero__eyebrow">' +
-					helpers.esc(greeting) +
-					(dateLabel ? ' &nbsp;·&nbsp; ' + helpers.esc(dateLabel) : '') +
-					' &nbsp;·&nbsp; <span class="rm-hero-clock">' + helpers.esc(timeLabel) + '</span>' +
-				'</div>' +
-				'<h1>' + helpers.esc(title) + '</h1>' +
-			'</div>' +
-			'<div class="ramotion-workspace-hero__stats">' +
-				'<div class="ramotion-hero-stat"><span class="ramotion-hero-stat__label">' + __('Sections') + '</span><strong>' + metrics.groups + '</strong></div>' +
-				'<div class="ramotion-hero-stat"><span class="ramotion-hero-stat__label">' + __('Shortcuts') + '</span><strong>' + metrics.shortcuts + '</strong></div>' +
-				'<div class="ramotion-hero-stat"><span class="ramotion-hero-stat__label">' + __('Reports') + '</span><strong>' + metrics.insightCards + '</strong></div>' +
-				'<div class="ramotion-hero-stat"><span class="ramotion-hero-stat__label">' + __('Links') + '</span><strong>' + metrics.links + '</strong></div>' +
-			'</div>'
+			copy.className = 'ramotion-workspace-hero__copy'
+			eyebrow.className = 'ramotion-workspace-hero__eyebrow'
+			clock.className = 'rm-hero-clock'
+			heading.textContent = title
+			stats.className = 'ramotion-workspace-hero__stats'
+
+			eyebrow.appendChild(document.createTextNode(greeting))
+			if (dateLabel) {
+				eyebrow.appendChild(document.createTextNode(' · ' + dateLabel))
+			}
+			eyebrow.appendChild(document.createTextNode(' · '))
+			clock.textContent = timeLabel
+			eyebrow.appendChild(clock)
+
+			copy.appendChild(eyebrow)
+			copy.appendChild(heading)
+			stats.appendChild(createHeroStat(__('Sections'), metrics.groups))
+			stats.appendChild(createHeroStat(__('Shortcuts'), metrics.shortcuts))
+			stats.appendChild(createHeroStat(__('Reports'), metrics.insightCards))
+			stats.appendChild(createHeroStat(__('Links'), metrics.links))
+
+			hero.replaceChildren(copy, stats)
 
 		window.clearInterval(state.heroClockTimer)
 		state.heroClockTimer = window.setInterval(function () {

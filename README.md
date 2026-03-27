@@ -2,6 +2,14 @@
 
 Ramotion-inspired UI customization app for Frappe Desk
 
+### What's New in v0.4.0
+
+- Hardened theme-side DOM rendering to reduce XSS exposure in injected UI surfaces.
+- Rebuilt the desk theme controls and workspace enhancements with safe DOM APIs instead of HTML string insertion.
+- Redesigned the login page to match the Ramotion visual system across desktop and mobile.
+- Refined the public landing page and mobile website navigation treatment.
+- Expanded Ramotion Studio with day and night appearance previews and updated bundled assets.
+
 ### Requirements
 
 - Frappe v15
@@ -28,6 +36,18 @@ yarn frontend:install
 yarn build
 bench build --app ramotion_theme
 ```
+
+### Upgrade Notes for v0.4.0
+
+After pulling this release, run:
+
+```bash
+bench --site <site> migrate
+bench --site <site> clear-cache
+bench build --app ramotion_theme
+```
+
+The build step is recommended if you are deploying from source and want to guarantee the latest bundled studio assets are regenerated locally.
 
 ### Contributing
 

@@ -45,6 +45,8 @@
 			.replace(/&/g, '&amp;')
 			.replace(/</g, '&lt;')
 			.replace(/>/g, '&gt;')
+			.replace(/"/g, '&quot;')
+			.replace(/'/g, '&#39;')
 	}
 
 	runtime.helpers.ls = function (key, value) {
@@ -60,6 +62,29 @@
 	runtime.helpers.svgIcon = function (path, size) {
 		size = size || 16
 		return '<svg xmlns="http://www.w3.org/2000/svg" width="' + size + '" height="' + size + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + path + '</svg>'
+	}
+
+	runtime.helpers.svgNode = function (markup) {
+		if (!markup || typeof window.DOMParser !== 'function' || !window.document) return null
+
+		try {
+			var doc = new window.DOMParser().parseFromString(String(markup), 'image/svg+xml')
+			var svg = doc && doc.documentElement
+			if (!svg || String(svg.nodeName).toLowerCase() !== 'svg') return null
+			return window.document.importNode ? window.document.importNode(svg, true) : svg.cloneNode(true)
+		} catch (e) {
+			return null
+		}
+	}
+
+	runtime.helpers.setSvg = function (target, markup) {
+		if (!target) return
+		var iconNode = runtime.helpers.svgNode(markup)
+		if (!iconNode) {
+			target.replaceChildren()
+			return
+		}
+		target.replaceChildren(iconNode)
 	}
 
 	runtime.helpers.getMatchingOption = function (options, id, fallbackId) {

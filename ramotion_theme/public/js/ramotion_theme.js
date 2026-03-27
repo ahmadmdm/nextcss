@@ -105,10 +105,6 @@
 				.replace(/ê/g, RIYAL_SYMBOL)
 		}
 
-		function buildRiyalAmountMarkup(number) {
-			return '<span class="rm-riyal-amount"><span class="rm-riyal-symbol" aria-hidden="true"></span><span class="rm-riyal-number">' + number + '</span></span>'
-		}
-
 		function scheduleWorkspaceEnhancement() {
 			var workspace = getWorkspaceApi()
 			if (workspace.scheduleEnhancement) workspace.scheduleEnhancement()
@@ -198,7 +194,7 @@
 		var button = document.getElementById('rm-dark-toggle')
 		if (!button) return
 
-		button.innerHTML = isDark() ? icons.sun : icons.moon
+		helpers.setSvg(button, isDark() ? icons.sun : icons.moon)
 		button.title = isDark() ? 'Switch to Light Mode' : 'Switch to Dark Mode'
 	}
 
@@ -239,7 +235,7 @@
 			var darkButton = document.createElement('button')
 			darkButton.id = 'rm-dark-toggle'
 			darkButton.className = 'rm-settings-btn'
-			darkButton.innerHTML = isDark() ? icons.sun : icons.moon
+			helpers.setSvg(darkButton, isDark() ? icons.sun : icons.moon)
 			darkButton.title = isDark() ? 'Switch to Light Mode' : 'Switch to Dark Mode'
 			darkButton.addEventListener('click', function (event) {
 				event.stopPropagation()
@@ -252,7 +248,7 @@
 			var settingsButton = document.createElement('button')
 			settingsButton.id = 'rm-settings-btn'
 			settingsButton.className = 'rm-settings-btn'
-			settingsButton.innerHTML = icons.palette
+			helpers.setSvg(settingsButton, icons.palette)
 			settingsButton.title = 'Theme Settings'
 			settingsButton.addEventListener('click', function (event) {
 				event.stopPropagation()
@@ -267,64 +263,120 @@
 	function injectSettingsPanel() {
 		if (document.getElementById('rm-theme-panel')) return
 
+		function createPanelLabel(text, id, marginTop) {
+			var label = document.createElement('span')
+			label.className = 'rm-panel-label'
+			if (id) label.id = id
+			if (marginTop) label.style.marginTop = marginTop
+			label.textContent = text
+			return label
+		}
+
+		function createPaletteButton(palette) {
+			var button = document.createElement('button')
+			var dot = document.createElement('span')
+
+			button.className = 'rm-palette-btn'
+			button.setAttribute('data-palette', palette.id)
+			button.appendChild(dot)
+			button.appendChild(document.createTextNode(palette.label))
+
+			dot.className = 'rm-color-dot'
+			dot.style.background = palette.color
+
+			button.addEventListener('click', function () {
+				applyPalette(palette.id)
+			})
+
+			return button
+		}
+
+		function createFontButton(font) {
+			var button = document.createElement('button')
+			var name = document.createElement('span')
+			var preview = document.createElement('span')
+
+			button.className = 'rm-font-btn'
+			button.setAttribute('data-font', font.id)
+
+			name.className = 'rm-font-name'
+			name.textContent = font.label
+
+			preview.className = 'rm-font-preview'
+			preview.textContent = font.preview
+			if (font.family) preview.style.fontFamily = '\'' + font.family + '\',sans-serif'
+
+			button.appendChild(name)
+			button.appendChild(preview)
+			button.addEventListener('click', function () {
+				applyFont(font.id)
+			})
+
+			return button
+		}
+
 		var panel = document.createElement('div')
+		var header = document.createElement('div')
+		var headerTitle = document.createElement('span')
+		var closeButton = document.createElement('button')
+		var body = document.createElement('div')
+		var paletteGrid = document.createElement('div')
+		var darkRow = document.createElement('div')
+		var darkText = document.createElement('span')
+		var darkSwitch = document.createElement('div')
+		var switchTrack = document.createElement('div')
+		var switchThumb = document.createElement('div')
+		var fontGrid = document.createElement('div')
+		var fontNote = document.createElement('div')
 		panel.id = 'rm-theme-panel'
 		panel.className = 'rm-theme-panel'
 
-		var paletteButtons = config.PALETTES.map(function (palette) {
-			return '<button class="rm-palette-btn" data-palette="' + palette.id + '">' +
-				'<span class="rm-color-dot" style="background:' + palette.color + '"></span>' +
-				palette.label +
-			'</button>'
-		}).join('')
+		header.className = 'rm-theme-panel__header'
+		headerTitle.textContent = 'Theme Settings'
+		closeButton.className = 'rm-theme-panel__close'
+		closeButton.id = 'rm-panel-close'
+		helpers.setSvg(closeButton, icons.close)
+		header.appendChild(headerTitle)
+		header.appendChild(closeButton)
 
-		var fontButtons = config.FONTS.map(function (font) {
-			return '<button class="rm-font-btn" data-font="' + font.id + '">' +
-				'<span class="rm-font-name">' + font.label + '</span>' +
-				'<span class="rm-font-preview" style="' + (font.family ? 'font-family:\'' + font.family + '\',sans-serif' : '') + '">' + font.preview + '</span>' +
-			'</button>'
-		}).join('')
+		body.className = 'rm-theme-panel__body'
 
-		panel.innerHTML =
-			'<div class="rm-theme-panel__header">' +
-				'<span>Theme Settings</span>' +
-				'<button class="rm-theme-panel__close" id="rm-panel-close">' + icons.close + '</button>' +
-			'</div>' +
-			'<div class="rm-theme-panel__body">' +
-				'<span class="rm-panel-label">Color Palette</span>' +
-				'<div class="rm-palette-grid">' + paletteButtons + '</div>' +
-				'<span class="rm-panel-label">Appearance</span>' +
-				'<div class="rm-toggle-row" id="rm-dark-row">' +
-					'<span>Dark Mode</span>' +
-					'<div class="rm-switch">' +
-						'<div class="rm-switch-track"></div>' +
-						'<div class="rm-switch-thumb"></div>' +
-					'</div>' +
-				'</div>' +
-				'<span class="rm-panel-label" id="rm-font-label" style="margin-top:14px">الخط العربي</span>' +
-				'<div class="rm-font-grid">' + fontButtons + '</div>' +
-				'<div class="rm-font-note" id="rm-font-note"></div>' +
-			'</div>'
+		paletteGrid.className = 'rm-palette-grid'
+		for (var i = 0; i < config.PALETTES.length; i++) {
+			paletteGrid.appendChild(createPaletteButton(config.PALETTES[i]))
+		}
+
+		darkRow.className = 'rm-toggle-row'
+		darkRow.id = 'rm-dark-row'
+		darkText.textContent = 'Dark Mode'
+		darkSwitch.className = 'rm-switch'
+		switchTrack.className = 'rm-switch-track'
+		switchThumb.className = 'rm-switch-thumb'
+		darkSwitch.appendChild(switchTrack)
+		darkSwitch.appendChild(switchThumb)
+		darkRow.appendChild(darkText)
+		darkRow.appendChild(darkSwitch)
+
+		fontGrid.className = 'rm-font-grid'
+		for (var j = 0; j < config.FONTS.length; j++) {
+			fontGrid.appendChild(createFontButton(config.FONTS[j]))
+		}
+
+		fontNote.className = 'rm-font-note'
+		fontNote.id = 'rm-font-note'
+
+		body.appendChild(createPanelLabel('Color Palette'))
+		body.appendChild(paletteGrid)
+		body.appendChild(createPanelLabel('Appearance'))
+		body.appendChild(darkRow)
+		body.appendChild(createPanelLabel('الخط العربي', 'rm-font-label', '14px'))
+		body.appendChild(fontGrid)
+		body.appendChild(fontNote)
+
+		panel.appendChild(header)
+		panel.appendChild(body)
 
 		document.body.appendChild(panel)
-
-		var paletteNodes = panel.querySelectorAll('.rm-palette-btn')
-		for (var i = 0; i < paletteNodes.length; i++) {
-			(function (button) {
-				button.addEventListener('click', function () {
-					applyPalette(button.getAttribute('data-palette'))
-				})
-			})(paletteNodes[i])
-		}
-
-		var fontNodes = panel.querySelectorAll('.rm-font-btn')
-		for (var j = 0; j < fontNodes.length; j++) {
-			(function (button) {
-				button.addEventListener('click', function () {
-					applyFont(button.getAttribute('data-font'))
-				})
-			})(fontNodes[j])
-		}
 
 		document.getElementById('rm-dark-row').addEventListener('click', function () {
 			toggleDark()
@@ -541,18 +593,6 @@
 		return fragment
 	}
 
-	function buildRiyalMarkupFromText(textValue) {
-		if (!textValue) return textValue
-
-		return String(textValue)
-			.replace(RIYAL_AMOUNT_AFTER_PATTERN, function (_match, number) {
-				return buildRiyalAmountMarkup(number)
-			})
-			.replace(RIYAL_AMOUNT_BEFORE_PATTERN, function (_match, number) {
-				return buildRiyalAmountMarkup(number)
-			})
-	}
-
 	function canDecorateRiyalElement(element) {
 		if (!element) return false
 		if (element.querySelector('.rm-riyal-amount, .rm-riyal-symbol')) return false
@@ -573,10 +613,10 @@
 			if (!canDecorateRiyalElement(element)) continue
 
 			var sourceText = element.textContent || ''
-			var decorated = buildRiyalMarkupFromText(sourceText)
-			if (decorated === sourceText) continue
+			var fragment = buildRiyalFragment(sourceText)
+			if (!fragment) continue
 
-			element.innerHTML = decorated
+			element.replaceChildren(fragment)
 			element.classList.add('rm-has-riyal-symbol')
 		}
 	}
