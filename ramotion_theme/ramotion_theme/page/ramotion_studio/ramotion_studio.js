@@ -31,6 +31,20 @@ frappe.pages["ramotion-studio"].on_page_load = function (wrapper) {
 
 let studioAssetsPromise
 
+function ensureBrowserProcessShim() {
+	if (!window.process) {
+		window.process = { env: {} }
+	}
+
+	if (!window.process.env) {
+		window.process.env = {}
+	}
+
+	if (!window.process.env.NODE_ENV) {
+		window.process.env.NODE_ENV = "production"
+	}
+}
+
 function getTrustedAssetUrl(assetPath) {
 	const url = new URL(assetPath, window.location.origin)
 	if (url.origin !== window.location.origin) {
@@ -53,6 +67,8 @@ function loadStudioAssets() {
 
 	const stylesheetUrl = getTrustedAssetUrl("/assets/ramotion_theme/dist/studio.bundle.css?v=20260322k")
 	const scriptUrl = getTrustedAssetUrl("/assets/ramotion_theme/dist/studio.bundle.js?v=20260322k")
+
+	ensureBrowserProcessShim()
 
 	studioAssetsPromise = Promise.all([
 		injectStylesheet(stylesheetUrl),
