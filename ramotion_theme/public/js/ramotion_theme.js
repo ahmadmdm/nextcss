@@ -36,6 +36,60 @@
 			'.frappe-list .currency'
 		]
 
+		function normalizeQueryReportHeaderHeight() {
+			var page = document.getElementById('page-query-report')
+			if (!page) return
+
+			var header = page.querySelector('.dt-header')
+			var headerWrapper = header && header.firstElementChild
+			var headerRow = page.querySelector('.dt-header .dt-row.dt-row-header, .dt-header-row')
+			if (!header || !headerRow) return
+
+			var headerCells = page.querySelectorAll('.dt-header .dt-cell')
+
+			var rowHeight = Math.ceil(headerRow.getBoundingClientRect().height)
+			if (!rowHeight) return
+
+			var targetHeight = rowHeight + 1
+			header.style.height = targetHeight + 'px'
+			header.style.minHeight = targetHeight + 'px'
+			header.style.maxHeight = targetHeight + 'px'
+
+			if (headerWrapper) {
+				headerWrapper.style.height = targetHeight + 'px'
+				headerWrapper.style.minHeight = targetHeight + 'px'
+				headerWrapper.style.maxHeight = targetHeight + 'px'
+			}
+
+			for (var i = 0; i < headerCells.length; i++) {
+				headerCells[i].style.removeProperty('width')
+				headerCells[i].style.removeProperty('min-width')
+				headerCells[i].style.removeProperty('max-width')
+			}
+		}
+
+		function scheduleQueryReportHeaderNormalization() {
+			if (!window.setTimeout) return
+			var delays = [0, 80, 240, 600, 1200]
+			for (var i = 0; i < delays.length; i++) {
+				window.setTimeout(function () {
+					normalizeQueryReportHeaderHeight()
+				}, delays[i])
+			}
+		}
+
+		function initQueryReportObserver() {
+			if (!window.MutationObserver || state.queryReportObserver || !document.body) return
+
+			state.queryReportObserver = new MutationObserver(function () {
+				var route = window.frappe && frappe.get_route ? frappe.get_route() : []
+				if (!route || route[0] !== 'query-report') return
+				scheduleQueryReportHeaderNormalization()
+			})
+
+			state.queryReportObserver.observe(document.body, { childList: true, subtree: true })
+		}
+
 		function getWorkspaceApi() {
 			return runtime.workspace || {}
 		}
@@ -130,6 +184,7 @@
 		initListAnimations()
 		initScrollStickyHead()
 		overrideFrappeCharts()
+		scheduleQueryReportHeaderNormalization()
 	}
 
 	function injectNavbarControls() {
@@ -591,7 +646,9 @@
 		applyRiyalSymbol()
 		scheduleRiyalRefresh()
 		initRiyalObserver()
+		initQueryReportObserver()
 		scheduleWorkspaceEnhancement()
+		scheduleQueryReportHeaderNormalization()
 	}
 
 	if (document.readyState === 'loading') {
@@ -604,6 +661,7 @@
 		bootstrapTheme()
 		window.setTimeout(applyRiyalSymbol, 400)
 		scheduleWorkspaceEnhancement()
+		scheduleQueryReportHeaderNormalization()
 	})
 
 	document.addEventListener('ramotion-theme:change', scheduleWorkspaceEnhancement)

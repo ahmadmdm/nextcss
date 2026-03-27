@@ -3694,14 +3694,35 @@ html body #page-query-report .page-form .frappe-control.input-max-width:not([dat
 
 /* Final override: softer report table top edge */
 html body #page-query-report .dt-header {
-	background: linear-gradient(180deg, #f7faff 0%, #f1f5ff 100%) !important;
-	border-bottom: 1px solid rgba(160, 177, 205, 0.42) !important;
-	box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.65) !important;
+	background: #f8fafc !important;
+	border-top: 1px solid rgba(210, 218, 230, 0.9) !important;
+	border-bottom: 1px solid rgba(210, 218, 230, 0.95) !important;
+	box-shadow: none !important;
+	height: 36px !important;
+	min-height: 36px !important;
 }
 
 html body #page-query-report .dt-cell--header,
 html body #page-query-report .dt-cell--header .dt-cell__content {
 	background: transparent !important;
+}
+
+html body #page-query-report .dt-header .dt-row,
+html body #page-query-report .dt-scrollable .dt-row {
+	border-bottom: 1px solid rgba(220, 226, 236, 0.9) !important;
+}
+
+html body #page-query-report .dt-header .dt-row.dt-row-header,
+html body #page-query-report .dt-header-row {
+	height: 35px !important;
+	min-height: 35px !important;
+	max-height: 35px !important;
+	align-items: stretch !important;
+}
+
+html body #page-query-report .dt-header .dt-cell,
+html body #page-query-report .dt-scrollable .dt-cell {
+	border-inline-end: 1px solid rgba(220, 226, 236, 0.82) !important;
 }
 
 /* Final override: slightly denser top report filters */
@@ -3750,9 +3771,11 @@ html body #page-query-report .dt-cell--header {
 }
 
 html body #page-query-report .dt-cell--header .dt-cell__content {
-	text-align: end !important;
-	padding: 6px 14px 6px 8px !important;
-	letter-spacing: 0.035em !important;
+	text-align: inherit !important;
+	padding: 8px 10px !important;
+	letter-spacing: 0 !important;
+	line-height: 1.55 !important;
+	font-weight: 700 !important;
 }
 
 html body #page-query-report .dt-cell--header--col-0,
@@ -3824,37 +3847,17 @@ html body #page-query-report .page-form .input-with-feedback.input-xs:hover {
 	background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(244,248,255,1) 100%) !important;
 }
 
-/* Final override: practical column widths for text-heavy ledger columns */
-html body #page-query-report .dt-cell--col-2,
-html body #page-query-report .dt-cell--header-2,
-html body #page-query-report .dt-cell--col-7,
-html body #page-query-report .dt-cell--header-7,
-html body #page-query-report .dt-cell--col-8,
-html body #page-query-report .dt-cell--header-8 {
-	min-width: 190px !important;
-}
-
-html body #page-query-report .dt-cell--col-10,
-html body #page-query-report .dt-cell--header-10,
-html body #page-query-report .dt-cell--col-11,
-html body #page-query-report .dt-cell--header-11,
-html body #page-query-report .dt-cell--col-12,
-html body #page-query-report .dt-cell--header-12,
-html body #page-query-report .dt-cell--col-13,
-html body #page-query-report .dt-cell--header-13 {
-	min-width: 112px !important;
-}
-
-/* Final override: header alignment must mirror data columns exactly */
+/* Final override: header alignment without forcing custom widths */
 html body #page-query-report .dt-cell--header .dt-cell__content {
-	padding: 5px !important;
-	letter-spacing: 0.035em !important;
+	box-sizing: border-box !important;
+	padding: 8px 10px !important;
+	letter-spacing: 0 !important;
 }
 
 html body #page-query-report .dt-cell--header-0,
 html body #page-query-report .dt-cell--header-0 .dt-cell__content {
 	text-align: center !important;
-	padding: 5px 8px !important;
+	padding: 8px 8px !important;
 }
 
 html body #page-query-report .dt-cell--header-1,
@@ -3877,7 +3880,22 @@ html body #page-query-report .dt-cell--header-10 .dt-cell__content,
 html body #page-query-report .dt-cell--header-11 .dt-cell__content,
 html body #page-query-report .dt-cell--header-12 .dt-cell__content,
 html body #page-query-report .dt-cell--header-13 .dt-cell__content {
-	text-align: left !important;
+	text-align: right !important;
+}
+
+html[dir="rtl"] body #page-query-report .dt-cell--col-1 .dt-cell__content,
+html[dir="rtl"] body #page-query-report .dt-cell--col-2 .dt-cell__content,
+html[dir="rtl"] body #page-query-report .dt-cell--col-6 .dt-cell__content,
+html[dir="rtl"] body #page-query-report .dt-cell--col-7 .dt-cell__content,
+html[dir="rtl"] body #page-query-report .dt-cell--col-8 .dt-cell__content,
+html[dir="rtl"] body #page-query-report .dt-cell--col-9 .dt-cell__content,
+html[dir="rtl"] body #page-query-report .dt-cell--col-10 .dt-cell__content,
+html[dir="rtl"] body #page-query-report .dt-cell--col-11 .dt-cell__content,
+html[dir="rtl"] body #page-query-report .dt-cell--col-12 .dt-cell__content,
+html[dir="rtl"] body #page-query-report .dt-cell--col-13 .dt-cell__content {
+	text-align: right !important;
+	padding-right: 10px !important;
+	padding-left: 5px !important;
 }
 
 html body #page-query-report .dt-cell--header-3,
@@ -3927,7 +3945,6 @@ html body .ui-autocomplete p {
 html body #page-query-report .dt-header .dt-row.dt-row-header,
 html body #page-query-report .dt-header-row {
 	transform: none !important;
-	width: 100% !important;
 }
 
 html body #page-query-report .dt-cell--header-0 {
