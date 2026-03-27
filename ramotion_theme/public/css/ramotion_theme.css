@@ -120,12 +120,15 @@ html[data-ramotion-palette="luxury"] {
 }
 
 /* ── 2. BASE — applies unconditionally to Frappe desk ── */
-html body,
-html body * {
-	font-family: "Segoe UI", "Tahoma", "Arial", sans-serif !important;
+:root {
+	--rm-font-ui: "Segoe UI", "Tahoma", "Arial", sans-serif;
+	--rm-font-heading-ltr: "Space Grotesk", "Segoe UI", "Tahoma", "Arial", sans-serif;
+	--rm-font-heading-rtl: var(--ap-font-family, "Readex Pro", "Segoe UI", "Tahoma", "Arial", sans-serif);
+	--rm-font-rtl: var(--ap-font-family, "Readex Pro", "Segoe UI", "Tahoma", "Arial", sans-serif);
 }
 
 html body {
+	font-family: var(--rm-font-ui) !important;
 	font-size: 0.94rem;
 	line-height: 1.6;
 	color: var(--rm-ink);
@@ -142,16 +145,15 @@ html body .page-title,
 html body .widget-group-title,
 html body .widget-title,
 html body .form-section-heading {
-	font-family: "Segoe UI", "Tahoma", "Arial", sans-serif !important;
+	font-family: var(--rm-font-ui) !important;
 	letter-spacing: -0.025em !important;
 }
 
 /* Arabic RTL — Readex Pro only (no letter-spacing) */
 html[dir="rtl"] body,
-html[dir="rtl"] body *,
 html body [dir="rtl"],
 html body [dir="rtl"] * {
-	font-family: "Readex Pro", sans-serif !important;
+	font-family: var(--rm-font-rtl) !important;
 	letter-spacing: 0 !important;
 	line-height: 1.85 !important;
 }
@@ -165,8 +167,30 @@ html body .widget-group-title,
 html body .widget-title,
 html body .form-section-heading,
 html body.for-login .page-card-head {
-	font-family: "Space Grotesk", "Readex Pro", sans-serif;
+	font-family: var(--rm-font-heading-ltr);
 	letter-spacing: -0.025em;
+}
+
+html[dir="rtl"] body h1,
+html[dir="rtl"] body h2,
+html[dir="rtl"] body h3,
+html[dir="rtl"] body h4,
+html[dir="rtl"] body .page-title,
+html[dir="rtl"] body .widget-group-title,
+html[dir="rtl"] body .widget-title,
+html[dir="rtl"] body .form-section-heading,
+html[dir="rtl"] body.for-login .page-card-head,
+html body [dir="rtl"] h1,
+html body [dir="rtl"] h2,
+html body [dir="rtl"] h3,
+html body [dir="rtl"] h4,
+html body [dir="rtl"] .page-title,
+html body [dir="rtl"] .widget-group-title,
+html body [dir="rtl"] .widget-title,
+html body [dir="rtl"] .form-section-heading,
+html body [dir="rtl"] .page-card-head {
+	font-family: var(--rm-font-heading-rtl) !important;
+	letter-spacing: 0 !important;
 }
 
 /* ── 3. NAVBAR — Dark Navy ── */
@@ -2155,6 +2179,20 @@ background: var(--rm-surface-3);
 color: var(--rm-ink);
 }
 
+html body .rm-font-btn[disabled],
+html body .rm-font-btn.rm-disabled {
+opacity: 0.55;
+cursor: not-allowed;
+background: var(--rm-surface) !important;
+color: var(--rm-muted) !important;
+}
+
+html body .rm-font-btn[disabled]:hover,
+html body .rm-font-btn.rm-disabled:hover {
+background: var(--rm-surface) !important;
+color: var(--rm-muted) !important;
+}
+
 html body .rm-font-btn.rm-active {
 border-color: var(--rm-primary);
 background: rgba(21, 86, 212, 0.07);
@@ -2172,20 +2210,41 @@ opacity: 0.7;
 direction: rtl;
 }
 
+html body .rm-font-note {
+font-size: 0.78rem;
+line-height: 1.5;
+color: var(--rm-muted);
+margin: -6px 0 14px;
+}
+
 /* Apply selected font across the interface */
-html[data-ramotion-font="cairo"] body,
-html[data-ramotion-font="cairo"] body * {
+html:not([data-ramotion-arabic-pro-font="1"])[data-ramotion-font="cairo"] body,
+html:not([data-ramotion-arabic-pro-font="1"])[data-ramotion-font="cairo"] body * {
 font-family: 'Cairo', sans-serif !important;
 }
 
-html[data-ramotion-font="ibm"] body,
-html[data-ramotion-font="ibm"] body * {
+html:not([data-ramotion-arabic-pro-font="1"])[data-ramotion-font="ibm"] body,
+html:not([data-ramotion-arabic-pro-font="1"])[data-ramotion-font="ibm"] body * {
 font-family: 'IBM Plex Sans Arabic', sans-serif !important;
 }
 
-html[data-ramotion-font="tajawal"] body,
-html[data-ramotion-font="tajawal"] body * {
+html:not([data-ramotion-arabic-pro-font="1"])[data-ramotion-font="tajawal"] body,
+html:not([data-ramotion-arabic-pro-font="1"])[data-ramotion-font="tajawal"] body * {
 font-family: 'Tajawal', sans-serif !important;
+}
+
+html[data-ramotion-arabic-pro-font="1"] body,
+html[data-ramotion-arabic-pro-font="1"] body * {
+	font-family: var(--ap-font-family) !important;
+}
+
+html[data-ramotion-arabic-pro-font="1"] body i.fa,
+html[data-ramotion-arabic-pro-font="1"] body span.fa,
+html[data-ramotion-arabic-pro-font="1"] body .fa,
+html[data-ramotion-arabic-pro-font="1"] body .fa::before,
+html[data-ramotion-arabic-pro-font="1"] body [class^="fa-"]::before,
+html[data-ramotion-arabic-pro-font="1"] body [class*=" fa-"]::before {
+	font-family: "FontAwesome" !important;
 }
 
 html[data-ramotion-dark="1"] body .rm-switch-track {

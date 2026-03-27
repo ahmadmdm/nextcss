@@ -118,6 +118,31 @@
 		return helpers.ls(config.STORAGE_FONT) || config.DEFAULT_FONT
 	}
 
+	function isArabicProFontActive() {
+		var bootFontManager = window.frappe && frappe.boot && frappe.boot.arabic_pro
+		var storedFont = helpers.ls('arabic_pro_font')
+		var computedFont = ''
+
+		if (window.getComputedStyle) {
+			computedFont = window.getComputedStyle(document.documentElement).getPropertyValue('--ap-font-family') || ''
+		}
+
+		return !!(bootFontManager || storedFont || computedFont.trim())
+	}
+
+	function syncArabicProFontCompatibility() {
+		var active = isArabicProFontActive()
+
+		if (active) {
+			document.documentElement.setAttribute('data-ramotion-arabic-pro-font', '1')
+			document.documentElement.removeAttribute('data-ramotion-font')
+		} else {
+			document.documentElement.removeAttribute('data-ramotion-arabic-pro-font')
+		}
+
+		return active
+	}
+
 	function applyFont(fontId) {
 		var font = fontId || config.DEFAULT_FONT
 		var match = helpers.getMatchingOption(config.FONTS, font, config.DEFAULT_FONT)
@@ -130,6 +155,7 @@
 		}
 
 		helpers.ls(config.STORAGE_FONT, font)
+		syncArabicProFontCompatibility()
 		updateSettingsPanelState()
 	}
 
@@ -275,8 +301,9 @@
 						'<div class="rm-switch-thumb"></div>' +
 					'</div>' +
 				'</div>' +
-				'<span class="rm-panel-label" style="margin-top:14px">الخط العربي</span>' +
+				'<span class="rm-panel-label" id="rm-font-label" style="margin-top:14px">الخط العربي</span>' +
 				'<div class="rm-font-grid">' + fontButtons + '</div>' +
+				'<div class="rm-font-note" id="rm-font-note"></div>' +
 			'</div>'
 
 		document.body.appendChild(panel)
@@ -345,16 +372,30 @@
 		var panel = document.getElementById('rm-theme-panel')
 		if (!panel) return
 
+		var arabicProManaged = syncArabicProFontCompatibility()
+
 		var palette = getPalette()
 		var paletteButtons = panel.querySelectorAll('.rm-palette-btn')
 		for (var i = 0; i < paletteButtons.length; i++) {
 			paletteButtons[i].classList.toggle('rm-active', paletteButtons[i].getAttribute('data-palette') === palette)
 		}
 
-		var font = getFont()
+		var font = arabicProManaged ? config.DEFAULT_FONT : getFont()
 		var fontButtons = panel.querySelectorAll('.rm-font-btn')
 		for (var j = 0; j < fontButtons.length; j++) {
+			fontButtons[j].disabled = arabicProManaged
+			fontButtons[j].classList.toggle('rm-disabled', arabicProManaged)
+			fontButtons[j].title = arabicProManaged ? 'Arabic Pro manages Arabic fonts on this site' : ''
 			fontButtons[j].classList.toggle('rm-active', fontButtons[j].getAttribute('data-font') === font)
+		}
+
+		var fontLabel = panel.querySelector('#rm-font-label')
+		var fontNote = panel.querySelector('#rm-font-note')
+		if (fontLabel) {
+			fontLabel.textContent = arabicProManaged ? 'الخط العربي - يُدار عبر Arabic Pro' : 'الخط العربي'
+		}
+		if (fontNote) {
+			fontNote.textContent = arabicProManaged ? 'مدير الخطوط في Arabic Pro هو المتحكم النشط حالياً، لذلك يعرض الثيم الخط دون استبداله.' : ''
 		}
 
 		var thumb = panel.querySelector('.rm-switch-thumb')
