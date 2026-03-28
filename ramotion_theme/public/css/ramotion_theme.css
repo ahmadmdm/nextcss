@@ -535,7 +535,7 @@ html body .form-grid {
 }
 
 html body .form-grid {
-	overflow: hidden;
+	overflow: visible;
 }
 
 /* section-body is INSIDE form-section — no nested border */
@@ -3587,7 +3587,34 @@ html body .grid-heading-row .col {
 	letter-spacing: 0.07em !important;
 	text-transform: uppercase !important;
 	color: #5a6a8a !important;
-	font-family: "Space Grotesk", sans-serif !important;
+	font-family: var(--rm-font-heading-ltr) !important;
+	display: flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	text-align: center !important;
+	line-height: 1.35 !important;
+	min-height: 46px !important;
+	padding-top: 6px !important;
+	padding-bottom: 10px !important;
+}
+
+html body .grid-heading-row .static-area {
+	position: relative !important;
+	top: -2px !important;
+}
+
+html[dir="rtl"] body .grid-heading-row .grid-static-col,
+html[dir="rtl"] body .grid-heading-row .static-area,
+html[dir="rtl"] body .grid-heading-row .col,
+html body [dir="rtl"] .grid-heading-row .grid-static-col,
+html body [dir="rtl"] .grid-heading-row .static-area,
+html body [dir="rtl"] .grid-heading-row .col,
+html[data-ramotion-arabic-pro-font="1"] body .grid-heading-row .grid-static-col,
+html[data-ramotion-arabic-pro-font="1"] body .grid-heading-row .static-area,
+html[data-ramotion-arabic-pro-font="1"] body .grid-heading-row .col {
+	font-family: var(--rm-font-heading-rtl) !important;
+	letter-spacing: 0 !important;
+	text-transform: none !important;
 }
 
 /* Grid row zebra */
@@ -3976,7 +4003,6 @@ font-weight: 700 !important;
 letter-spacing: -0.01em !important;
 }
 
-/* Status indicator pill next to title */
 html body .indicator-pill {
 font-size: 0.7rem !important;
 font-weight: 700 !important;
@@ -4119,7 +4145,7 @@ border-color: rgba(255,255,255,0.08) !important;
 /* Final override: keep child table corners visually connected */
 html body .form-grid {
 	border-radius: var(--rm-r-lg) !important;
-	overflow: hidden !important;
+	overflow: visible !important;
 }
 
 html body .form-grid .grid-heading-row,
@@ -4130,7 +4156,98 @@ html body .form-grid .grid-row .data-row {
 }
 
 html body .form-grid .grid-body {
+	overflow: visible !important;
+}
+
+html body .form-grid {
+	background: transparent !important;
+	border: none !important;
+	border-radius: 0 !important;
+	box-shadow: none !important;
+}
+
+html body .form-grid .grid-heading-row {
+	border: 1px solid rgba(141, 162, 201, 0.22) !important;
+	border-bottom: none !important;
+	border-radius: 16px 16px 0 0 !important;
 	overflow: hidden !important;
+}
+
+html body .form-grid .grid-body {
+	padding: 0 !important;
+	background: rgba(255,255,255,0.94) !important;
+	border: 1px solid rgba(141, 162, 201, 0.22) !important;
+	border-top: none !important;
+	border-radius: 0 0 16px 16px !important;
+	box-shadow: 0 10px 24px rgba(31, 60, 136, 0.06) !important;
+	overflow: visible !important;
+}
+
+html body .form-grid .grid-row {
+	margin-top: 0 !important;
+}
+
+html body .form-grid .grid-row .data-row {
+	background: transparent !important;
+	border: none !important;
+	border-radius: 0 !important;
+	box-shadow: none !important;
+	overflow: visible !important;
+	border-left: none !important;
+}
+
+html body .form-grid .grid-row + .grid-row .data-row {
+	border-top: 1px solid rgba(141, 162, 201, 0.14) !important;
+}
+
+html body .form-grid .grid-row:hover .data-row {
+	background: rgba(243, 247, 255, 1) !important;
+	border-left-color: transparent !important;
+}
+
+html body .form-grid .grid-row .grid-static-col {
+	min-height: 52px !important;
+	display: flex !important;
+	align-items: center !important;
+}
+
+html body .form-grid .grid-row .grid-static-col:first-child {
+	border-top-right-radius: 0 !important;
+	border-bottom-right-radius: 0 !important;
+}
+
+html body .form-grid .grid-row .grid-static-col:last-child {
+	border-top-left-radius: 0 !important;
+	border-bottom-left-radius: 0 !important;
+}
+
+html body .form-grid .grid-row .form-control,
+html body .form-grid .grid-row .input-with-feedback,
+html body .form-grid .grid-row .awesomplete > input {
+	height: 38px !important;
+	min-height: 38px !important;
+	border-radius: 11px !important;
+	background: rgba(255,255,255,0.96) !important;
+	border: 1px solid rgba(150, 169, 206, 0.3) !important;
+}
+
+html body .form-grid .grid-row .form-control:focus,
+html body .form-grid .grid-row .input-with-feedback:focus,
+html body .form-grid .grid-row .awesomplete > input:focus {
+	box-shadow: 0 0 0 4px rgba(0, 80, 230, 0.1) !important;
+}
+
+html body .form-grid button[data-label*="إضافة"],
+html body .form-grid button[data-label*="Add"] {
+	border-radius: 999px !important;
+	border: 1px solid rgba(0, 80, 230, 0.14) !important;
+	background: linear-gradient(180deg, rgba(255,255,255,0.96) 0%, rgba(240,245,255,0.96) 100%) !important;
+	color: var(--rm-primary) !important;
+	box-shadow: 0 6px 16px rgba(31, 60, 136, 0.06) !important;
+}
+
+html[dir="rtl"] body .form-grid .grid-row .data-row {
+	border-right: none !important;
 }
 
 /* Final override: slightly taller query report filters */

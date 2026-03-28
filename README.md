@@ -2,13 +2,11 @@
 
 Ramotion-inspired UI customization app for Frappe Desk
 
-### What's New in v0.4.0
+### What's New in v0.4.1
 
-- Hardened theme-side DOM rendering to reduce XSS exposure in injected UI surfaces.
-- Rebuilt the desk theme controls and workspace enhancements with safe DOM APIs instead of HTML string insertion.
-- Redesigned the login page to match the Ramotion visual system across desktop and mobile.
-- Refined the public landing page and mobile website navigation treatment.
-- Expanded Ramotion Studio with day and night appearance previews and updated bundled assets.
+- Fixed child table dropdown clipping in Desk forms so Awesomplete menus open cleanly above grid boundaries.
+- Reworked Ramotion child table styling to read as a single cohesive table instead of nested boxed rows.
+- Aligned grid header typography with Arabic Pro so RTL table headings inherit the active Arabic font and sit correctly inside header cells.
 
 ### Requirements
 
@@ -37,7 +35,7 @@ yarn build
 bench build --app ramotion_theme
 ```
 
-### Upgrade Notes for v0.4.0
+### Upgrade Notes for v0.4.1
 
 After pulling this release, run:
 
