@@ -4250,6 +4250,189 @@ html[dir="rtl"] body .form-grid .grid-row .data-row {
 	border-right: none !important;
 }
 
+/* =============================================================
+   Grid Row Edit — Modal Overlay (Floating Dialog)
+   ============================================================= */
+
+/* Dark backdrop */
+html body #freeze.grid-form,
+html body #freeze.grid-form.in {
+	opacity: 1 !important;
+	background: rgba(5, 15, 40, 0.50) !important;
+	pointer-events: none !important;
+	z-index: 1040 !important;
+}
+
+html body #freeze.grid-form .freeze-message-container {
+	display: none !important;
+}
+
+/* Selected row stays flat — just a subtle accent */
+html body .form-grid .grid-row.grid-row-open {
+	background: rgba(0, 80, 230, 0.04) !important;
+	box-shadow: inset 3px 0 0 var(--rm-primary) !important;
+}
+
+html[dir="rtl"] body .form-grid .grid-row.grid-row-open {
+	box-shadow: inset -3px 0 0 var(--rm-primary) !important;
+}
+
+/* The edit form — fixed modal, centered above everything */
+html body .form-grid .grid-row.grid-row-open .form-in-grid {
+	position: fixed !important;
+	top: 50% !important;
+	left: 50% !important;
+	transform: translate(-50%, -50%) !important;
+	z-index: 1060 !important;
+	width: min(860px, 90vw) !important;
+	max-height: 84vh !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	background: #ffffff !important;
+	border-radius: 20px !important;
+	box-shadow: 0 32px 80px rgba(10, 20, 80, 0.26), 0 8px 24px rgba(0, 0, 0, 0.1) !important;
+	border: 1px solid rgba(141, 162, 201, 0.22) !important;
+	overflow: hidden !important;
+	display: flex !important;
+	flex-direction: column !important;
+}
+
+/* Modal header */
+html body .form-grid .grid-row.grid-row-open .grid-form-heading {
+	flex-shrink: 0 !important;
+	background: linear-gradient(135deg, rgba(247, 250, 255, 0.99) 0%, rgba(237, 244, 255, 0.99) 100%) !important;
+	border-bottom: 1px solid rgba(141, 162, 201, 0.2) !important;
+	padding: 16px 22px !important;
+	margin: 0 !important;
+	border-radius: 20px 20px 0 0 !important;
+}
+
+html body .form-grid .grid-row.grid-row-open .grid-header-toolbar {
+	display: flex !important;
+	align-items: center !important;
+	justify-content: space-between !important;
+	gap: 12px !important;
+	flex-wrap: wrap !important;
+}
+
+html body .form-grid .grid-row.grid-row-open .panel-title {
+	color: var(--rm-ink) !important;
+	font-weight: 700 !important;
+	font-size: 1rem !important;
+	letter-spacing: 0.01em !important;
+}
+
+html body .form-grid .grid-row.grid-row-open .row-actions {
+	display: flex !important;
+	align-items: center !important;
+	gap: 8px !important;
+	flex-wrap: wrap !important;
+}
+
+html body .form-grid .grid-row.grid-row-open .row-actions .btn,
+html body .form-grid .grid-row.grid-row-open .grid-footer-toolbar .btn {
+	opacity: 1 !important;
+	color: var(--rm-ink) !important;
+	background: rgba(255, 255, 255, 0.96) !important;
+	border: 1px solid rgba(141, 162, 201, 0.28) !important;
+	box-shadow: 0 2px 8px rgba(31, 60, 136, 0.08) !important;
+	border-radius: 8px !important;
+	padding: 5px 12px !important;
+}
+
+html body .form-grid .grid-row.grid-row-open .row-actions .grid-delete-row {
+	background: rgba(224, 62, 62, 0.07) !important;
+	border-color: rgba(224, 62, 62, 0.2) !important;
+	color: #b42318 !important;
+	box-shadow: none !important;
+}
+
+/* Scrollable body */
+html body .form-grid .grid-row.grid-row-open .grid-form-body {
+	flex: 1 1 auto !important;
+	overflow-y: auto !important;
+	overflow-x: hidden !important;
+	padding: 20px 22px 8px !important;
+	min-height: 0 !important;
+}
+
+/* Section cards */
+html body .form-grid .grid-row.grid-row-open .form-section {
+	background: rgba(248, 251, 255, 0.9) !important;
+	border: 1px solid rgba(141, 162, 201, 0.18) !important;
+	border-radius: 14px !important;
+	box-shadow: 0 2px 8px rgba(31, 60, 136, 0.04) !important;
+	margin-bottom: 14px !important;
+	overflow: hidden !important;
+}
+
+html body .form-grid .grid-row.grid-row-open .section-head,
+html body .form-grid .grid-row.grid-row-open .section-head-label {
+	padding: 12px 16px 10px !important;
+	border-bottom: 1px solid rgba(141, 162, 201, 0.14) !important;
+	background: linear-gradient(90deg, rgba(0, 80, 230, 0.05) 0%, rgba(255, 255, 255, 0) 100%) !important;
+	font-weight: 600 !important;
+	margin-bottom: 0 !important;
+}
+
+html[dir="rtl"] body .form-grid .grid-row.grid-row-open .section-head,
+html[dir="rtl"] body .form-grid .grid-row.grid-row-open .section-head-label {
+	background: linear-gradient(270deg, rgba(0, 80, 230, 0.05) 0%, rgba(255, 255, 255, 0) 100%) !important;
+}
+
+html body .form-grid .grid-row.grid-row-open .section-body {
+	padding: 16px 16px 6px !important;
+	background: transparent !important;
+}
+
+html body .form-grid .grid-row.grid-row-open .form-column {
+	padding-left: 8px !important;
+	padding-right: 8px !important;
+	min-width: 0 !important;
+}
+
+html body .form-grid .grid-row.grid-row-open .frappe-control.input-max-width {
+	min-height: auto !important;
+	margin-bottom: 14px !important;
+}
+
+html body .form-grid .grid-row.grid-row-open .control-label {
+	color: #5c6f91 !important;
+	font-size: 0.74rem !important;
+	letter-spacing: 0.03em !important;
+}
+
+html body .form-grid .grid-row.grid-row-open .like-disabled-input,
+html body .form-grid .grid-row.grid-row-open .control-value {
+	min-height: 38px !important;
+	padding: 8px 12px !important;
+	border-radius: 10px !important;
+	background: rgba(255, 255, 255, 0.96) !important;
+	border: 1px solid rgba(150, 169, 206, 0.24) !important;
+	color: #0c1829 !important;
+}
+
+html body .form-grid .grid-row.grid-row-open .help-box.small.text-muted {
+	color: #7d8ba5 !important;
+	margin-top: 4px !important;
+}
+
+/* Modal footer — sticky at the bottom of the scrollable body */
+html body .form-grid .grid-row.grid-row-open .grid-footer-toolbar {
+	position: sticky !important;
+	bottom: -8px !important;
+	margin: 12px -22px -8px -22px !important;
+	display: flex !important;
+	align-items: center !important;
+	justify-content: space-between !important;
+	gap: 12px !important;
+	flex-wrap: wrap !important;
+	background: rgba(247, 250, 255, 0.99) !important;
+	border-top: 1px solid rgba(141, 162, 201, 0.18) !important;
+	padding: 12px 22px !important;
+	border-radius: 0 0 20px 20px !important;
+	z-index: 2 !important;
+}
 /* Final override: slightly taller query report filters */
 html body .page-form .frappe-control.input-max-width .form-control.input-xs,
 html body .page-form .frappe-control.input-max-width .input-with-feedback.input-xs,
