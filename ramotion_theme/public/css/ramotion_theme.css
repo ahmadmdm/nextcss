@@ -4258,9 +4258,26 @@ html[dir="rtl"] body .form-grid .grid-row .data-row {
 html body #freeze.grid-form,
 html body #freeze.grid-form.in {
 	opacity: 1 !important;
-	background: rgba(5, 15, 40, 0.50) !important;
+	background: rgba(5, 15, 40, 0.55) !important;
 	pointer-events: none !important;
-	z-index: 1040 !important;
+	/* Bootstrap 5 uses right:0 + width:100vw which shifts the backdrop -15px left
+	   when a vertical scrollbar is present. Override with inset:0 instead. */
+	inset: 0 !important;
+	width: auto !important;
+	height: auto !important;
+	will-change: opacity !important;
+	z-index: 1055 !important;
+}
+
+/* Chrome GPU compositing: position:sticky elements are compositor-promoted and
+   paint above position:fixed even when z-index is lower. Fix: when the grid-form
+   backdrop is active, remove sticky positioning from the page toolbar so it
+   participates in normal stacking and the backdrop can cover it. */
+html body:has(#freeze.grid-form.in) .page-head,
+html body:has(#freeze.grid-form.in) .sticky-top {
+	position: relative !important;
+	z-index: auto !important;
+	top: auto !important;
 }
 
 html body #freeze.grid-form .freeze-message-container {
@@ -4283,7 +4300,7 @@ html body .form-grid .grid-row.grid-row-open .form-in-grid {
 	top: 50% !important;
 	left: 50% !important;
 	transform: translate(-50%, -50%) !important;
-	z-index: 1060 !important;
+	z-index: 1070 !important;
 	width: min(860px, 90vw) !important;
 	max-height: 84vh !important;
 	margin: 0 !important;
